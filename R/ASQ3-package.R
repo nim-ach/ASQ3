@@ -4,5 +4,6 @@
 
 ## usethis namespace: start
 #' @importFrom lifecycle deprecated
+#' @import data.table
 ## usethis namespace: end
 NULL

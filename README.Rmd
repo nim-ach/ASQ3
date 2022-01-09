@@ -26,7 +26,7 @@ The data were treated, eliminating any sensitive information that could compromi
 
 ## Installation
 
-You can install the development version of ASQ3 from [GitHub](https://github.com/) with:
+You can install the development version of ASQ3 from [GitHub](https://github.com/) with: 
 
 ``` r
 # install.packages("devtools")
