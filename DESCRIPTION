@@ -1,14 +1,27 @@
 Package: ASQ3
-Title: What the Package Does (One Line, Title Case)
+Title: data from the ASQ-3 study from CADI-UMAG
+Description: data from the ASQ-3 study from CADI-UMAG.
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors@R: c(
+  person(given = "Matías",
+         family = "Castillo Aguilar",
+         email = "matcasti@umag.cl",
+         role = c("aut", "cre"),
+         comment = c(ORCID = "0000-0001-7291-247X")),
+  person(given = "Cristian",
+         family = "Núñez Espinosa",
+         email = "cristian.nunez@umag.cl",
+         role = "aut",
+         comment = c(ORCID = "0000-0002-9896-7062"))
+  )
+License: CC BY 4.0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 URL: https://github.com/nim-ach/ASQ3
 BugReports: https://github.com/nim-ach/ASQ3/issues
+Depends: 
+    R (>= 2.10)
+LazyData: true
+Imports: 
+    lifecycle
