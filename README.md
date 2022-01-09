@@ -35,20 +35,14 @@ This is a basic example which shows you how to use the dataset from your
 ``` r
 library(ASQ3) # Load the package
 
-head(dataset[, 1:5], n = 5) # Print the first 5 rows and columns
+head(dataset[, 1:4], n = 5) # Print the first 5 rows of the first 4 columns
 #>   profesional_id profesional_especialidad paciente_id evaluacion_numero
 #> 1              2               Enfermeria           1                 1
 #> 2              2               Enfermeria           2                 1
 #> 3              3             Kinesiologia           3                 1
 #> 4              3             Kinesiologia           4                 1
 #> 5              3             Kinesiologia           5                 1
-#>   evaluacion_fecha
-#> 1       2021-10-05
-#> 2       2021-04-08
-#> 3       2020-09-14
-#> 4       2020-10-29
-#> 5       2020-07-23
 ```
 
 For more information about the dataset, you can consult the package
-documentation.
+[documentation](https://nim-ach.github.io/ASQ3/reference/dataset.html).

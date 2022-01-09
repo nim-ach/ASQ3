@@ -40,7 +40,7 @@ This is a basic example which shows you how to use the dataset from your <i clas
 ```{r example}
 library(ASQ3) # Load the package
 
-head(dataset[, 1:5], n = 5) # Print the first 5 rows and columns
+head(dataset[, 1:4], n = 5) # Print the first 5 rows of the first 4 columns
 ```
 
-For more information about the dataset, you can consult the package documentation.
+For more information about the dataset, you can consult the package [documentation](https://nim-ach.github.io/ASQ3/reference/dataset.html).
