@@ -23,6 +23,8 @@ navbar:
       - text: External links
       - text: NIM-ACh - Research group
         href: https://nimach.org
+      - text: dataset (CSV)
+        href: https://github.com/nim-ach/ASQ3/blob/master/data-raw/dataset.csv
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/nim-ach/ASQ3/
