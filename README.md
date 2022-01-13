@@ -15,7 +15,8 @@ collected by the Centro Asistencial Docente e Investigación de la
 Universidad de Magallanes (CADI-UMAG).
 
 The data were treated, eliminating any sensitive information that could
-compromise the identity of the participants or linked individuals.
+compromise the identity of the participants or linked individuals. Data
+preparation process can be seen [here](reference/data-prep.html).
 
 ## Installation
 
@@ -36,13 +37,13 @@ This is a basic example which shows you how to use the dataset from your
 library(ASQ3) # Load the package
 
 head(dataset[, 1:4], n = 5) # Print the first 5 rows of the first 4 columns
-#>    profesional_id profesional_especialidad paciente_id evaluacion_numero
-#> 1:              2               Enfermeria           1                 1
-#> 2:              2               Enfermeria           2                 1
-#> 3:              3             Kinesiologia           3                 1
-#> 4:              3             Kinesiologia           4                 1
-#> 5:              3             Kinesiologia           5                 1
+#>    profesional_id profesional_especialidad paciente_id      sexo
+#> 1:              2               Enfermeria           1 Masculino
+#> 2:              2               Enfermeria           2 Masculino
+#> 3:              3             Kinesiologia           3  Femenino
+#> 4:              3             Kinesiologia           4 Masculino
+#> 5:              3             Kinesiologia           5 Masculino
 ```
 
-For more information about the dataset, you can consult the package
+For more information about the dataset, you can consult the dataset
 [documentation](https://nim-ach.github.io/ASQ3/reference/dataset.html).

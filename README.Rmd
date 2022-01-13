@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 The purpose of the {ASQ3} package is to provide access to the data collected by the Centro Asistencial Docente e Investigación de la Universidad de Magallanes (CADI-UMAG). 
 
-The data were treated, eliminating any sensitive information that could compromise the identity of the participants or linked individuals.
+The data were treated, eliminating any sensitive information that could compromise the identity of the participants or linked individuals. Data preparation process can be seen [here](reference/data-prep.html).
 
 ## Installation
 
@@ -43,4 +43,4 @@ library(ASQ3) # Load the package
 head(dataset[, 1:4], n = 5) # Print the first 5 rows of the first 4 columns
 ```
 
-For more information about the dataset, you can consult the package [documentation](https://nim-ach.github.io/ASQ3/reference/dataset.html).
+For more information about the dataset, you can consult the dataset [documentation](https://nim-ach.github.io/ASQ3/reference/dataset.html).

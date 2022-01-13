@@ -1,12 +1,13 @@
 #' Data from the ASQ-3 study from CADI-UMAG
 #'
 #'
-#' @format A data frame with 1266 rows y 53 variables:
+#' @format A data frame with 1266 rows y 54 variables:
 #'
 #' \itemize{
 #'   \item{\code{profesional_id}: Numeric. Identifying number of the assessing professional.}
 #'   \item{\code{profesional_especialidad}: Character. Profession of the professional evaluator.}
 #'   \item{\code{paciente_id}: Numeric. Patient identifier number.}
+#'   \item{\code{sexo}: Character. Patient sex.}
 #'   \item{\code{evaluacion_numero}: Numeric. Patient assessment number.}
 #'   \item{\code{evaluacion_fecha}: Date. Date of patient assessment.}
 #'   \item{\code{respondedor_vinculo}: Character. Type of relationship between the respondent and the patient.}
@@ -40,5 +41,9 @@
 #'   progress in children between the ages of one month to 5.5 years. For more information please see the homepage of the
 #'   questionnaire [ASQ-3](https://agesandstages.com/products-pricing/asq3/).
 #'
+#' @seealso
+#' - \link[=data-prep]{Data preparation process}
+#'
 #' @source CADI-UMAG, Punta Arenas, Chile.
 "dataset"
+
