@@ -7,28 +7,43 @@ navbar:
     left:
     - reference
     - articles
-    - other
+    - data
     - news
     right: github
   components:
     reference:
+      icon: fa fa-fw fa-book fa-lg
       text: Documentation
       href: reference/index.html
-    other:
-      text: Articles
+    data:
+      icon: fas fa-database fa-lg
+      text: Data
       menu:
-      - text: Topics
+      - text: Documentation
       - text: Data preparation process
         href: reference/data-prep.html
-      - text: External links
-      - text: NIM-ACh - Research group
-        href: https://nimach.org
+      - text: Data structure
+        href: reference/dataset.html
+      - text: Files
       - text: dataset (CSV)
         href: https://github.com/nim-ach/ASQ3/blob/master/data-raw/dataset.csv
+    articles:
+      icon: fab fa-r-project fa-lg
+      text: Analysis
+      menu:
+      - text: Descriptive statistics
+        href: articles/descriptives.html
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/nim-ach/ASQ3/
       aria-label: github
+
+reference:
+- title: Dataset
+  desc: Documentation related to data processing
+  contents:
+  - data-prep
+  - dataset
 
 footer:
   structure:
