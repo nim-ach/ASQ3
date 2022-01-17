@@ -12,7 +12,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 The purpose of the {ASQ3} package is to provide access to the data
 collected by the Centro Asistencial Docente e Investigación de la
-Universidad de Magallanes (CADI-UMAG).
+[Universidad de Magallanes](http://www.umag.cl/) (CADI-UMAG).
 
 The data were treated, eliminating any sensitive information that could
 compromise the identity of the participants or linked individuals. Data
@@ -47,3 +47,11 @@ head(dataset[, 1:4], n = 5) # Print the first 5 rows of the first 4 columns
 
 For more information about the dataset, you can consult the dataset
 [documentation](https://nim-ach.github.io/ASQ3/reference/dataset.html).
+
+## About <i class="fab fa-r-project"></i>
+
+R is a high-level statistical programming language used for data
+analysis, as well as for the development of software tools such as
+websites, reports, applications, digital books, etc. For more
+information you can visit the
+[R-project](https://www.r-project.org/about.html) website.
