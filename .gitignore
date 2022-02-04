@@ -3,6 +3,5 @@
 .Rdata
 .httr-oauth
 .DS_Store
-docs
 data-raw/clean_dataset.R
 data-raw/data-raw.xlsx
