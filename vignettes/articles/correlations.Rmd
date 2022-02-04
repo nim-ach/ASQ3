@@ -1,0 +1,34 @@
+---
+title: "Correlations"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+options(width = 100)
+```
+
+```{r setup}
+library(ASQ3)
+
+library(data.table)
+library(correlation)
+```
+
+```{r}
+vars <- c("edad_cronologica_meses","semanas_prematurez","edad_corregida_meses",
+          "asq3_meses","comunicacion_total","motora_gruesa_total","motora_fina_total",
+          "resolucion_problemas_total","socio_individual_total")
+
+first_evaluation <- dataset[, .SD[1], keyby = paciente_id, .SDcols = vars][, -1]
+```
+
+As numerical variables do not follow a normal distribution, we will use Spearman's $\rho$ test as our non-parametric correlation test, as it is not tied to the assumption of normality. For more information on the function used here for the calculation of the correlation, you can read the corresponding [documentation](https://easystats.github.io/correlation/reference/correlation.html).
+
+```{r}
+correlation(first_evaluation, method = "spearman", p_adjust = "none")
+```
+
