@@ -3,6 +3,4 @@
 .Rdata
 .httr-oauth
 .DS_Store
-data-raw/*.R
 data-raw/*.xlsx
-data-raw/helpers/
