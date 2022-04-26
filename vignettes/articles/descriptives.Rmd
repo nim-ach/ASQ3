@@ -7,6 +7,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(
+  width = 140
+)
 ```
 
 ```{r setup}
@@ -20,12 +23,18 @@ library(skimr)
 We will first calculate the statistics for the entire database without considering the underlying structure of the database.
 
 ```{r}
-skim(dataset)[,-(3:4)]
+descriptives <- skim(dataset)
+
+print(descriptives)
 ```
 
 Despite the above results, we cannot ignore that there is more than one observation per subject, so it is necessary to consider each subject as the minimum unit of analysis. For this we will estimate the mean of each numerical variable for each subject.
 
 ```{r}
-skim(dataset[, lapply(.SD[,-(1:3)], mean), keyby = paciente_id, .SDcols = is.numeric])[,-(3:4)]
+descriptives_by_patient <- skim(
+  data = dataset[, lapply(.SD[,-(1:3)], mean), keyby = paciente_id, .SDcols = is.numeric]
+)
+
+print(descriptives_by_patient)
 ```
 
