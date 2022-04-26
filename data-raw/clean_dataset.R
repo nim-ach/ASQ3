@@ -10,7 +10,8 @@ library(data.table)
   ## Expect warning message:
   ## Expecting date in B1415 / R1415C2: got '2/15/0222'
   ##
-  ## Note: Expected and assumed as a data-entry error
+  ## Note: Expected and assumed as a data-entry error.
+  ## These error were corrected in helpers/fix_dates.R
 
   # Modify variable names
   names(dataset) <- readLines("data-raw/helpers/colnames")
@@ -98,10 +99,24 @@ library(data.table)
   rm(edad_corregida)
 
 
+# Set factor variables ------------------------------------------------------------------------
+
+  dataset[, `:=`(
+    profesional_id = factor(profesional_id),
+    profesional_especialidad = factor(profesional_especialidad),
+    paciente_id = factor(paciente_id),
+    respondedor_vinculo = factor(respondedor_vinculo),
+    evaluacion_tipo = factor(evaluacion_tipo),
+    comunicacion_interpretacion = factor(comunicacion_interpretacion),
+    motora_fina_interpretacion = factor(motora_fina_interpretacion),
+    motora_gruesa_interpretacion = factor(motora_gruesa_interpretacion),
+    socio_individual_interpretacion = factor(socio_individual_interpretacion),
+    resolucion_problemas_interpretacion = factor(resolucion_problemas_interpretacion)
+  )]
+
 # Reorder columns -----------------------------------------------------------------------------
 
   setcolorder(dataset, neworder = readLines("data-raw/helpers/colorder"))
-
 
 # Export dataset ------------------------------------------------------------------------------
 

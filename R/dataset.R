@@ -4,11 +4,11 @@
 #' @format A data frame with 1266 rows y 52 variables:
 #'
 #' \itemize{
-#'   \item{\code{profesional_id}: Numeric. Identifying number of the assessing professional.}
-#'   \item{\code{profesional_especialidad}: Character. Profession of the professional evaluator.}
-#'   \item{\code{paciente_id}: Numeric. Patient identifier number.}
-#'   \item{\code{respondedor_vinculo}: Character. Type of relationship between the respondent and the patient.}
-#'   \item{\code{evaluacion_tipo}: Numeric. Type of assessment.}
+#'   \item{\code{profesional_id}: Factor. Identifying number of the assessing professional.}
+#'   \item{\code{profesional_especialidad}: Factor. Profession of the professional evaluator.}
+#'   \item{\code{paciente_id}: Factor. Patient identifier number.}
+#'   \item{\code{respondedor_vinculo}: Factor. Type of relationship between the respondent and the patient.}
+#'   \item{\code{evaluacion_tipo}: Factor. Type of assessment.}
 #'   \item{\code{fecha_evaluacion}: Date. Date of patient assessment.}
 #'   \item{\code{fecha_nacimiento}: Date. Patient's date of birth.}
 #'   \item{\code{edad_cronologica_meses}: Numeric. Chronological age of the patient in months.}
@@ -18,19 +18,19 @@
 #'   \item{\code{asq3_meses}: Numeric. Age in months of patient development according to ASQ 3.}
 #'   \item{\code{comunicacion_q1 - comunicacion_q6}: Numeric. Scoring of the individual questions of the communication item.}
 #'   \item{\code{comunicacion_total}: Numeric. Total score of the communication item.}
-#'   \item{\code{comunicacion_interpretacion}: Character. Interpretation of the communication item.}
+#'   \item{\code{comunicacion_interpretacion}: Factor. Interpretation of the communication item.}
 #'   \item{\code{motora_gruesa_q1 - motora_gruesa_q6}: Numeric. Scoring of the individual questions of the gross motor skills item.}
 #'   \item{\code{motora_gruesa_total}: Numeric. Total score of the gross motor skills item.}
-#'   \item{\code{motora_gruesa_interpretacion}: Character. Interpretation of the gross motor skills item.}
+#'   \item{\code{motora_gruesa_interpretacion}: Factor. Interpretation of the gross motor skills item.}
 #'   \item{\code{motora_fina_q1 - motora_fina_q6}: Numeric. Scoring of the individual questions of the fine motor skills item.}
 #'   \item{\code{motora_fina_total}: Numeric. Total score of the fine motor skills item.}
-#'   \item{\code{motora_fina_interpretacion}: Character. Interpretation of the fine motor skills item.}
+#'   \item{\code{motora_fina_interpretacion}: Factor. Interpretation of the fine motor skills item.}
 #'   \item{\code{resolucion_problemas_q1 - resolucion_problemas_q6}: Numeric. Scoring of the individual questions of the problem solving item.}
 #'   \item{\code{resolucion_problemas_total}: Numeric. Total score of the problem solving item.}
-#'   \item{\code{resolucion_problemas_interpretacion}: Character. Interpretation of the problem solving item.}
+#'   \item{\code{resolucion_problemas_interpretacion}: Factor. Interpretation of the problem solving item.}
 #'   \item{\code{socio_individual_q1 - socio_individual_q6}: Numeric. Scoring of the individual questions of the socio-individual skills item.}
 #'   \item{\code{socio_individual_total}: Numeric. Total score of the socio-individual skills item.}
-#'   \item{\code{socio_individual_interpretacion}: Character. Interpretation of the socio-individual skills item.}
+#'   \item{\code{socio_individual_interpretacion}: Factor. Interpretation of the socio-individual skills item.}
 #' }
 #'
 #' @section Ages and Stages Questionnaire:
