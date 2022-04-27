@@ -28,11 +28,11 @@ descriptives <- skim(dataset)
 print(descriptives)
 ```
 
-Despite the above results, we cannot ignore that there is more than one observation per subject, so it is necessary to consider each subject as the minimum unit of analysis. For this we will estimate the mean of each numerical variable for each subject.
+Despite the above results, we cannot ignore that there is more than one observation per subject, so it is necessary to consider each subject as the minimum unit of analysis. For this we will use the last observation for each subject.
 
 ```{r}
 descriptives_by_patient <- skim(
-  data = dataset[, lapply(.SD[,-(1:3)], mean), keyby = paciente_id, .SDcols = is.numeric]
+  data = dataset[, .SD[which.max(fecha_evaluacion)], keyby = paciente_id]
 )
 
 print(descriptives_by_patient)

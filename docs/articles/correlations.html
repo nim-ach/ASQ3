@@ -110,7 +110,7 @@
           <span class="st">"asq3_meses"</span>,<span class="st">"comunicacion_total"</span>,<span class="st">"motora_gruesa_total"</span>,<span class="st">"motora_fina_total"</span>,
           <span class="st">"resolucion_problemas_total"</span>,<span class="st">"socio_individual_total"</span><span class="op">)</span>
 
-<span class="va">first_evaluation</span> <span class="op">&lt;-</span> <span class="va">dataset</span><span class="op">[</span>, <span class="va">.SD</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, keyby <span class="op">=</span> <span class="va">paciente_id</span>, .SDcols <span class="op">=</span> <span class="va">vars</span><span class="op">]</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></code></pre></div>
+<span class="va">first_evaluation</span> <span class="op">&lt;-</span> <span class="va">dataset</span><span class="op">[</span>, <span class="va">.SD</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">fecha_evaluacion</span><span class="op">)</span><span class="op">]</span>, keyby <span class="op">=</span> <span class="va">paciente_id</span>, .SDcols <span class="op">=</span> <span class="va">vars</span><span class="op">]</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></code></pre></div>
 <p>As numerical variables do not follow a normal distribution, we will
 use Spearman’s <span class="math inline">\(\rho\)</span> test as our
 non-parametric correlation test, as it is not tied to the assumption of
@@ -125,45 +125,45 @@ calculation of the correlation, you can read the corresponding <a href="https://
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Parameter1                 |                 Parameter2 |   rho |         95% CI |        S |         p</span>
 <span class="co">#&gt; -------------------------------------------------------------------------------------------------------</span>
-<span class="co">#&gt; edad_cronologica_meses     |         semanas_prematurez | -0.07 | [-0.14,  0.00] | 9.73e+07 | 0.057    </span>
-<span class="co">#&gt; edad_cronologica_meses     |       edad_corregida_meses |  1.00 | [ 0.99,  1.00] | 4.50e+05 | &lt; .001***</span>
-<span class="co">#&gt; edad_cronologica_meses     |                 asq3_meses |  0.99 | [ 0.99,  0.99] | 6.19e+05 | &lt; .001***</span>
-<span class="co">#&gt; edad_cronologica_meses     |         comunicacion_total | -0.35 | [-0.41, -0.29] | 1.23e+08 | &lt; .001***</span>
-<span class="co">#&gt; edad_cronologica_meses     |        motora_gruesa_total |  0.17 | [ 0.10,  0.23] | 7.61e+07 | &lt; .001***</span>
-<span class="co">#&gt; edad_cronologica_meses     |          motora_fina_total | -0.10 | [-0.17, -0.03] | 1.01e+08 | 0.003**  </span>
-<span class="co">#&gt; edad_cronologica_meses     | resolucion_problemas_total | -0.12 | [-0.19, -0.05] | 1.02e+08 | &lt; .001***</span>
-<span class="co">#&gt; edad_cronologica_meses     |     socio_individual_total | -0.17 | [-0.23, -0.10] | 1.06e+08 | &lt; .001***</span>
-<span class="co">#&gt; semanas_prematurez         |       edad_corregida_meses | -0.14 | [-0.21, -0.07] | 1.04e+08 | &lt; .001***</span>
-<span class="co">#&gt; semanas_prematurez         |                 asq3_meses | -0.13 | [-0.19, -0.06] | 1.03e+08 | &lt; .001***</span>
-<span class="co">#&gt; semanas_prematurez         |         comunicacion_total |  0.07 | [ 0.00,  0.14] | 8.47e+07 | 0.041*   </span>
-<span class="co">#&gt; semanas_prematurez         |        motora_gruesa_total |  0.11 | [ 0.04,  0.18] | 8.09e+07 | 0.001**  </span>
-<span class="co">#&gt; semanas_prematurez         |          motora_fina_total |  0.07 | [ 0.00,  0.14] | 8.45e+07 | 0.035*   </span>
-<span class="co">#&gt; semanas_prematurez         | resolucion_problemas_total |  0.11 | [ 0.04,  0.18] | 8.13e+07 | 0.002**  </span>
-<span class="co">#&gt; semanas_prematurez         |     socio_individual_total |  0.08 | [ 0.01,  0.15] | 8.35e+07 | 0.015*   </span>
-<span class="co">#&gt; edad_corregida_meses       |                 asq3_meses |  1.00 | [ 1.00,  1.00] | 3.40e+05 | &lt; .001***</span>
-<span class="co">#&gt; edad_corregida_meses       |         comunicacion_total | -0.35 | [-0.41, -0.29] | 1.23e+08 | &lt; .001***</span>
-<span class="co">#&gt; edad_corregida_meses       |        motora_gruesa_total |  0.15 | [ 0.08,  0.22] | 7.72e+07 | &lt; .001***</span>
-<span class="co">#&gt; edad_corregida_meses       |          motora_fina_total | -0.11 | [-0.18, -0.04] | 1.01e+08 | 0.002**  </span>
-<span class="co">#&gt; edad_corregida_meses       | resolucion_problemas_total | -0.13 | [-0.19, -0.06] | 1.03e+08 | &lt; .001***</span>
-<span class="co">#&gt; edad_corregida_meses       |     socio_individual_total | -0.17 | [-0.24, -0.10] | 1.07e+08 | &lt; .001***</span>
-<span class="co">#&gt; asq3_meses                 |         comunicacion_total | -0.36 | [-0.42, -0.30] | 1.24e+08 | &lt; .001***</span>
-<span class="co">#&gt; asq3_meses                 |        motora_gruesa_total |  0.15 | [ 0.08,  0.21] | 7.80e+07 | &lt; .001***</span>
-<span class="co">#&gt; asq3_meses                 |          motora_fina_total | -0.12 | [-0.19, -0.05] | 1.02e+08 | &lt; .001***</span>
-<span class="co">#&gt; asq3_meses                 | resolucion_problemas_total | -0.14 | [-0.21, -0.07] | 1.04e+08 | &lt; .001***</span>
-<span class="co">#&gt; asq3_meses                 |     socio_individual_total | -0.18 | [-0.25, -0.11] | 1.08e+08 | &lt; .001***</span>
-<span class="co">#&gt; comunicacion_total         |        motora_gruesa_total |  0.12 | [ 0.05,  0.19] | 8.00e+07 | &lt; .001***</span>
-<span class="co">#&gt; comunicacion_total         |          motora_fina_total |  0.31 | [ 0.25,  0.38] | 6.27e+07 | &lt; .001***</span>
-<span class="co">#&gt; comunicacion_total         | resolucion_problemas_total |  0.51 | [ 0.46,  0.56] | 4.44e+07 | &lt; .001***</span>
-<span class="co">#&gt; comunicacion_total         |     socio_individual_total |  0.52 | [ 0.46,  0.57] | 4.41e+07 | &lt; .001***</span>
-<span class="co">#&gt; motora_gruesa_total        |          motora_fina_total |  0.26 | [ 0.19,  0.32] | 6.78e+07 | &lt; .001***</span>
-<span class="co">#&gt; motora_gruesa_total        | resolucion_problemas_total |  0.13 | [ 0.06,  0.20] | 7.90e+07 | &lt; .001***</span>
-<span class="co">#&gt; motora_gruesa_total        |     socio_individual_total |  0.28 | [ 0.21,  0.34] | 6.57e+07 | &lt; .001***</span>
-<span class="co">#&gt; motora_fina_total          | resolucion_problemas_total |  0.47 | [ 0.41,  0.52] | 4.87e+07 | &lt; .001***</span>
-<span class="co">#&gt; motora_fina_total          |     socio_individual_total |  0.41 | [ 0.35,  0.46] | 5.40e+07 | &lt; .001***</span>
-<span class="co">#&gt; resolucion_problemas_total |     socio_individual_total |  0.45 | [ 0.39,  0.51] | 5.01e+07 | &lt; .001***</span>
+<span class="co">#&gt; edad_cronologica_meses     |         semanas_prematurez | -0.11 | [-0.18, -0.04] | 9.65e+07 | 0.001**  </span>
+<span class="co">#&gt; edad_cronologica_meses     |       edad_corregida_meses |  1.00 | [ 1.00,  1.00] | 2.10e+05 | &lt; .001***</span>
+<span class="co">#&gt; edad_cronologica_meses     |                 asq3_meses |  0.98 | [ 0.98,  0.98] | 1.80e+06 | &lt; .001***</span>
+<span class="co">#&gt; edad_cronologica_meses     |         comunicacion_total | -0.32 | [-0.38, -0.25] | 1.14e+08 | &lt; .001***</span>
+<span class="co">#&gt; edad_cronologica_meses     |        motora_gruesa_total |  0.21 | [ 0.14,  0.28] | 6.83e+07 | &lt; .001***</span>
+<span class="co">#&gt; edad_cronologica_meses     |          motora_fina_total | -0.18 | [-0.25, -0.11] | 1.03e+08 | &lt; .001***</span>
+<span class="co">#&gt; edad_cronologica_meses     | resolucion_problemas_total | -0.18 | [-0.24, -0.11] | 1.02e+08 | &lt; .001***</span>
+<span class="co">#&gt; edad_cronologica_meses     |     socio_individual_total | -0.18 | [-0.25, -0.11] | 1.03e+08 | &lt; .001***</span>
+<span class="co">#&gt; semanas_prematurez         |       edad_corregida_meses | -0.17 | [-0.24, -0.10] | 1.01e+08 | &lt; .001***</span>
+<span class="co">#&gt; semanas_prematurez         |                 asq3_meses | -0.16 | [-0.23, -0.09] | 1.01e+08 | &lt; .001***</span>
+<span class="co">#&gt; semanas_prematurez         |         comunicacion_total |  0.11 | [ 0.04,  0.18] | 7.73e+07 | 0.002**  </span>
+<span class="co">#&gt; semanas_prematurez         |        motora_gruesa_total |  0.01 | [-0.06,  0.08] | 8.57e+07 | 0.776    </span>
+<span class="co">#&gt; semanas_prematurez         |          motora_fina_total |  0.06 | [-0.01,  0.14] | 8.10e+07 | 0.067    </span>
+<span class="co">#&gt; semanas_prematurez         | resolucion_problemas_total |  0.08 | [ 0.01,  0.15] | 7.94e+07 | 0.019*   </span>
+<span class="co">#&gt; semanas_prematurez         |     socio_individual_total |  0.05 | [-0.02,  0.12] | 8.26e+07 | 0.189    </span>
+<span class="co">#&gt; edad_corregida_meses       |                 asq3_meses |  0.98 | [ 0.98,  0.98] | 1.63e+06 | &lt; .001***</span>
+<span class="co">#&gt; edad_corregida_meses       |         comunicacion_total | -0.32 | [-0.38, -0.25] | 1.14e+08 | &lt; .001***</span>
+<span class="co">#&gt; edad_corregida_meses       |        motora_gruesa_total |  0.21 | [ 0.14,  0.28] | 6.83e+07 | &lt; .001***</span>
+<span class="co">#&gt; edad_corregida_meses       |          motora_fina_total | -0.18 | [-0.25, -0.12] | 1.03e+08 | &lt; .001***</span>
+<span class="co">#&gt; edad_corregida_meses       | resolucion_problemas_total | -0.18 | [-0.25, -0.11] | 1.02e+08 | &lt; .001***</span>
+<span class="co">#&gt; edad_corregida_meses       |     socio_individual_total | -0.18 | [-0.25, -0.11] | 1.03e+08 | &lt; .001***</span>
+<span class="co">#&gt; asq3_meses                 |         comunicacion_total | -0.31 | [-0.37, -0.25] | 1.14e+08 | &lt; .001***</span>
+<span class="co">#&gt; asq3_meses                 |        motora_gruesa_total |  0.20 | [ 0.13,  0.27] | 6.94e+07 | &lt; .001***</span>
+<span class="co">#&gt; asq3_meses                 |          motora_fina_total | -0.19 | [-0.26, -0.12] | 1.03e+08 | &lt; .001***</span>
+<span class="co">#&gt; asq3_meses                 | resolucion_problemas_total | -0.18 | [-0.25, -0.11] | 1.02e+08 | &lt; .001***</span>
+<span class="co">#&gt; asq3_meses                 |     socio_individual_total | -0.18 | [-0.25, -0.11] | 1.03e+08 | &lt; .001***</span>
+<span class="co">#&gt; comunicacion_total         |        motora_gruesa_total |  0.12 | [ 0.05,  0.19] | 7.65e+07 | &lt; .001***</span>
+<span class="co">#&gt; comunicacion_total         |          motora_fina_total |  0.34 | [ 0.28,  0.41] | 5.68e+07 | &lt; .001***</span>
+<span class="co">#&gt; comunicacion_total         | resolucion_problemas_total |  0.52 | [ 0.47,  0.57] | 4.12e+07 | &lt; .001***</span>
+<span class="co">#&gt; comunicacion_total         |     socio_individual_total |  0.51 | [ 0.45,  0.56] | 4.26e+07 | &lt; .001***</span>
+<span class="co">#&gt; motora_gruesa_total        |          motora_fina_total |  0.30 | [ 0.23,  0.36] | 6.10e+07 | &lt; .001***</span>
+<span class="co">#&gt; motora_gruesa_total        | resolucion_problemas_total |  0.17 | [ 0.10,  0.24] | 7.18e+07 | &lt; .001***</span>
+<span class="co">#&gt; motora_gruesa_total        |     socio_individual_total |  0.30 | [ 0.23,  0.36] | 6.10e+07 | &lt; .001***</span>
+<span class="co">#&gt; motora_fina_total          | resolucion_problemas_total |  0.51 | [ 0.45,  0.56] | 4.26e+07 | &lt; .001***</span>
+<span class="co">#&gt; motora_fina_total          |     socio_individual_total |  0.45 | [ 0.40,  0.51] | 4.73e+07 | &lt; .001***</span>
+<span class="co">#&gt; resolucion_problemas_total |     socio_individual_total |  0.48 | [ 0.42,  0.53] | 4.50e+07 | &lt; .001***</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; p-value adjustment method: none</span>
-<span class="co">#&gt; Observations: 818</span></code></pre></div>
+<span class="co">#&gt; Observations: 804</span></code></pre></div>
   </main>
 </div>
 
