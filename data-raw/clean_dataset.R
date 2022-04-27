@@ -11,7 +11,7 @@ library(data.table)
   ## Expecting date in B1415 / R1415C2: got '2/15/0222'
   ##
   ## Note: Expected and assumed as a data-entry error.
-  ## These error were corrected in helpers/fix_dates.R
+  ## These errors will be corrected later on.
 
   # Modify variable names
   names(dataset) <- readLines("data-raw/helpers/colnames")
@@ -20,10 +20,40 @@ library(data.table)
   setDT(dataset)
 
 
+# Fix data-entry errors -----------------------------------------------------------------------
+
+  corrections <- read.csv("data-raw/helpers/corrections.csv")
+  n <- nrow(corrections)
+
+  # `fecha_evaluacion` as character (latter on will be transformed to date format)
+  dataset[, fecha_evaluacion := as.character(fecha_evaluacion)]
+
+  for (i in seq_len(n)) {
+    i_var  <- corrections[i, "param_in"]
+
+    ind <- like(
+      vector = dataset[[i_var]],
+      pattern = corrections[i, "search_for"]
+    )
+
+    set(
+      x = dataset,
+      i = which(ind),
+      j = corrections[i, "param_out"],
+      value = corrections[i, "replace"]
+    )
+  }
+
+  rm(corrections, i, i_var, ind, n)
+
 # Treat data ----------------------------------------------------------------------------------
 
-
   col_names <- names(dataset) # for later use
+
+  # Processing date type variables
+  ind <- grep("fecha", col_names, value = TRUE)
+  dataset[, fecha_nacimiento := as.numeric(fecha_nacimiento)]
+  dataset[, (ind) := lapply(.SD, data.table::as.IDate, origin = "1899-12-30"), .SDcols = ind]
 
   # Labels to "title-case"
   ind <- grep("nombre|interpretacion|especialidad", col_names, value = TRUE)
@@ -40,15 +70,6 @@ library(data.table)
   # asq3_meses to numeric
   dataset[, asq3_meses := as.numeric(x = gsub("MESES", "", asq3_meses))]
 
-  # Processing dates
-  ind <- grep("fecha", col_names, value = TRUE)
-
-  # Fix individual cases for dates issues (data-entry errors)
-  source("data-raw/helpers/fix_dates.R")
-
-  dataset[, fecha_nacimiento := as.numeric(fecha_nacimiento)]
-  dataset[, (ind) := lapply(.SD, data.table::as.IDate, origin = "1899-12-30"), .SDcols = ind]
-
   # Removing ind and col_names objects
   rm(ind, col_names)
 
@@ -56,18 +77,21 @@ library(data.table)
 # Subject anonymisation -----------------------------------------------------------------------
 
 
-  # Drop missing values
-  dataset <- dataset[!is.na(rut_paciente) & !is.na(nombre_paciente)]
+  # Check if any RUT is missing
+  if (any(is.na(dataset$rut_paciente))) stop("Hay un rut perdido, explorarlo")
 
   # ID for each professional
   dataset[, profesional_id := as.numeric(x = factor(profesional_nombre))]
+
   # and then we eliminate the column with their name
   dataset[, profesional_nombre := NULL]
 
   # ID for each patient
-  dataset[, paciente_id := as.numeric(x = factor(nombre_paciente))]
+  dataset[, paciente_id := as.numeric(x = factor(rut_paciente))]
+
   # and then we eliminate the column with their name
   dataset[, nombre_paciente := NULL]
+
   # and the the column with their RUT
   dataset[, rut_paciente := NULL]
 
