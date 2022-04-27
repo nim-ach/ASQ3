@@ -141,6 +141,7 @@ library(data.table)
 # Reorder columns -----------------------------------------------------------------------------
 
   setcolorder(dataset, neworder = readLines("data-raw/helpers/colorder"))
+  setkey(dataset, paciente_id, fecha_evaluacion)
 
 # Export dataset ------------------------------------------------------------------------------
 
