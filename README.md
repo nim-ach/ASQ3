@@ -37,12 +37,12 @@ This is a basic example which shows you how to use the dataset from your
 library(ASQ3) # Load the package
 
 head(dataset[, 1:4], n = 5) # Print the first 5 rows of the first 4 columns
-#>    profesional_id profesional_especialidad paciente_id      sexo
-#> 1:              2               Enfermeria           1 Masculino
-#> 2:              2               Enfermeria           2 Masculino
-#> 3:              3             Kinesiologia           3  Femenino
-#> 4:              3             Kinesiologia           4 Masculino
-#> 5:              3             Kinesiologia           5 Masculino
+#>    profesional_id profesional_especialidad paciente_id respondedor_vinculo
+#> 1:              4             Kinesiologia           1               Padre
+#> 2:              4             Kinesiologia           2               Madre
+#> 3:              4             Kinesiologia           3               Madre
+#> 4:              3           Fonoaudiologia           4               Padre
+#> 5:              2               Enfermeria           5               Madre
 ```
 
 For more information about the dataset, you can consult the dataset
