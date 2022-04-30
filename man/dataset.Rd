@@ -5,12 +5,13 @@
 \alias{dataset}
 \title{Data from the ASQ-3 study from CADI-UMAG}
 \format{
-A data frame with 1266 rows y 52 variables:
+A data frame with 1266 rows y 53 variables:
 
 \itemize{
 \item{\code{profesional_id}: Factor. Identifying number of the assessing professional.}
 \item{\code{profesional_especialidad}: Factor. Profession of the professional evaluator.}
 \item{\code{paciente_id}: Factor. Patient identifier number.}
+\item{\code{sexo_paciente}: Factor. Patient's sex.}
 \item{\code{respondedor_vinculo}: Factor. Type of relationship between the respondent and the patient.}
 \item{\code{evaluacion_tipo}: Factor. Type of assessment.}
 \item{\code{fecha_evaluacion}: Date. Date of patient assessment.}

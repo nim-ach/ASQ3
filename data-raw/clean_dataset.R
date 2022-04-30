@@ -33,7 +33,8 @@ library(data.table)
 
     ind <- like(
       vector = dataset[[i_var]],
-      pattern = corrections[i, "search_for"]
+      pattern = corrections[i, "search_for"],
+      ignore.case = TRUE
     )
 
     set(
@@ -69,6 +70,13 @@ library(data.table)
 
   # asq3_meses to numeric
   dataset[, asq3_meses := as.numeric(x = gsub("MESES", "", asq3_meses))]
+
+  # Add patient sex
+  dataset <- merge(
+    x = dataset,
+    y = fread("data-raw/helpers/rut_sex.csv"),
+    by = "rut_paciente",
+  )
 
   # Removing ind and col_names objects
   rm(ind, col_names)
@@ -125,18 +133,15 @@ library(data.table)
 
 # Set factor variables ------------------------------------------------------------------------
 
-  dataset[, `:=`(
-    profesional_id = factor(profesional_id),
-    profesional_especialidad = factor(profesional_especialidad),
-    paciente_id = factor(paciente_id),
-    respondedor_vinculo = factor(respondedor_vinculo),
-    evaluacion_tipo = factor(evaluacion_tipo),
-    comunicacion_interpretacion = factor(comunicacion_interpretacion),
-    motora_fina_interpretacion = factor(motora_fina_interpretacion),
-    motora_gruesa_interpretacion = factor(motora_gruesa_interpretacion),
-    socio_individual_interpretacion = factor(socio_individual_interpretacion),
-    resolucion_problemas_interpretacion = factor(resolucion_problemas_interpretacion)
-  )]
+  ind <- grep(
+    pattern = "profesional|paciente|vinculo|tipo|interpret",
+    x = names(dataset),
+    value = TRUE
+  )
+
+  dataset[, (ind) := lapply(.SD, factor), .SDcols = ind]
+
+  rm(ind)
 
 # Reorder columns -----------------------------------------------------------------------------
 

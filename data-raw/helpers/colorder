@@ -1,6 +1,7 @@
 profesional_id
 profesional_especialidad
 paciente_id
+sexo_paciente
 respondedor_vinculo
 evaluacion_tipo
 fecha_evaluacion
