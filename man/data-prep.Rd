@@ -11,22 +11,66 @@ the steps used for data treatment are detailed here.
 }
 \note{
 The original data is not available in the package, given the sensitive nature
-of the information, so any requests for it will be ignored or rejected.
+of the information, so any requests for it will be evaluated.
 }
 \section{From Excel to R}{
 
 
 Once the data entry using Excel was complete, it was imported into R using the
-\code{read_excel} function of the \href{https://readxl.tidyverse.org/}{readxl} package.\if{html}{\out{<div class="sourceCode r">}}\preformatted{dataset <- readxl::read_excel("path/to/excel-file.xlsx")
+\code{read_excel} function of the \href{https://readxl.tidyverse.org/}{readxl} package.\if{html}{\out{<div class="sourceCode r">}}\preformatted{dataset <- readxl::read_excel("data-raw/raw-data.xlsx")
 }\if{html}{\out{</div>}}
 
 Subsequently, the column names were changed to syntactically valid versions, in
-this case in camel case (e.g. "Column A" to "column_a").\if{html}{\out{<div class="sourceCode r">}}\preformatted{names(dataset) <- c("evaluacion_numero", "evaluacion_fecha", "respondedor_nombre", ...)
+this case in camel case (e.g. "Column A" to "column_a").\if{html}{\out{<div class="sourceCode r">}}\preformatted{names(dataset) <- readLines("data-raw/helpers/colnames")
 }\if{html}{\out{</div>}}
 
 Once completed, the data was transformed into a `data.table' format, which allows
 for the efficient implementation of a function (or functions) across multiple columns
-(using selection criteria for greater precision).\if{html}{\out{<div class="sourceCode r">}}\preformatted{dataset <- data.table::as.data.table(dataset)
+(using selection criteria for greater precision).\if{html}{\out{<div class="sourceCode r">}}\preformatted{dataset <- data.table::setDT(dataset)
+}\if{html}{\out{</div>}}
+}
+
+\section{Fixing data-entry errors}{
+
+
+As any real world dataset, data entry errors are common. In this context, being able
+to handle them is crucial in the cleaning step when we first import the dataset.
+For this, a separate csv file was used, which had four columns:
+\enumerate{
+\item \code{param_in}: The variable we need to filter on to get to the exact case were the
+error was introduced.
+\item \code{search_for}: The query passed on \code{param_in} as the filter for subsetting.
+\item \code{param_out}: The variable on which the correction is needed.
+\item \code{replace}: The correction itself.
+}
+
+And with this structure, the data entry errors were handled as follow:
+
+For every row in the csv file with the corrections, we filter on \code{param_in} using
+\code{search_for} to select the case(s) where the error occur; then, we replace de value
+of \code{param_out} using \code{replace}. The code with the aforementioned details can be seen
+below:\if{html}{\out{<div class="sourceCode r">}}\preformatted{corrections <- read.csv("data-raw/helpers/corrections.csv")
+n <- nrow(corrections)
+
+# `fecha_evaluacion` as character (latter on will be transformed to date format)
+dataset[, fecha_evaluacion := as.character(fecha_evaluacion)]
+
+for (i in seq_len(n)) \{
+  i_var <- corrections[i, "param_in"]
+
+  ind <- data.table::like(
+    vector = dataset[[i_var]],
+    pattern = corrections[i, "search_for"],
+    ignore.case = TRUE
+  )
+
+  data.table::set(
+    x = dataset,
+    i = which(ind),
+    j = corrections[i, "param_out"],
+    value = corrections[i, "replace"]
+  )
+\}
 }\if{html}{\out{</div>}}
 }
 
@@ -35,7 +79,12 @@ for the efficient implementation of a function (or functions) across multiple co
 
 Once the import was complete, we proceeded to standardise the formatting of the
 columns by using regular expressions (RegEx) to select the columns, starting with
-the modification of the text variables.\if{html}{\out{<div class="sourceCode r">}}\preformatted{col_names <- names(dataset) # for later use
+the modification of the text variables.\if{html}{\out{<div class="sourceCode r">}}\preformatted{col_names <- names(dataset) # getting the column names
+
+# Processing date variables
+ind <- grep("fecha", col_names, value = TRUE)
+dataset[, fecha_nacimiento := as.numeric(fecha_nacimiento)]
+dataset[, (ind) := lapply(.SD, data.table::as.IDate, origin = "1899-12-30"), .SDcols = ind]
 
 # Labels to "title-case"
 ind <- grep("nombre|interpretacion|especialidad", col_names, value = TRUE)
@@ -44,19 +93,20 @@ dataset[, (ind) := lapply(.SD, stringr::str_to_title), .SDcols = ind]
 # Labels to "lower-case"
 ind <- grep("agrupacion|diagnostico", col_names, value = TRUE)
 dataset[, (ind) := lapply(.SD, tolower), .SDcols = ind]
-}\if{html}{\out{</div>}}
 
-We perform a similar process with the numeric and date variables, assigning them
-the necessary properties to be analysed later.\if{html}{\out{<div class="sourceCode r">}}\preformatted{# numerical variables
+# numerical variables
 ind <- grep("total", col_names, value = TRUE)
 dataset[, (ind) := lapply(.SD, as.numeric), .SDcols = ind]
 
 # asq3_meses to numeric
 dataset[, asq3_meses := as.numeric(x = gsub("MESES", "", asq3_meses))]
 
-# Processing dates
-ind <- grep("fecha", col_names, value = TRUE)
-dataset[, (ind) := lapply(.SD, data.table::as.IDate), .SDcols = ind]
+# Add patient sex
+dataset <- merge(
+  x = dataset,
+  y = fread("data-raw/helpers/rut_sex.csv"),
+  by = "rut_paciente",
+)
 }\if{html}{\out{</div>}}
 }
 
@@ -67,23 +117,23 @@ In order to treat and maintain the confidentiality of the identity of the
 patients, as well as that of the evaluating professionals, an identifying
 number was assigned to each individual, excluding from this process those
 who had their \href{https://www.sii.cl/contribuyentes/contribuyentes_individuales/chilenos_extranjero/rol_unico_tributario.htm}{RUT}
-or name missing (i.e. missing data).\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Drop missing values
-dataset <- dataset[!is.na(rut_2) & !is.na(paciente_nombre)]
-
-# ID for each professional
+or name missing (i.e. missing data).\if{html}{\out{<div class="sourceCode r">}}\preformatted{# ID for each professional
 dataset[, profesional_id := as.numeric(x = factor(profesional_nombre))]
+
 # and then we eliminate the column with their name
 dataset[, profesional_nombre := NULL]
 
 # ID for each patient
-dataset[, paciente_id := as.numeric(x = factor(paciente_nombre))]
+dataset[, paciente_id := as.numeric(x = factor(rut_paciente))]
+
 # and then we eliminate the column with their name
-dataset[, paciente_nombre := NULL]
+dataset[, nombre_paciente := NULL]
+
 # and the the column with their RUT
-dataset[, `:=`(rut_1 = NULL, rut_2 = NULL)]
+dataset[, rut_paciente := NULL]
 
 # Also eliminate the column with the responder's name
-dataset[, respondedor_nombre := NULL]
+dataset[, nombre_respondedor := NULL]
 }\if{html}{\out{</div>}}
 }
 

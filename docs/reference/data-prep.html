@@ -88,7 +88,7 @@ the steps used for data treatment are detailed here.</p>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p>The original data is not available in the package, given the sensitive nature
-of the information, so any requests for it will be ignored or rejected.</p>
+of the information, so any requests for it will be evaluated.</p>
     </div>
     <div class="section level2">
     <h2 id="from-excel-to-r">From Excel to R<a class="anchor" aria-label="anchor" href="#from-excel-to-r"></a></h2>
@@ -96,12 +96,51 @@ of the information, so any requests for it will be ignored or rejected.</p>
 
 
 <p>Once the data entry using Excel was complete, it was imported into R using the
-<code>read_excel</code> function of the <a href="https://readxl.tidyverse.org/" class="external-link">readxl</a> package.</p><div class="sourceCode r"><pre><code><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></span><span class="op">(</span><span class="st">"path/to/excel-file.xlsx"</span><span class="op">)</span></code></pre><p></p></div>
+<code>read_excel</code> function of the <a href="https://readxl.tidyverse.org/" class="external-link">readxl</a> package.</p><div class="sourceCode r"><pre><code><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_excel</a></span><span class="op">(</span><span class="st">"data-raw/raw-data.xlsx"</span><span class="op">)</span></code></pre><p></p></div>
 <p>Subsequently, the column names were changed to syntactically valid versions, in
-this case in camel case (e.g. "Column A" to "column_a").</p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"evaluacion_numero"</span>, <span class="st">"evaluacion_fecha"</span>, <span class="st">"respondedor_nombre"</span>, <span class="va">...</span><span class="op">)</span></code></pre><p></p></div>
+this case in camel case (e.g. "Column A" to "column_a").</p><div class="sourceCode r"><pre><code><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="st">"data-raw/helpers/colnames"</span><span class="op">)</span></code></pre><p></p></div>
 <p>Once completed, the data was transformed into a `data.table' format, which allows
 for the efficient implementation of a function (or functions) across multiple columns
-(using selection criteria for greater precision).</p><div class="sourceCode r"><pre><code><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html" class="external-link">as.data.table</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span></code></pre><p></p></div>
+(using selection criteria for greater precision).</p><div class="sourceCode r"><pre><code><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span></code></pre><p></p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="fixing-data-entry-errors">Fixing data-entry errors<a class="anchor" aria-label="anchor" href="#fixing-data-entry-errors"></a></h2>
+    
+
+
+<p>As any real world dataset, data entry errors are common. In this context, being able
+to handle them is crucial in the cleaning step when we first import the dataset.
+For this, a separate csv file was used, which had four columns:</p><ol><li><p><code>param_in</code>: The variable we need to filter on to get to the exact case were the
+error was introduced.</p></li>
+<li><p><code>search_for</code>: The query passed on <code>param_in</code> as the filter for subsetting.</p></li>
+<li><p><code>param_out</code>: The variable on which the correction is needed.</p></li>
+<li><p><code>replace</code>: The correction itself.</p></li>
+</ol><p>And with this structure, the data entry errors were handled as follow:</p>
+<p>For every row in the csv file with the corrections, we filter on <code>param_in</code> using
+<code>search_for</code> to select the case(s) where the error occur; then, we replace de value
+of <code>param_out</code> using <code>replace</code>. The code with the aforementioned details can be seen
+below:</p><div class="sourceCode r"><pre><code><span class="va">corrections</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"data-raw/helpers/corrections.csv"</span><span class="op">)</span>
+<span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">corrections</span><span class="op">)</span>
+
+<span class="co"># `fecha_evaluacion` as character (latter on will be transformed to date format)</span>
+<span class="va">dataset</span><span class="op">[</span>, <span class="va">fecha_evaluacion</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">fecha_evaluacion</span><span class="op">)</span><span class="op">]</span>
+
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">i_var</span> <span class="op">&lt;-</span> <span class="va">corrections</span><span class="op">[</span><span class="va">i</span>, <span class="st">"param_in"</span><span class="op">]</span>
+
+  <span class="va">ind</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/like.html" class="external-link">like</a></span><span class="op">(</span>
+    vector <span class="op">=</span> <span class="va">dataset</span><span class="op">[[</span><span class="va">i_var</span><span class="op">]</span><span class="op">]</span>,
+    pattern <span class="op">=</span> <span class="va">corrections</span><span class="op">[</span><span class="va">i</span>, <span class="st">"search_for"</span><span class="op">]</span>,
+    ignore.case <span class="op">=</span> <span class="cn">TRUE</span>
+  <span class="op">)</span>
+
+  <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/assign.html" class="external-link">set</a></span><span class="op">(</span>
+    x <span class="op">=</span> <span class="va">dataset</span>,
+    i <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">ind</span><span class="op">)</span>,
+    j <span class="op">=</span> <span class="va">corrections</span><span class="op">[</span><span class="va">i</span>, <span class="st">"param_out"</span><span class="op">]</span>,
+    value <span class="op">=</span> <span class="va">corrections</span><span class="op">[</span><span class="va">i</span>, <span class="st">"replace"</span><span class="op">]</span>
+  <span class="op">)</span>
+<span class="op">}</span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="formatting-variables">Formatting variables<a class="anchor" aria-label="anchor" href="#formatting-variables"></a></h2>
@@ -110,7 +149,12 @@ for the efficient implementation of a function (or functions) across multiple co
 
 <p>Once the import was complete, we proceeded to standardise the formatting of the
 columns by using regular expressions (RegEx) to select the columns, starting with
-the modification of the text variables.</p><div class="sourceCode r"><pre><code><span class="va">col_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="co"># for later use</span>
+the modification of the text variables.</p><div class="sourceCode r"><pre><code><span class="va">col_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="co"># getting the column names</span>
+
+<span class="co"># Processing date variables</span>
+<span class="va">ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"fecha"</span>, <span class="va">col_names</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">dataset</span><span class="op">[</span>, <span class="va">fecha_nacimiento</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">fecha_nacimiento</span><span class="op">)</span><span class="op">]</span>
+<span class="va">dataset</span><span class="op">[</span>, <span class="op">(</span><span class="va">ind</span><span class="op">)</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">.SD</span>, <span class="fu">data.table</span><span class="fu">::</span><span class="va"><a href="https://Rdatatable.gitlab.io/data.table/reference/IDateTime.html" class="external-link">as.IDate</a></span>, origin <span class="op">=</span> <span class="st">"1899-12-30"</span><span class="op">)</span>, .SDcols <span class="op">=</span> <span class="va">ind</span><span class="op">]</span>
 
 <span class="co"># Labels to "title-case"</span>
 <span class="va">ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"nombre|interpretacion|especialidad"</span>, <span class="va">col_names</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
@@ -118,18 +162,21 @@ the modification of the text variables.</p><div class="sourceCode r"><pre><code>
 
 <span class="co"># Labels to "lower-case"</span>
 <span class="va">ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"agrupacion|diagnostico"</span>, <span class="va">col_names</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">dataset</span><span class="op">[</span>, <span class="op">(</span><span class="va">ind</span><span class="op">)</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">.SD</span>, <span class="va">tolower</span><span class="op">)</span>, .SDcols <span class="op">=</span> <span class="va">ind</span><span class="op">]</span></code></pre><p></p></div>
-<p>We perform a similar process with the numeric and date variables, assigning them
-the necessary properties to be analysed later.</p><div class="sourceCode r"><pre><code><span class="co"># numerical variables</span>
+<span class="va">dataset</span><span class="op">[</span>, <span class="op">(</span><span class="va">ind</span><span class="op">)</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">.SD</span>, <span class="va">tolower</span><span class="op">)</span>, .SDcols <span class="op">=</span> <span class="va">ind</span><span class="op">]</span>
+
+<span class="co"># numerical variables</span>
 <span class="va">ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"total"</span>, <span class="va">col_names</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="va">dataset</span><span class="op">[</span>, <span class="op">(</span><span class="va">ind</span><span class="op">)</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">.SD</span>, <span class="va">as.numeric</span><span class="op">)</span>, .SDcols <span class="op">=</span> <span class="va">ind</span><span class="op">]</span>
 
 <span class="co"># asq3_meses to numeric</span>
 <span class="va">dataset</span><span class="op">[</span>, <span class="va">asq3_meses</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="st">"MESES"</span>, <span class="st">""</span>, <span class="va">asq3_meses</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>
 
-<span class="co"># Processing dates</span>
-<span class="va">ind</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"fecha"</span>, <span class="va">col_names</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="va">dataset</span><span class="op">[</span>, <span class="op">(</span><span class="va">ind</span><span class="op">)</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">.SD</span>, <span class="fu">data.table</span><span class="fu">::</span><span class="va"><a href="https://Rdatatable.gitlab.io/data.table/reference/IDateTime.html" class="external-link">as.IDate</a></span><span class="op">)</span>, .SDcols <span class="op">=</span> <span class="va">ind</span><span class="op">]</span></code></pre><p></p></div>
+<span class="co"># Add patient sex</span>
+<span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span>
+  x <span class="op">=</span> <span class="va">dataset</span>,
+  y <span class="op">=</span> <span class="fu">fread</span><span class="op">(</span><span class="st">"data-raw/helpers/rut_sex.csv"</span><span class="op">)</span>,
+  by <span class="op">=</span> <span class="st">"rut_paciente"</span>,
+<span class="op">)</span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="subject-anonymisation">Subject anonymisation<a class="anchor" aria-label="anchor" href="#subject-anonymisation"></a></h2>
@@ -140,23 +187,23 @@ the necessary properties to be analysed later.</p><div class="sourceCode r"><pre
 patients, as well as that of the evaluating professionals, an identifying
 number was assigned to each individual, excluding from this process those
 who had their <a href="https://www.sii.cl/contribuyentes/contribuyentes_individuales/chilenos_extranjero/rol_unico_tributario.htm" class="external-link">RUT</a>
-or name missing (i.e. missing data).</p><div class="sourceCode r"><pre><code><span class="co"># Drop missing values</span>
-<span class="va">dataset</span> <span class="op">&lt;-</span> <span class="va">dataset</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">rut_2</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">paciente_nombre</span><span class="op">)</span><span class="op">]</span>
-
-<span class="co"># ID for each professional</span>
+or name missing (i.e. missing data).</p><div class="sourceCode r"><pre><code><span class="co"># ID for each professional</span>
 <span class="va">dataset</span><span class="op">[</span>, <span class="va">profesional_id</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">profesional_nombre</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>
+
 <span class="co"># and then we eliminate the column with their name</span>
 <span class="va">dataset</span><span class="op">[</span>, <span class="va">profesional_nombre</span> <span class="op">:=</span> <span class="cn">NULL</span><span class="op">]</span>
 
 <span class="co"># ID for each patient</span>
-<span class="va">dataset</span><span class="op">[</span>, <span class="va">paciente_id</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">paciente_nombre</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>
+<span class="va">dataset</span><span class="op">[</span>, <span class="va">paciente_id</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">rut_paciente</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>
+
 <span class="co"># and then we eliminate the column with their name</span>
-<span class="va">dataset</span><span class="op">[</span>, <span class="va">paciente_nombre</span> <span class="op">:=</span> <span class="cn">NULL</span><span class="op">]</span>
+<span class="va">dataset</span><span class="op">[</span>, <span class="va">nombre_paciente</span> <span class="op">:=</span> <span class="cn">NULL</span><span class="op">]</span>
+
 <span class="co"># and the the column with their RUT</span>
-<span class="va">dataset</span><span class="op">[</span>, <span class="fu">`:=`</span><span class="op">(</span>rut_1 <span class="op">=</span> <span class="cn">NULL</span>, rut_2 <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span><span class="op">]</span>
+<span class="va">dataset</span><span class="op">[</span>, <span class="va">rut_paciente</span> <span class="op">:=</span> <span class="cn">NULL</span><span class="op">]</span>
 
 <span class="co"># Also eliminate the column with the responder's name</span>
-<span class="va">dataset</span><span class="op">[</span>, <span class="va">respondedor_nombre</span> <span class="op">:=</span> <span class="cn">NULL</span><span class="op">]</span></code></pre><p></p></div>
+<span class="va">dataset</span><span class="op">[</span>, <span class="va">nombre_respondedor</span> <span class="op">:=</span> <span class="cn">NULL</span><span class="op">]</span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="corrected-age">Corrected age<a class="anchor" aria-label="anchor" href="#corrected-age"></a></h2>
