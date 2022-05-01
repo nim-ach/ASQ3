@@ -29,7 +29,7 @@ library(data.table)
   dataset[, fecha_evaluacion := as.character(fecha_evaluacion)]
 
   for (i in seq_len(n)) {
-    i_var  <- corrections[i, "param_in"]
+    i_var <- corrections[i, "param_in"]
 
     ind <- like(
       vector = dataset[[i_var]],
@@ -51,7 +51,7 @@ library(data.table)
 
   col_names <- names(dataset) # for later use
 
-  # Processing date type variables
+  # Processing date variables
   ind <- grep("fecha", col_names, value = TRUE)
   dataset[, fecha_nacimiento := as.numeric(fecha_nacimiento)]
   dataset[, (ind) := lapply(.SD, data.table::as.IDate, origin = "1899-12-30"), .SDcols = ind]
