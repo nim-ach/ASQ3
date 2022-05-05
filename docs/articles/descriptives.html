@@ -110,7 +110,6 @@
 without considering the underlying structure of the database.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">descriptives</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/skimr/reference/skim.html" class="external-link">skim</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span>
-<span class="co">#&gt; Warning in sorted_count(x): Variable contains value(s) of "" that have been converted to "empty".</span>
 
 <span class="fu"><a href="https://docs.ropensci.org/skimr/reference/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">descriptives</span><span class="op">)</span>
 <span class="co">#&gt; ── Data Summary ────────────────────────</span>
@@ -142,8 +141,8 @@ without considering the underlying structure of the database.</p>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> profesional_id                              0         1     FALSE          4 2: 1070, 4: 353, 1: 99, 3: 1         </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> profesional_especialidad                    0         1     FALSE          3 Enf: 1169, Kin: 353, Fon: 1          </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> paciente_id                                 0         1     FALSE        804 378: 6, 200: 5, 244: 5, 286: 5       </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> sexo_paciente                               0         1     FALSE          3 M: 866, F: 656, emp: 1               </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> respondedor_vinculo                         0         1     FALSE         10 Mad: 1357, Pad: 115, Abu: 28, Tio: 12</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> sexo_paciente                               1         0.999 FALSE          2 M: 866, F: 656                       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> respondedor_vinculo                         0         1     FALSE          6 Mad: 1357, Pad: 116, Abu: 28, Tio: 12</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> evaluacion_tipo                            12         0.992 FALSE          3 Eva: 955, Pri: 549, Eva: 7           </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> comunicacion_interpretacion                 0         1     FALSE          3 Sob: 838, Deb: 357, Ape: 328         </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> motora_gruesa_interpretacion                0         1     FALSE          3 Sob: 790, Deb: 460, Ape: 273         </span>
@@ -200,7 +199,6 @@ observation for each subject.</p>
 <code class="sourceCode R"><span class="va">descriptives_by_patient</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/skimr/reference/skim.html" class="external-link">skim</a></span><span class="op">(</span>
   data <span class="op">=</span> <span class="va">dataset</span><span class="op">[</span>, <span class="va">.SD</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.min.html" class="external-link">which.max</a></span><span class="op">(</span><span class="va">fecha_evaluacion</span><span class="op">)</span><span class="op">]</span>, keyby <span class="op">=</span> <span class="va">paciente_id</span><span class="op">]</span>
 <span class="op">)</span>
-<span class="co">#&gt; Warning in sorted_count(x): Variable contains value(s) of "" that have been converted to "empty".</span>
 
 <span class="fu"><a href="https://docs.ropensci.org/skimr/reference/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">descriptives_by_patient</span><span class="op">)</span>
 <span class="co">#&gt; ── Data Summary ────────────────────────</span>
@@ -232,8 +230,8 @@ observation for each subject.</p>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> paciente_id                                 0         1     FALSE        804 1: 1, 2: 1, 3: 1, 4: 1            </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> profesional_id                              0         1     FALSE          4 2: 443, 4: 269, 1: 91, 3: 1       </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> profesional_especialidad                    0         1     FALSE          3 Enf: 534, Kin: 269, Fon: 1        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> sexo_paciente                               0         1     FALSE          3 M: 461, F: 342, emp: 1            </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> respondedor_vinculo                         0         1     FALSE          8 Mad: 705, Pad: 72, Abu: 16, Tio: 5</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> sexo_paciente                               1         0.999 FALSE          2 M: 461, F: 342                    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> respondedor_vinculo                         0         1     FALSE          6 Mad: 705, Pad: 72, Abu: 16, Tio: 5</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> evaluacion_tipo                             8         0.990 FALSE          3 Eva: 453, Pri: 337, Eva: 6        </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> comunicacion_interpretacion                 0         1     FALSE          3 Sob: 431, Deb: 204, Ape: 169      </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> motora_gruesa_interpretacion                0         1     FALSE          3 Sob: 425, Deb: 235, Ape: 144      </span>
