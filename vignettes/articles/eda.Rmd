@@ -1,0 +1,33 @@
+---
+title: "Exploratory data analysis"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+options(
+  width = 140
+)
+```
+
+```{r setup}
+library(ASQ3)
+
+library(data.table)
+library(ggplot2)
+```
+
+## Getting to know the data
+
+At first glance, and by inspecting the data structure we can see the follow:
+
+```{r}
+str(dataset)
+```
+
+Our data has `r nrow(dataset)` observations and `r ncol(dataset)` variables; some of those variables are related to the assessment of several developmental domains in infants (age range: `r paste0(range(dataset$edad_cronologica_meses), collapse = " - ")` months old) using the *Ages & Stages Questionnaire, 3th Edition* (ASQ-3), which is a developmental screening tool that pinpoints developmental progress in children between the ages of one month to 5.5 years.
+
+For every subject we have at least one measurement and in average `r dataset[,.N, paciente_id][, mean(N)]` assessments.
