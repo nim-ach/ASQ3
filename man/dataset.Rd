@@ -5,7 +5,7 @@
 \alias{dataset}
 \title{Data from the ASQ-3 study from CADI-UMAG}
 \format{
-A data frame with 1266 rows y 53 variables:
+A data frame with 1523 rows y 53 variables:
 
 \itemize{
 \item{\code{profesional_id}: Factor. Identifying number of the assessing professional.}

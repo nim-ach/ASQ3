@@ -61,7 +61,7 @@ library(data.table)
   dataset[, (ind) := lapply(.SD, stringr::str_to_title), .SDcols = ind]
 
   # Labels to "lower-case"
-  ind <- grep("agrupacion|diagnostico", col_names, value = TRUE)
+  ind <- grep("diagnostico", col_names, value = TRUE)
   dataset[, (ind) := lapply(.SD, tolower), .SDcols = ind]
 
   # numerical variables
@@ -77,6 +77,8 @@ library(data.table)
     y = fread("data-raw/helpers/rut_sex.csv"),
     by = "rut_paciente",
   )
+  # Removing missing values from sex
+  dataset[sexo_paciente == "", sexo_paciente := NA]
 
   # Removing ind and col_names objects
   rm(ind, col_names)
