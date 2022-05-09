@@ -35,6 +35,8 @@ navbar:
         href: articles/descriptives.html
       - text: Correlations
         href: articles/correlations.html
+      - text: Non-linear relationships
+        href: articles/eda.html
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/nim-ach/ASQ3/

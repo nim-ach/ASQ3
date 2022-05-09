@@ -9,6 +9,7 @@
 #'   \item{\code{paciente_id}: Factor. Patient identifier number.}
 #'   \item{\code{sexo_paciente}: Factor. Patient's sex.}
 #'   \item{\code{respondedor_vinculo}: Factor. Type of relationship between the respondent and the patient.}
+#'   \item{\code{n_evaluacion}: Factor. Number of assessment for each subject.}
 #'   \item{\code{evaluacion_tipo}: Factor. Type of assessment.}
 #'   \item{\code{fecha_evaluacion}: Date. Date of patient assessment.}
 #'   \item{\code{fecha_nacimiento}: Date. Patient's date of birth.}

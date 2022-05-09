@@ -80,6 +80,10 @@ library(data.table)
   # Removing missing values from sex
   dataset[sexo_paciente == "", sexo_paciente := NA]
 
+  # Including evaluation number
+  dataset[, n_evaluacion := rleid(fecha_evaluacion), keyby = rut_paciente]
+
+
   # Removing ind and col_names objects
   rm(ind, col_names)
 
@@ -136,7 +140,7 @@ library(data.table)
 # Set factor variables ------------------------------------------------------------------------
 
   ind <- grep(
-    pattern = "profesional|paciente|vinculo|tipo|interpret",
+    pattern = "profesional|paciente|vinculo|evaluacion|interpret",
     x = names(dataset),
     value = TRUE
   )

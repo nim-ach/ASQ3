@@ -1,38 +1,401 @@
 ---
-title: "Exploratory data analysis"
+title: "Main relationships"
 ---
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-
-options(
-  width = 140
-)
+knitr::opts_chunk$set(collapse = TRUE, 
+                      comment = "#>",
+                      dpi = 300)
+options(width = 140)
 ```
 
 ```{r setup}
 library(ASQ3)
-
 library(data.table)
-library(ggplot2)
+
+# Round to nearest multiple
+near <- function(i, j) {
+  stopifnot("'i' must be a number" = is.numeric(i),
+            "'j' must be a number" = is.numeric(j))
+  
+  i_hat = i / j
+  output = round(i_hat) * j
+  return(output)
+}
+
+# Plot GAM model of bivariate model
+plot_gam <- function(data, x, y, xlab, ylab, round_to = 1, ...) {
+  
+  if (missing(xlab)) xlab <- deparse(substitute(x))
+  if (missing(ylab)) ylab <- deparse(substitute(y))
+  
+  scaled = copy(data)
+  if (round_to > 1) {
+    j_exec = substitute(near(x, round_to))
+    x_var = deparse(substitute(x))
+    scaled[, (x_var) := eval(j_exec)]
+  }
+  
+  ggplot2::ggplot(data, ggplot2::aes({{x}}, {{y}})) +
+    ggplot2::geom_count(alpha = 0.1) +
+    ggplot2::stat_summary(data = scaled, fun.data = ggplot2::mean_se) +
+    ggplot2::geom_smooth(method = "gam", 
+                formula = y ~ s(x),
+                col = "red4",
+                method.args = list(...)) +
+    ggplot2::labs(x = xlab, y = ylab, caption = paste0("Mean ± SE in ", round_to, "-unit intervals")) +
+    see::theme_lucid()
+}
 ```
 
-## Getting to know the data
+## Working with first assessment
 
-At first glance, and by inspecting the data structure we can see the follow:
+For this page, we'll be fitting different models using generalized additive models (GAM's) using the `mgcv` package. The smoothing parameter will be estimated using restricted maximum likelihood algorithm (i.e., REML). 
+
+### Communication score & chronological age (in months)
+
+Model: comunicacion_total ~ edad_cronologica_meses
 
 ```{r}
-str(dataset)
+plot_gam(data = dataset[n_evaluacion == 1 & edad_cronologica_meses <= 60], 
+         x = edad_cronologica_meses, 
+         y = comunicacion_total, 
+         ylab = "Communication", 
+         xlab = "Months old",
+         round_to = 5,
+         method = "REML")
+  
+library(mgcv)
+mgcv::gam(formula = comunicacion_total ~ s(edad_cronologica_meses),
+          data = dataset[n_evaluacion == 1 & edad_cronologica_meses <= 60],
+          method = "REML") |> 
+  summary()
 ```
 
-Our data has `r nrow(dataset)` observations and `r ncol(dataset)` variables; some of those variables are related to the assessment of several developmental domains in infants (age range: `r paste0(range(dataset$edad_cronologica_meses), collapse = " - ")` months old) using the *Ages & Stages Questionnaire, 3th Edition* (ASQ-3), which is a developmental screening tool that pinpoints developmental progress in children between the ages of one month to 5.5 years.
+### Problem solving score & chronological age (in months)
 
-For every subject we have at least one measurement and in average `r dataset[,.N, paciente_id][, round(mean(N), 2)]` assessments.
+Model: resolucion_problemas_total ~ edad_cronologica_meses
 
 ```{r}
-
+plot_gam(data = dataset[n_evaluacion == 1 & edad_cronologica_meses <= 60], 
+         x = edad_cronologica_meses, 
+         y = resolucion_problemas_total, 
+         ylab = "Problem solving", 
+         xlab = "Months old",
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = resolucion_problemas_total ~ s(edad_cronologica_meses),
+          data = dataset[n_evaluacion == 1 & edad_cronologica_meses <= 60],
+          method = "REML") |> 
+  summary()
 ```
 
+### Communication score & prematurity (in weeks)
+
+Model: comunicacion_total ~ semanas_prematurez
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1], 
+         x = semanas_prematurez, 
+         y = comunicacion_total, 
+         ylab = "Communication",
+         xlab = "Prematurity (in weeks)", 
+         round_to = 2,
+         method = "REML")
+  
+mgcv::gam(formula = comunicacion_total ~ s(semanas_prematurez),
+          data = dataset[n_evaluacion == 1],
+          method = "REML") |> 
+  summary()
+```
+
+### Communication score & corrected age (in months) 
+
+Model: comunicacion_total ~ edad_corregida_meses
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1 & edad_corregida_meses <= 60], 
+         x = edad_corregida_meses, 
+         y = comunicacion_total, 
+         ylab = "Communication",
+         xlab = "Corrected age (months old)", 
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = comunicacion_total ~ s(edad_corregida_meses),
+          data = dataset[n_evaluacion == 1 & edad_corregida_meses <= 60],
+          method = "REML") |> 
+  summary()
+```
+
+
+### Fine motor skills score & corrected age (in months) 
+
+Model: motora_fina_total ~ edad_corregida_meses
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1 & edad_corregida_meses <= 60], 
+         x = edad_corregida_meses, 
+         y = motora_fina_total, 
+         ylab = "Fine motor skills",
+         xlab = "Corrected age (months old)", 
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = motora_fina_total ~ s(edad_corregida_meses),
+          data = dataset[n_evaluacion == 1 & edad_corregida_meses <= 60],
+          method = "REML") |> 
+  summary()
+```
+
+
+### Problem solving score & corrected age (in months) 
+
+Model: resolucion_problemas_total ~ edad_corregida_meses
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1 & edad_corregida_meses <= 60], 
+         x = edad_corregida_meses, 
+         y = resolucion_problemas_total, 
+         ylab = "Fine motor skills",
+         xlab = "Corrected age (months old)", 
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = resolucion_problemas_total ~ s(edad_corregida_meses),
+          data = dataset[n_evaluacion == 1 & edad_corregida_meses <= 60],
+          method = "REML") |> 
+  summary()
+```
+
+### Socio-individual skills score & corrected age (in months) 
+
+Model: socio_individual_total ~ edad_corregida_meses
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1 & edad_corregida_meses <= 60], 
+         x = edad_corregida_meses, 
+         y = socio_individual_total, 
+         ylab = "Socio-individual skills",
+         xlab = "Corrected age (months old)", 
+         round_to = 4,
+         method = "REML")
+  
+mgcv::gam(formula = socio_individual_total ~ s(edad_corregida_meses),
+          data = dataset[n_evaluacion == 1 & edad_corregida_meses <= 60],
+          method = "REML") |> 
+  summary()
+```
+
+### Communication score & developmental ASQ-3 age (in months) 
+
+Model: comunicacion_total ~ asq3_meses
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1], 
+         x = asq3_meses, 
+         y = comunicacion_total, 
+         ylab = "Communication",
+         xlab = "developmental ASQ-3 age (months old)", 
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = comunicacion_total ~ s(asq3_meses),
+          data = dataset[n_evaluacion == 1],
+          method = "REML") |> 
+  summary()
+```
+
+
+### Problem solving score & developmental ASQ-3 age (in months) 
+
+Model: resolucion_problemas_total ~ asq3_meses
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1], 
+         x = asq3_meses, 
+         y = resolucion_problemas_total, 
+         ylab = "Problem solving",
+         xlab = "developmental ASQ-3 age (months old)", 
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = resolucion_problemas_total ~ s(asq3_meses),
+          data = dataset[n_evaluacion == 1],
+          method = "REML") |> 
+  summary()
+```
+
+### Fine motor skills score & developmental ASQ-3 age (in months) 
+
+Model: motora_fina_total ~ asq3_meses
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1], 
+         x = asq3_meses, 
+         y = motora_fina_total, 
+         ylab = "Fine motor skills",
+         xlab = "developmental ASQ-3 age (months old)", 
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = motora_fina_total ~ s(asq3_meses),
+          data = dataset[n_evaluacion == 1],
+          method = "REML") |> 
+  summary()
+```
+
+### Fine motor skills score & Communication score 
+
+Model: motora_fina_total ~ comunicacion_total
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1], 
+         x = comunicacion_total, 
+         y = motora_fina_total, 
+         ylab = "Fine motor skills",
+         xlab = "Communication", 
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = motora_fina_total ~ s(comunicacion_total),
+          data = dataset[n_evaluacion == 1],
+          method = "REML") |> 
+  summary()
+```
+
+### Socio-individual skills score & Communication score 
+
+Model: socio_individual_total ~ comunicacion_total
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1], 
+         x = comunicacion_total, 
+         y = socio_individual_total, 
+         ylab = "Socio-individual skills",
+         xlab = "Communication", 
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = socio_individual_total ~ s(comunicacion_total),
+          data = dataset[n_evaluacion == 1],
+          method = "REML") |> 
+  summary()
+```
+
+### Gross motor skills score score & Communication score 
+
+Model: motora_gruesa_total ~ comunicacion_total
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1], 
+         x = comunicacion_total, 
+         y = motora_gruesa_total, 
+         ylab = "Gross motor skills",
+         xlab = "Communication", 
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = motora_gruesa_total ~ s(comunicacion_total),
+          data = dataset[n_evaluacion == 1],
+          method = "REML") |> 
+  summary()
+```
+
+Looks more like a linear relationship than a non-linear one. This is notorious when we look at the  effective degrees of freedom (edf), i.e. the closer to 1 more alike to a linear regression.
+
+### Problem solving score & Fine motor skills score 
+
+Model: resolucion_problemas_total ~ motora_fina_total
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1], 
+         x = motora_fina_total, 
+         y = resolucion_problemas_total, 
+         ylab = "Problem solving",
+         xlab = "Fine motor skills", 
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = resolucion_problemas_total ~ s(motora_fina_total),
+          data = dataset[n_evaluacion == 1],
+          method = "REML") |> 
+  summary()
+```
+
+### Socio-individual skills score & Fine motor skills score 
+
+Model: socio_individual_total ~ motora_fina_total
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1], 
+         x = motora_fina_total, 
+         y = socio_individual_total, 
+         ylab = "Socio-individual skills",
+         xlab = "Fine motor skills", 
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = socio_individual_total ~ s(motora_fina_total),
+          data = dataset[n_evaluacion == 1],
+          method = "REML") |> 
+  summary()
+```
+
+### Problem solving score & Communication score 
+
+Model: resolucion_problemas_total ~ comunicacion_total
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1], 
+         x = comunicacion_total, 
+         y = resolucion_problemas_total, 
+         ylab = "Problem solving",
+         xlab = "Communication", 
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = resolucion_problemas_total ~ s(comunicacion_total),
+          data = dataset[n_evaluacion == 1],
+          method = "REML") |> 
+  summary()
+```
+
+### Problem solving score & Gross motor skills score
+
+Model: resolucion_problemas_total ~ motora_gruesa_total
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1], 
+         x = motora_gruesa_total, 
+         y = resolucion_problemas_total, 
+         ylab = "Problem solving",
+         xlab = "Gross motor skills", 
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = resolucion_problemas_total ~ s(motora_gruesa_total),
+          data = dataset[n_evaluacion == 1],
+          method = "REML") |> 
+  summary()
+```
+
+### Problem solving score & Socio-individual skills score
+
+Model: resolucion_problemas_total ~ socio_individual_total
+
+```{r}
+plot_gam(data = dataset[n_evaluacion == 1], 
+         x = socio_individual_total, 
+         y = resolucion_problemas_total, 
+         ylab = "Problem solving",
+         xlab = "Socio-individual skills", 
+         round_to = 5,
+         method = "REML")
+  
+mgcv::gam(formula = resolucion_problemas_total ~ s(socio_individual_total),
+          data = dataset[n_evaluacion == 1],
+          method = "REML") |> 
+  summary()
+```

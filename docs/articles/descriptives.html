@@ -51,6 +51,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown--analysis">
     <a class="dropdown-item" href="../articles/descriptives.html">Descriptive statistics</a>
     <a class="dropdown-item" href="../articles/correlations.html">Correlations</a>
+    <a class="dropdown-item" href="../articles/eda.html">Non-linear relationships</a>
   </div>
 </li>
 <li class="nav-item dropdown">
@@ -116,13 +117,13 @@ without considering the underlying structure of the database.</p>
 <span class="co">#&gt;                            Values                       </span>
 <span class="co">#&gt; Name                       dataset                      </span>
 <span class="co">#&gt; Number of rows             1523                         </span>
-<span class="co">#&gt; Number of columns          53                           </span>
+<span class="co">#&gt; Number of columns          54                           </span>
 <span class="co">#&gt; Key                        paciente_id, fecha_evaluacion</span>
 <span class="co">#&gt; _______________________                                 </span>
 <span class="co">#&gt; Column type frequency:                                  </span>
 <span class="co">#&gt;   character                1                            </span>
-<span class="co">#&gt;   Date                     2                            </span>
-<span class="co">#&gt;   factor                   11                           </span>
+<span class="co">#&gt;   Date                     1                            </span>
+<span class="co">#&gt;   factor                   13                           </span>
 <span class="co">#&gt;   numeric                  39                           </span>
 <span class="co">#&gt; ________________________                                </span>
 <span class="co">#&gt; Group variables            None                         </span>
@@ -133,8 +134,7 @@ without considering the underlying structure of the database.</p>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Variable type: Date ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt;   skim_variable    n_missing complete_rate min        max        median     n_unique</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> fecha_evaluacion         0             1 2019-03-15 2022-04-20 2021-03-09      337</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> fecha_nacimiento         0             1 2006-05-31 2108-02-13 2019-11-05      656</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> fecha_nacimiento         0             1 2006-05-31 2108-02-13 2019-11-05      656</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Variable type: factor ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt;    skim_variable                       n_missing complete_rate ordered n_unique top_counts                           </span>
@@ -143,12 +143,14 @@ without considering the underlying structure of the database.</p>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> paciente_id                                 0         1     FALSE        804 378: 6, 200: 5, 244: 5, 286: 5       </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> sexo_paciente                               1         0.999 FALSE          2 M: 866, F: 656                       </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> respondedor_vinculo                         0         1     FALSE          6 Mad: 1357, Pad: 116, Abu: 28, Tio: 12</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> evaluacion_tipo                            12         0.992 FALSE          3 Eva: 955, Pri: 549, Eva: 7           </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> comunicacion_interpretacion                 0         1     FALSE          3 Sob: 838, Deb: 357, Ape: 328         </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> motora_gruesa_interpretacion                0         1     FALSE          3 Sob: 790, Deb: 460, Ape: 273         </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> motora_fina_interpretacion                  0         1     FALSE          3 Sob: 897, Ape: 335, Deb: 291         </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> resolucion_problemas_interpretacion         0         1     FALSE          3 Sob: 915, Deb: 305, Ape: 303         </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">11</span> socio_individual_interpretacion             0         1     FALSE          3 Sob: 938, Deb: 293, Ape: 292         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> n_evaluacion                                0         1     FALSE          6 1: 804, 2: 367, 3: 207, 4: 109       </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> evaluacion_tipo                            12         0.992 FALSE          3 Eva: 955, Pri: 549, Eva: 7           </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> fecha_evaluacion                            0         1     FALSE        337 202: 15, 202: 14, 202: 13, 202: 13   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> comunicacion_interpretacion                 0         1     FALSE          3 Sob: 838, Deb: 357, Ape: 328         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> motora_gruesa_interpretacion                0         1     FALSE          3 Sob: 790, Deb: 460, Ape: 273         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">11</span> motora_fina_interpretacion                  0         1     FALSE          3 Sob: 897, Ape: 335, Deb: 291         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">12</span> resolucion_problemas_interpretacion         0         1     FALSE          3 Sob: 915, Deb: 305, Ape: 303         </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">13</span> socio_individual_interpretacion             0         1     FALSE          3 Sob: 938, Deb: 293, Ape: 292         </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Variable type: numeric ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt;    skim_variable              n_missing complete_rate  mean    sd    p0   p25   p50   p75  p100 hist </span>
@@ -205,13 +207,13 @@ observation for each subject.</p>
 <span class="co">#&gt;                            Values                      </span>
 <span class="co">#&gt; Name                       dataset[, .SD[which.max(f...</span>
 <span class="co">#&gt; Number of rows             804                         </span>
-<span class="co">#&gt; Number of columns          53                          </span>
+<span class="co">#&gt; Number of columns          54                          </span>
 <span class="co">#&gt; Key                        paciente_id                 </span>
 <span class="co">#&gt; _______________________                                </span>
 <span class="co">#&gt; Column type frequency:                                 </span>
 <span class="co">#&gt;   character                1                           </span>
-<span class="co">#&gt;   Date                     2                           </span>
-<span class="co">#&gt;   factor                   11                          </span>
+<span class="co">#&gt;   Date                     1                           </span>
+<span class="co">#&gt;   factor                   13                          </span>
 <span class="co">#&gt;   numeric                  39                          </span>
 <span class="co">#&gt; ________________________                               </span>
 <span class="co">#&gt; Group variables            None                        </span>
@@ -222,8 +224,7 @@ observation for each subject.</p>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Variable type: Date ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt;   skim_variable    n_missing complete_rate min        max        median     n_unique</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> fecha_evaluacion         0             1 2020-02-26 2022-04-20 2021-06-16      268</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> fecha_nacimiento         0             1 2006-05-31 2108-02-13 2019-09-17      625</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> fecha_nacimiento         0             1 2006-05-31 2108-02-13 2019-09-17      625</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Variable type: factor ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt;    skim_variable                       n_missing complete_rate ordered n_unique top_counts                        </span>
@@ -232,12 +233,14 @@ observation for each subject.</p>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> profesional_especialidad                    0         1     FALSE          3 Enf: 534, Kin: 269, Fon: 1        </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> sexo_paciente                               1         0.999 FALSE          2 M: 461, F: 342                    </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> respondedor_vinculo                         0         1     FALSE          6 Mad: 705, Pad: 72, Abu: 16, Tio: 5</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> evaluacion_tipo                             8         0.990 FALSE          3 Eva: 453, Pri: 337, Eva: 6        </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> comunicacion_interpretacion                 0         1     FALSE          3 Sob: 431, Deb: 204, Ape: 169      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> motora_gruesa_interpretacion                0         1     FALSE          3 Sob: 425, Deb: 235, Ape: 144      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> motora_fina_interpretacion                  0         1     FALSE          3 Sob: 468, Ape: 169, Deb: 167      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> resolucion_problemas_interpretacion         0         1     FALSE          3 Sob: 463, Deb: 182, Ape: 159      </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">11</span> socio_individual_interpretacion             0         1     FALSE          3 Sob: 482, Deb: 170, Ape: 152      </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> n_evaluacion                                0         1     FALSE          6 1: 437, 2: 162, 3: 97, 4: 73      </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> evaluacion_tipo                             8         0.990 FALSE          3 Eva: 453, Pri: 337, Eva: 6        </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> fecha_evaluacion                            0         1     FALSE        268 202: 11, 202: 11, 202: 10, 202: 10</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> comunicacion_interpretacion                 0         1     FALSE          3 Sob: 431, Deb: 204, Ape: 169      </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span> motora_gruesa_interpretacion                0         1     FALSE          3 Sob: 425, Deb: 235, Ape: 144      </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">11</span> motora_fina_interpretacion                  0         1     FALSE          3 Sob: 468, Ape: 169, Deb: 167      </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">12</span> resolucion_problemas_interpretacion         0         1     FALSE          3 Sob: 463, Deb: 182, Ape: 159      </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">13</span> socio_individual_interpretacion             0         1     FALSE          3 Sob: 482, Deb: 170, Ape: 152      </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Variable type: numeric ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt;    skim_variable              n_missing complete_rate  mean    sd    p0   p25   p50   p75  p100 hist </span>

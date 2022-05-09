@@ -3,6 +3,7 @@ profesional_especialidad
 paciente_id
 sexo_paciente
 respondedor_vinculo
+n_evaluacion
 evaluacion_tipo
 fecha_evaluacion
 fecha_nacimiento
