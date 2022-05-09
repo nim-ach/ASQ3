@@ -9,6 +9,8 @@ knitr::opts_chunk$set(collapse = TRUE,
 options(width = 140)
 ```
 
+<details>
+<summary>Setup details</summary>
 ```{r setup}
 library(ASQ3)
 library(data.table)
@@ -47,11 +49,34 @@ plot_gam <- function(data, x, y, xlab, ylab, round_to = 1, ...) {
     see::theme_lucid()
 }
 ```
+</details>
 
 ## Working with first assessment
 
-For this page, we'll be fitting different models using generalized additive models (GAM's) using the `mgcv` package. The smoothing parameter will be estimated using restricted maximum likelihood algorithm (i.e., REML). 
+For this page, we'll be fitting different models using generalized additive models (GAM's) using the `mgcv` package for modeling non-linear relationships, even though it can be used to model linear relationships too. The smoothing parameter (the one that gets to decide how wiggly will be the curve) will be estimated using restricted maximum likelihood (i.e., REML). 
 
+### About interpretation
+
+The interpretation of the summary of GAM models in R can be seen in [this short video](https://campus.datacamp.com/courses/nonlinear-modeling-in-r-with-gams/interpreting-and-visualizing-gams?ex=1) (~ 4 minutes) from _datacamp_. 
+However, let's get a short intro to a fast interpretation!
+
+```
+Approximate significance of smooth terms:
+                            edf Ref.df     F p-value    
+s(edad_cronologica_meses) 6.475  7.561 28.98  <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+```
+
+This small part of a summary output shows that the influence of `edad_cronologica_meses` is significant at a p-value of <2e-16. The `edf` stands for "Effective Degrees of Freedom" and reflects how complex (or wiggly) the relationship is. Thus, an `edf` of 1 reflects a linear relationship, while and `edf` of 2 reflects a cuadratic relationship, an `edf` of 3 cubic relationship and so on.
+
+More information about GAMs can be seen here:
+
+- Generalized Additive Models, Michael Clark: [website](https://m-clark.github.io/generalized-additive-models/introduction.html).
+- Nonlinear Models in R: The Wonderful World of mgcv, Noam Ross: [youtube](https://youtu.be/q4_t8jXcQgc).
+
+## Modeling
+ 
 ### Communication score & chronological age (in months)
 
 Model: comunicacion_total ~ edad_cronologica_meses
