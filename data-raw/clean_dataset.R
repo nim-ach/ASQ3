@@ -76,6 +76,7 @@ library(data.table)
     x = dataset,
     y = fread("data-raw/helpers/rut_sex.csv"),
     by = "rut_paciente",
+    all = TRUE
   )
   # Removing missing values from sex
   dataset[sexo_paciente == "", sexo_paciente := NA]
@@ -136,6 +137,15 @@ library(data.table)
   # Removing function already used
   rm(edad_corregida)
 
+
+# create clusters for diagnostics -------------------------------------------------------------
+
+  dataset <- merge(
+    x = dataset,
+    y = fread("data-raw/helpers/diagnostic_group.csv"),
+    by = "diagnostico",
+    all = TRUE
+  )
 
 # Set factor variables ------------------------------------------------------------------------
 

@@ -11,6 +11,8 @@ knitr::opts_chunk$set(
 options(width = 100)
 ```
 
+**Note**: As a priority, this analyses were run using only those with a diagnosis of congenital hypotonia.
+
 ```{r setup}
 library(ASQ3)
 
@@ -23,12 +25,16 @@ vars <- c("edad_cronologica_meses","semanas_prematurez","edad_corregida_meses",
           "asq3_meses","comunicacion_total","motora_gruesa_total","motora_fina_total",
           "resolucion_problemas_total","socio_individual_total")
 
-first_evaluation <- dataset[, .SD[which.max(fecha_evaluacion)], keyby = paciente_id, .SDcols = vars][, -1]
+first_evaluation <- dataset[n_evaluacion == 1 & diagnostico %like% "hipotonia", .SD, .SDcols = vars]
 ```
 
 As numerical variables do not follow a normal distribution, we will use Spearman's $\rho$ test as our non-parametric correlation test, as it is not tied to the assumption of normality. For more information on the function used here for the calculation of the correlation, you can read the corresponding [documentation](https://easystats.github.io/correlation/reference/correlation.html).
 
 ```{r}
-correlation(first_evaluation, method = "spearman", p_adjust = "none")
+cors <- correlation(first_evaluation, method = "spearman", p_adjust = "none")
+
+ind <- order(abs(cors$rho), decreasing = TRUE)
+  
+print(cors[ind, -7L])
 ```
 

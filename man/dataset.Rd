@@ -5,7 +5,7 @@
 \alias{dataset}
 \title{Data from the ASQ-3 study from CADI-UMAG}
 \format{
-A data frame with 1523 rows y 53 variables:
+A data frame with 1523 rows y 55 variables:
 
 \itemize{
 \item{\code{profesional_id}: Factor. Identifying number of the assessing professional.}
@@ -13,6 +13,7 @@ A data frame with 1523 rows y 53 variables:
 \item{\code{paciente_id}: Factor. Patient identifier number.}
 \item{\code{sexo_paciente}: Factor. Patient's sex.}
 \item{\code{respondedor_vinculo}: Factor. Type of relationship between the respondent and the patient.}
+\item{\code{n_evaluacion}: Factor. Number of assessment for each subject.}
 \item{\code{evaluacion_tipo}: Factor. Type of assessment.}
 \item{\code{fecha_evaluacion}: Date. Date of patient assessment.}
 \item{\code{fecha_nacimiento}: Date. Patient's date of birth.}
@@ -20,6 +21,7 @@ A data frame with 1523 rows y 53 variables:
 \item{\code{semanas_prematurez}: Numeric. Weeks of prematurity.}
 \item{\code{edad_corregida_meses}: Numeric. Chronological age of the patient in months corrected for weeks of prematurity.}
 \item{\code{diagnostico}: Character. Patient's diagnostic group.}
+\item{\code{alteracion}: Character. Patient's alteration group.}
 \item{\code{asq3_meses}: Numeric. Age in months of patient development according to ASQ 3.}
 \item{\code{comunicacion_q1 - comunicacion_q6}: Numeric. Scoring of the individual questions of the communication item.}
 \item{\code{comunicacion_total}: Numeric. Total score of the communication item.}

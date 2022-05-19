@@ -9,11 +9,15 @@ knitr::opts_chunk$set(collapse = TRUE,
 options(width = 140)
 ```
 
+**Note**: As a priority, this analyses were run using only those with a diagnosis of congenital hypotonia.
+
 <details>
 <summary>Setup details</summary>
 ```{r setup}
 library(ASQ3)
 library(data.table)
+
+dataset <- dataset[diagnostico %like% "hipotonia"]
 
 # Round to nearest multiple
 near <- function(i, j) {
@@ -116,24 +120,6 @@ mgcv::gam(formula = resolucion_problemas_total ~ s(edad_cronologica_meses),
   summary()
 ```
 
-### Communication score & prematurity (in weeks)
-
-Model: comunicacion_total ~ semanas_prematurez
-
-```{r}
-plot_gam(data = dataset[n_evaluacion == 1], 
-         x = semanas_prematurez, 
-         y = comunicacion_total, 
-         ylab = "Communication",
-         xlab = "Prematurity (in weeks)", 
-         round_to = 2,
-         method = "REML")
-  
-mgcv::gam(formula = comunicacion_total ~ s(semanas_prematurez),
-          data = dataset[n_evaluacion == 1],
-          method = "REML") |> 
-  summary()
-```
 
 ### Communication score & corrected age (in months) 
 
@@ -212,6 +198,7 @@ mgcv::gam(formula = socio_individual_total ~ s(edad_corregida_meses),
           method = "REML") |> 
   summary()
 ```
+
 
 ### Communication score & developmental ASQ-3 age (in months) 
 
@@ -328,7 +315,7 @@ mgcv::gam(formula = motora_gruesa_total ~ s(comunicacion_total),
   summary()
 ```
 
-Looks more like a linear relationship than a non-linear one. This is notorious when we look at the  effective degrees of freedom (edf), i.e. the closer to 1 more alike to a linear regression.
+Looks more like a linear relationship than a non-linear one. This is notorious when we look at the  effective degrees of freedom (edf), i.e. the closer to 1 more alike to a linear regression. Although is not significant at a 5% level.
 
 ### Problem solving score & Fine motor skills score 
 

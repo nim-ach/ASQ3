@@ -28,13 +28,23 @@ descriptives <- skim(dataset)
 print(descriptives)
 ```
 
-Despite the above results, we cannot ignore that there is more than one observation per subject, so it is necessary to consider each subject as the minimum unit of analysis. For this we will use the last observation for each subject.
+Despite the above results, we cannot ignore that there is more than one observation per subject, so it is necessary to consider each subject as the minimum unit of analysis. For this we will use the first observation for each subject.
 
 ```{r}
 descriptives_by_patient <- skim(
-  data = dataset[, .SD[which.max(fecha_evaluacion)], keyby = paciente_id]
+  data = dataset[n_evaluacion == 1]
 )
 
 print(descriptives_by_patient)
+```
+
+Let's try the same but only with the patients with congenital hypotonia (ch).
+
+```{r}
+ch_patients <- skim(
+  data = dataset[n_evaluacion == 1 & diagnostico %like% "hipotonia"]
+)
+
+print(ch_patients)
 ```
 
