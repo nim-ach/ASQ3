@@ -289,7 +289,7 @@ observation for each subject.</p>
 hypotonia (ch).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ch_patients</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/skimr/reference/skim.html" class="external-link">skim</a></span><span class="op">(</span>
-  data <span class="op">=</span> <span class="va">dataset</span><span class="op">[</span><span class="va">n_evaluacion</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">diagnostico</span> <span class="op"><a href="https://rdrr.io/pkg/data.table/man/like.html" class="external-link">%like%</a></span> <span class="st">"hipotonia"</span><span class="op">]</span>
+  data <span class="op">=</span> <span class="va">dataset</span><span class="op">[</span><span class="va">n_evaluacion</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">&amp;</span> <span class="va">diagnostico</span> <span class="op"><a href="https://Rdatatable.gitlab.io/data.table/reference/like.html" class="external-link">%like%</a></span> <span class="st">"hipotonia"</span><span class="op">]</span>
 <span class="op">)</span>
 
 <span class="fu"><a href="https://docs.ropensci.org/skimr/reference/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ch_patients</span><span class="op">)</span>
