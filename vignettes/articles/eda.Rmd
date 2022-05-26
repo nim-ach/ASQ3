@@ -432,8 +432,10 @@ summary(adjusted)
 par(mfrow = c(1,2))
 plot(unadjusted, shade = TRUE, xlab = "Edad cronológica", ylab = "Efecto en Habilidades comunicativas", seWithMean = TRUE,
      main = "Sin ajuste", ylim = c(-25, 15))
+abline(h = c(0,-15))
 plot(adjusted, shade = TRUE, xlab = "Edad cronológica", ylab = "Efecto en Habilidades comunicativas", seWithMean = TRUE,
      main = "Ajustando por el evaluador", ylim = c(-25, 15))
+abline(h = c(0,-15))
 ```
 
 ### Communication score & corrected age (in months)
@@ -453,7 +455,9 @@ summary(adjusted)
 par(mfrow = c(1,2))
 plot(unadjusted, shade = TRUE, xlab = "Edad corregida", ylab = "Efecto en Habilidades comunicativas", seWithMean = TRUE,
      main = "Sin ajuste", ylim = c(-25, 15))
+abline(h = c(0,-15))
 plot(adjusted, shade = TRUE, xlab = "Edad corregida", ylab = "Efecto en Habilidades comunicativas", seWithMean = TRUE,
      main = "Ajustando por el evaluador", ylim = c(-25, 15))
+abline(h = c(0,-15))
 ```
 
