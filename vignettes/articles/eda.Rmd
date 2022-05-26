@@ -411,3 +411,49 @@ mgcv::gam(formula = resolucion_problemas_total ~ s(socio_individual_total),
           method = "REML") |> 
   summary()
 ```
+
+
+## Adjusting for evaluation
+
+### Communication score & chronological age (in months)
+
+```{r}
+unadjusted <- mgcv::gam(formula = comunicacion_total ~ s(edad_cronologica_meses),
+          data = dataset[n_evaluacion == 1],
+          method = "REML")
+adjusted <- mgcv::gam(formula = comunicacion_total ~ profesional_id + s(edad_cronologica_meses),
+          data = dataset[n_evaluacion == 1],
+          method = "REML")
+ 
+summary(unadjusted)
+
+summary(adjusted)
+
+par(mfrow = c(1,2))
+plot(unadjusted, shade = TRUE, xlab = "Edad cronológica", ylab = "Efecto en Habilidades comunicativas", seWithMean = TRUE,
+     main = "Sin ajuste", ylim = c(-25, 15))
+plot(adjusted, shade = TRUE, xlab = "Edad cronológica", ylab = "Efecto en Habilidades comunicativas", seWithMean = TRUE,
+     main = "Ajustando por el evaluador", ylim = c(-25, 15))
+```
+
+### Communication score & corrected age (in months)
+
+```{r}
+unadjusted <- mgcv::gam(formula = comunicacion_total ~ s(edad_corregida_meses),
+          data = dataset[n_evaluacion == 1],
+          method = "REML")
+adjusted <- mgcv::gam(formula = comunicacion_total ~ profesional_id + s(edad_corregida_meses),
+          data = dataset[n_evaluacion == 1],
+          method = "REML")
+ 
+summary(unadjusted)
+
+summary(adjusted)
+
+par(mfrow = c(1,2))
+plot(unadjusted, shade = TRUE, xlab = "Edad corregida", ylab = "Efecto en Habilidades comunicativas", seWithMean = TRUE,
+     main = "Sin ajuste", ylim = c(-25, 15))
+plot(adjusted, shade = TRUE, xlab = "Edad corregida", ylab = "Efecto en Habilidades comunicativas", seWithMean = TRUE,
+     main = "Ajustando por el evaluador", ylim = c(-25, 15))
+```
+
