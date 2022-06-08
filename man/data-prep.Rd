@@ -17,16 +17,22 @@ of the information, so any requests for it will be evaluated.
 
 
 Once the data entry using Excel was complete, it was imported into R using the
-\code{read_excel} function of the \href{https://readxl.tidyverse.org/}{readxl} package.\if{html}{\out{<div class="sourceCode r">}}\preformatted{dataset <- readxl::read_excel("data-raw/raw-data.xlsx")
+\code{read_excel} function of the \href{https://readxl.tidyverse.org/}{readxl} package.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{dataset <- readxl::read_excel("data-raw/raw-data.xlsx")
 }\if{html}{\out{</div>}}
 
 Subsequently, the column names were changed to syntactically valid versions, in
-this case in camel case (e.g. "Column A" to "column_a").\if{html}{\out{<div class="sourceCode r">}}\preformatted{names(dataset) <- readLines("data-raw/helpers/colnames")
+this case in camel case (e.g. "Column A" to "column_a").
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{names(dataset) <- readLines("data-raw/helpers/colnames")
 }\if{html}{\out{</div>}}
 
 Once completed, the data was transformed into a `data.table' format, which allows
 for the efficient implementation of a function (or functions) across multiple columns
-(using selection criteria for greater precision).\if{html}{\out{<div class="sourceCode r">}}\preformatted{dataset <- data.table::setDT(dataset)
+(using selection criteria for greater precision).
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{dataset <- data.table::setDT(dataset)
 }\if{html}{\out{</div>}}
 }
 
@@ -49,7 +55,9 @@ And with this structure, the data entry errors were handled as follow:
 For every row in the csv file with the corrections, we filter on \code{param_in} using
 \code{search_for} to select the case(s) where the error occur; then, we replace de value
 of \code{param_out} using \code{replace}. The code with the aforementioned details can be seen
-below:\if{html}{\out{<div class="sourceCode r">}}\preformatted{corrections <- read.csv("data-raw/helpers/corrections.csv")
+below:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{corrections <- read.csv("data-raw/helpers/corrections.csv")
 n <- nrow(corrections)
 
 # `fecha_evaluacion` as character (latter on will be transformed to date format)
@@ -79,7 +87,9 @@ for (i in seq_len(n)) \{
 
 Once the import was complete, we proceeded to standardise the formatting of the
 columns by using regular expressions (RegEx) to select the columns, starting with
-the modification of the text variables.\if{html}{\out{<div class="sourceCode r">}}\preformatted{col_names <- names(dataset) # getting the column names
+the modification of the text variables.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{col_names <- names(dataset) # getting the column names
 
 # Processing date variables
 ind <- grep("fecha", col_names, value = TRUE)
@@ -117,7 +127,9 @@ In order to treat and maintain the confidentiality of the identity of the
 patients, as well as that of the evaluating professionals, an identifying
 number was assigned to each individual, excluding from this process those
 who had their \href{https://www.sii.cl/contribuyentes/contribuyentes_individuales/chilenos_extranjero/rol_unico_tributario.htm}{RUT}
-or name missing (i.e. missing data).\if{html}{\out{<div class="sourceCode r">}}\preformatted{# ID for each professional
+or name missing (i.e. missing data).
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# ID for each professional
 dataset[, profesional_id := as.numeric(x = factor(profesional_nombre))]
 
 # and then we eliminate the column with their name
@@ -143,7 +155,9 @@ dataset[, nombre_respondedor := NULL]
 In the raw data, we have the age of the patients in months and the
 weeks of prematurity, which allows us to calculate the corrected age
 of the patients in months, the latter being calculated using an auxiliary
-function.\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Custom function
+function.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{# Custom function
 edad_corregida <- function(x, y) \{
   # standardize number of weeks in a month
   weeks_in_a_month <- 4.34524
