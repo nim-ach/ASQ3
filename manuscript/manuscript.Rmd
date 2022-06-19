@@ -1,17 +1,22 @@
 ---
 title: ""
 bibliography: "misc/ref.bib"
-csl: "misc/vancouver.csl"
+#csl: "misc/vancouver.csl"
 output: 
   word_document:
-    reference_docx: "ref.docx"
+    reference_docx: "misc/ref.docx"
 ---
 
-**Título**: [título]
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  include = FALSE
+)
+```
 
 **Title**: [title]
 
-**Autores**: Primer autor,^1^ Segundo autor,^2^ Tercer autor,^3^ Cuarto autor,^4^ Quinto autor,^5^ Sexto autor.^6^ \*
+**Authors**: Primer autor,^1^ Segundo autor,^2^ Tercer autor,^3^ Cuarto autor,^4^ Quinto autor,^5^ Sexto autor.^6^ \*
 
 ::: {custom-style="Afiliation"}
 ^1^ Afiliación, lugar.
@@ -34,14 +39,6 @@ Dirección: XXXX. Teléfono: XXXX.
 
 \newpage
 
-## Resumen  
-
-**Objetivo**: [...]. **Material y métodos**: [...]. **Resultados**: [...]. **Conclusión**: [...].
-
-**Palabras clave**: [...].
-
-\newpage
-
 ## Abstract 
 
 **Objective**: [...]. **Material and methods**: [...]. **Results**: [...]. **Conclusion**: [...].
@@ -50,7 +47,7 @@ Dirección: XXXX. Teléfono: XXXX.
 
 \newpage
 
-# Introducción
+# Introduction
 
 <!---- Antecedentes históricos ---->
 [...].
@@ -61,54 +58,102 @@ Dirección: XXXX. Teléfono: XXXX.
 <!---- Hipótesis y objetivos ---->
 [...].
 
-# Material y métodos
+# Material y methods
 
-## Participantes
+## Participants
 
 [...]. 
 
-## Instrumentos
+## Instruments
 
-### Instrumento 1 
-
-[...].
-
-### Instrumento 2
+### Instrument 1 
 
 [...].
 
+### Instrument 2
 
-## Procedimiento 
+[...].
+
+
+## Procedures 
 
 [...].
 
 [...].  
 
-## Análisis estadístico
+## Statistical analysis
 
-[...].
+Data is presented as median (*Mdn*) and interquartile range (*IQR*) for continuous variables, and as absolute and relative sample size for categorical/discrete variables.
 
-[...], using the *R* programming language for statistical computing, [@rlanguage].
+A non-parametric approach was used since the underlying distribution of continuous outcomes, evaluated through analytical and graphical methods, did not follow a Gaussian distribution. 
+
+In order assess the differences in developmental scores between males and females, the *Wilcoxon* rank-sum test was used, meanwhile the chi-square test ($\chi^2$) was used to evaluate the goodness-of-fit ($\chi^2_{gof}$) and the independence of factors ($\chi^2_{Pearson}$). 
+
+Generalized additive models (GAM) were used to describe linear and non-linear relationships between developmental characteristics through smooth terms that are represented using penalized regression splines [@wood2011fast]. The restricted maximum likelihood estimation method was used for the selection of the smoothing parameter, and the thin-plate regression spline as the smoothing basis method, as they are the optimal smoother of any given basis dimension/rank [@wood2003thin]. GAMs were fitted using the mcgv package [@wood2017generalized]. To describe the smooth term, we use approximative derivative to summarise de trend in terms of linear segments.
+
+[...], using the *R* programming language for statistical computing, [@rlanguage] and complementary R packages for model fitting, visualization and complementary computations [@wood2017generalized; @hadley2016ggplot2; @daniel2021see; @dominique2020estimation].
 
 # Resultados
 
+```{r load-packages}
+source(file = "manuscript/misc/setup.R")
+```
+
+```{r}
+# Sample
+n_sample <- dataset[, .N]
+#> 234
+
+# Sample by sex
+n_sex <- dataset[j = .(stat = paste0(.N, " (", round(.N*100/n_sample, 1), "%)")), 
+                 keyby = .(sex = sexo_paciente)]
+#>    sex        stat
+#> 1:   F  94 (40.2%)
+#> 2:   M 140 (59.8%)
+
+# Prop test on sex
+prop_sex <- dataset[, table(sexo_paciente)] |> 
+  chisq.test() |> 
+  report_chi(effsize = TRUE)
+#> [1] "$\\chi^2_{gof}$ (1) = 9.04, *p* = 0.003, $C_{Pearson}$ = 0.19, CI~0.95%~[0.09, 1]"
+
+```
+
+From a total of `r n_sample` subjects with congenital hypotonia, `r n_sex["F", stat]` were females and `r n_sex["M", stat]` males (`r prop_sex`). The developmental characteristics of the sample can be seen in [Table 1](#tab1).
+
+```{r}
+mod <- gam(comunicacion_total ~ s(edad_cronologica_meses), 
+    data = dataset,
+    method = "REML")
+
+# Overall slope
+gam_coef <- report_slope(mod, trend = c("edad_cronologica_meses"))
+
+# Linear segments
+modelbased::estimate_smooth(
+  data = modelbased::estimate_relation(mod, length = 100),
+  x = "edad_cronologica_meses"
+)
+
+plot_gam(dataset, edad_cronologica_meses, comunicacion_total, round_to = 5,
+         "Chronological age (months)", "Communication score", method = "REML")
+```
+
+When modelling the effect of chronological age on developmental skills, we found an averaged negative marginal effect on the communication score (`r gam_coef`), whereas from 1 to 5.7 moths old
+
+# Discusion
+
 [...].
+
+[...].
+
+[...].
+
+# Conclusion
 
 [...]. 
 
-# Discusión
-
-[...].
-
-[...].
-
-[...].
-
-# Conclusión
-
-[...]. 
-
-# Agradecimientos
+# Acknowledgment
 
 [...].
 
