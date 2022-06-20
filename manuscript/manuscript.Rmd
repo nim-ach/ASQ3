@@ -83,15 +83,15 @@ Dirección: XXXX. Teléfono: XXXX.
 
 ## Statistical analysis
 
-Data is presented as median (*Mdn*) and interquartile range (*IQR*) for continuous variables, and as absolute and relative sample size for categorical/discrete variables.
+Data is presented as median (*Mdn*) and interquartile range (*IQR*) for continuous variables; for categorical/discrete variables, the absolute and relative sample size was reported.
 
-A non-parametric approach was used since the underlying distribution of continuous outcomes, evaluated through analytical and graphical methods, did not follow a Gaussian distribution. 
+A non-parametric approach was used since the underlying distribution of continuous measured outcomes, assessed through analytical and graphical methods, did not follow a Gaussian distribution. 
 
 In order assess the differences in developmental scores between males and females, the *Wilcoxon* rank-sum test was used, meanwhile the chi-square test ($\chi^2$) was used to evaluate the goodness-of-fit ($\chi^2_{gof}$) and the independence of factors ($\chi^2_{Pearson}$). 
 
-Generalized additive models (GAM) were used to describe linear and non-linear relationships between developmental characteristics through smooth terms that are represented using penalized regression splines [@wood2011fast]. The restricted maximum likelihood estimation method was used for the selection of the smoothing parameter, and the thin-plate regression spline as the smoothing basis method, as they are the optimal smoother of any given basis dimension/rank [@wood2003thin]. GAMs were fitted using the mcgv package [@wood2017generalized]. To describe the smooth term, we use approximative derivative to summarise de trend in terms of linear segments.
+Generalized additive models (GAM) were used to describe linear and non-linear relationships in the form of smooth terms between developmental characteristics, represented through penalized regression splines [@wood2011fast]. Restricted maximum likelihood (i.e., REML) method was used for the estimation of the smoothing parameters, and thin-plate regression splines for smoothing basis, as they are the optimal smoother of any given basis dimension/rank [@wood2003thin]. To describe the smooth terms by means of quasi-linear segments, we used approximative effect derivatives to summarise the trend with 95% confidence intervals.
 
-[...], using the *R* programming language for statistical computing, [@rlanguage] and complementary R packages for model fitting, visualization and complementary computations [@wood2017generalized; @hadley2016ggplot2; @daniel2021see; @dominique2020estimation].
+A probability of committing a type I ($\alpha$) error of less than 5% (*p* < 0.05), was considered sufficient evidence for statistical significance in hypothesis testing. The *R* programming language was used for statistical computing [@rlanguage]. GAMs and the corresponding model estimates were computed using the *R* packages *mcgv* and *modelbased* [@wood2017generalized; @dominique2020estimation]. Complementary R packages were used for visualization purposes [@hadley2016ggplot2; @daniel2021see].
 
 # Resultados
 
@@ -122,24 +122,30 @@ prop_sex <- dataset[, table(sexo_paciente)] |>
 From a total of `r n_sample` subjects with congenital hypotonia, `r n_sex["F", stat]` were females and `r n_sex["M", stat]` males (`r prop_sex`). The developmental characteristics of the sample can be seen in [Table 1](#tab1).
 
 ```{r}
-mod <- gam(comunicacion_total ~ s(edad_cronologica_meses), 
-    data = dataset,
-    method = "REML")
+mod <- gam(comunicacion_total ~ s(edad_cronologica_meses), data = dataset, method = "REML")
 
 # Overall slope
-gam_coef <- report_slope(mod, trend = c("edad_cronologica_meses"))
-
-# Linear segments
-modelbased::estimate_smooth(
-  data = modelbased::estimate_relation(mod, length = 100),
-  x = "edad_cronologica_meses"
-)
+(gam_coeffs <- report_overall(mod, "edad_cronologica_meses"))
+(gam_slopes <- report_slopes(mod, "edad_cronologica_meses"))
+(gam_smooth <- report_smooth(mod))
 
 plot_gam(dataset, edad_cronologica_meses, comunicacion_total, round_to = 5,
          "Chronological age (months)", "Communication score", method = "REML")
 ```
 
-When modelling the effect of chronological age on developmental skills, we found an averaged negative marginal effect on the communication score (`r gam_coef`), whereas from 1 to 5.7 moths old
+When modelling the effect of chronological age on developmental skills, we found a significant non-linear effect (`r gam_smooth`), that reflect an averaged negative marginal effect on communication skills (`r gam_coeffs`), however, this wasn't true when assessing the direction of the effect in the age range between 1 to 7.6 (`r gam_slopes[1, expr]`), and neither in the 18 to 48 months old group (`r gam_slopes[3, expr]`), whereas the effect tend to be positive but non-significant.
+
+```{r eval=FALSE}
+mod <- gam(comunicacion_total ~ s(edad_corregida_meses), data = dataset, method = "REML")
+
+# Overall slope
+(gam_coeffs <- report_overall(mod, "edad_corregida_meses"))
+(gam_slopes <- report_slopes(mod, "edad_corregida_meses"))
+(gam_smooth <- report_smooth(mod))
+
+plot_gam(dataset, edad_corregida_meses, comunicacion_total, round_to = 5,
+         "Corrected age (months)", "Communication score", method = "REML")
+```
 
 # Discusion
 
