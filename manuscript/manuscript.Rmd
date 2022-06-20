@@ -102,7 +102,7 @@ A probability of committing a type I ($\alpha$) error of less than 5% (*p* < 0.0
 source(file = "manuscript/misc/setup.R")
 ```
 
-```{r}
+```{r eval=FALSE}
 # Sample
 n_sample <- dataset[, .N]
 #> 234
@@ -122,49 +122,64 @@ prop_sex <- dataset[, table(sexo_paciente)] |>
 
 ```
 
-From a total of `r n_sample` subjects with congenital hypotonia, `r n_sex["F", stat]` were females and `r n_sex["M", stat]` males (`r prop_sex`). The developmental characteristics of the sample can be seen in Table 1.
-
-```{r}
-mod <- gam(
-  comunicacion_total ~ 
-    s(profesional_id, sexo_paciente, respondedor_vinculo, bs = "re") + 
-    s(edad_cronologica_meses), 
-  data = dataset, 
-  method = "REML"
-)
-
-gam.check(mod)
-
-# Overall slope
-(gam_coeffs <- report_overall(mod, "edad_cronologica_meses"))
-(gam_slopes <- report_slopes(mod, "edad_cronologica_meses"))
-(gam_smooth <- report_smooth(mod))
-
-plot_gam(dataset, edad_cronologica_meses, comunicacion_total, round_to = 5,
-         "Chronological age (months)", "Communication score", method = "REML")
-```
-
-When modelling the effect of chronological age on developmental skills, we observed a significant non-linear relationship on communication scores (`r gam_smooth[1, expr]`), that reflect an overall negative marginal effect (`r gam_coeffs`), however, this was not true when assessing the direction of the effect in the age range between 1 to 7 (`r gam_slopes[1, expr]`), and neither in the 18 to 48 months old group (`r gam_slopes[3, expr]`), whereas the effect tend to be positive but non-significant. The relationship between developmental skills and corrected age can be seen in Figure 1.
+From a total of 234 subjects with congenital hypotonia, 94 (40.2%) were females and 140 (59.8%) males ($\chi^2_{gof}$ (1) = 9.04, *p* = 0.003, $C_{Pearson}$ = 0.19, CI~0.95%~[0.09, 1]). The developmental characteristics of the sample can be seen in [Table 1](#tab1).
 
 ```{r eval=FALSE}
 mod <- gam(
   comunicacion_total ~ 
-    s(profesional_id, respondedor_vinculo, sexo_paciente, bs = "re") + 
+    s(profesional_id, sexo_paciente, respondedor_vinculo, bs = "re") + 
     s(edad_corregida_meses), 
   data = dataset, 
   method = "REML"
 )
 
-gam.check(mod)
+report_overall(mod, "edad_corregida_meses")
+#> [1] "$\\beta$ = -2.36, CI~95%~[-3.47, -1.25], $t_{student}$ (224.04) = -4.2, *p* < 0.001"
 
-# Overall slope
-(gam_coeffs <- report_overall(mod, "edad_corregida_meses"))
-(gam_slopes <- report_slopes(mod, "edad_corregida_meses"))
-(gam_smooth <- report_smooth(mod))
+report_slopes(mod, "edad_corregida_meses")
+#>    Start  End edad_corregida_meses                                                                                 expr
+#> 1:   0.0  6.8                  3.4    $\\beta$ = 0.49, CI~95%~[-0.89, 1.86], $t_{student}$ (224.04) = 0.45, *p* = 0.319
+#> 2:   7.3 17.9                 12.6 $\\beta$ = -2.08, CI~95%~[-3.17, -0.99], $t_{student}$ (224.04) = -3.79, *p* = 0.004
+#> 3:  18.4 48.0                 33.2    $\\beta$ = 0.45, CI~95%~[-1.32, 2.23], $t_{student}$ (224.04) = 0.42, *p* = 0.593
 
-plot_gam(dataset, edad_corregida_meses, comunicacion_total, round_to = 5,
-         "Corrected age (months)", "Communication score", method = "REML")
+report_smooth(mod)
+#>                                                   term                                            expr
+#> 1:                             s(edad_corregida_meses) $F_{smooth}$ (5.2, 224.04) = 13.43, *p* < 0.001
+#> 2: s(profesional_id,sexo_paciente,respondedor_vinculo)  $F_{smooth}$ (3.76, 224.04) = 0.72, *p* = 0.02
 ```
+
+When modelling the effect of chronological age corrected for prematurity on developmental domains, we observed a significant non-linear relationship on communication scores ($F_{smooth}$ (5.2, 224.04) = 13.43, *p* < 0.001), that reflect an overall negative marginal effect ($\beta$ = -2.36, CI~95%~[-3.47, -1.25], $t_{student}$ (224.04) = -4.2, *p* < 0.001), however, this was not true when assessing the direction of the effect in the age range between 1 to 7 ($\beta$ = 0.49, CI~95%~[-0.89, 1.86], $t_{student}$ (224.04) = 0.45, *p* = 0.319), and neither in the 18 to 48 months old group ($\beta$ = 0.45, CI~95%~[-1.32, 2.23], $t_{student}$ (224.04) = 0.42, *p* = 0.593), whereas the effect tend to be positive but non-significant. 
+
+```{r eval=FALSE}
+mod <- gam(
+  motora_gruesa_total ~ 
+    s(profesional_id, sexo_paciente, respondedor_vinculo, bs = "re") + 
+    s(edad_corregida_meses), 
+  data = dataset, 
+  method = "REML"
+)
+
+report_overall(mod, "edad_corregida_meses")
+#> [1] "$\\beta$ = 1.95, CI~95%~[0.66, 3.25], $t_{student}$ (226.75) = 2.97, *p* = 0.003"
+
+report_slopes(mod, "edad_corregida_meses")
+#>    Start  End edad_corregida_meses                                                                                expr
+#> 1:   0.0  6.8                  3.4 $\\beta$ = -2.94, CI~95%~[-4.55, -1.34], $t_{student}$ (226.75) = -3.7, *p* = 0.004
+#> 2:   7.3  9.2                  8.2    $\\beta$ = 0.02, CI~95%~[-1.12, 1.17], $t_{student}$ (226.75) = 0.06, *p* = 0.45
+#> 3:   9.7 15.5                 12.6    $\\beta$ = 1.86, CI~95%~[0.61, 3.11], $t_{student}$ (226.75) = 2.93, *p* = 0.009
+#> 4:  16.0 48.0                 32.0  $\\beta$ = -0.02, CI~95%~[-2.05, 2.01], $t_{student}$ (226.75) = 0.07, *p* = 0.646
+
+report_smooth(mod)
+#>                                                   term                                            expr
+#> 1:                             s(edad_corregida_meses) $F_{smooth}$ (5.24, 226.75) = 6.19, *p* < 0.001
+#> 2: s(profesional_id,sexo_paciente,respondedor_vinculo)  $F_{smooth}$ (1.01, 226.75) = 0.1, *p* = 0.244
+```
+
+When analyzing the motor skills domain we found a significant non-linear effect of corrected age on gross motor scores ($F_{smooth}$ (5.24, 226.75) = 6.19, *p* < 0.001), which had an overall positive effect ($\beta$ = 1.95, CI~95%~[0.66, 3.25], $t_{student}$ (226.75) = 2.97, *p* = 0.003), nevertheless, the slope varied across age, whereas between the 0 to 7 age range this has a negative effect on gross motor score $\beta$ = -2.94, CI~95%~[-4.55, -1.34], $t_{student}$ (226.75) = -3.7, *p* = 0.004, but in the 9.7 to 15.5 a positive effect was observed ($\beta$ = 1.86, CI~95%~[0.61, 3.11], $t_{student}$ (226.75) = 2.93, *p* = 0.009), meanwhile in the 7.3 to 9.2 ($\beta$ = 0.02, CI~95%~[-1.12, 1.17]) and 16 to 48 months old ($\beta$ = -0.02, CI~95%~[-2.05, 2.01]) the slope was non significant and practically cero ($t_{student}$ (226.75) = 0.06, *p* = 0.45, and $t_{student}$ (226.75) = 0.07, *p* = 0.646 respectively).
+
+The relationship between developmental domains and corrected age can be seen in [Figure 1](#fig1).
+
+
 
 # Discussion
 
@@ -177,10 +192,6 @@ plot_gam(dataset, edad_corregida_meses, comunicacion_total, round_to = 5,
 # Conclusion
 
 [...]. 
-
-# Data Availability Statement
-
-[...].
 
 # Acknowledgment
 
@@ -196,4 +207,6 @@ plot_gam(dataset, edad_corregida_meses, comunicacion_total, round_to = 5,
 
 \newpage
 
-**Figure 1**. Relationship between corrected age (in months) and developmental domains. Regression lines represent fitted values estimated from GAM models. Points and error bars represent the mean and standard error at 5-month age intervals.
+[**Table 1**]{#tab1}. Overall baseline and developmental characteristics of the sample and grouped by sex. ^1^ Data is presented as sample size, and *Mdn* (*IQR*); ^2^ P-values derived from the *Wilcoxon* rank-sum test.
+
+[**Figure 1**]{#fig1}. Relationship between corrected age (in months) and developmental domains. Regression lines and shaded area represent predicted values estimated from GAM models and their 95% confidence interval. Points and error bars represent the mean and standard error at 5-month age intervals.
