@@ -7,7 +7,7 @@
 format_p(x)
 }
 \arguments{
-\item{x}{Numeric. P-value to be formated.}
+\item{x}{Numeric. p-value to be formatted.}
 }
 \description{
 Internal function to round p-values

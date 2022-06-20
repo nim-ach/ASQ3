@@ -30,7 +30,8 @@ Imports:
     ggplot2 (>= 3.3.6),
     lifecycle,
     modelbased (>= 0.8.1),
-    see (>= 0.7.0)
+    see (>= 0.7.0),
+    stats
 Suggests: 
     skimr (>= 2.1.3),
     rmarkdown
