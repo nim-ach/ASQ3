@@ -2,10 +2,6 @@
 library(ASQ3)
 library(data.table)
 
-# For tables
-library(gtsummary)
-library(gt)
-
 # For GAMS
 library(mgcv)
 

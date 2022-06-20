@@ -1,4 +1,12 @@
 
+# Load packages and scripts -------------------------------------------------------------------
+
+# Setup script
+source("manuscript/misc/setup.R")
+
+# R Packages
+library(gtsummary)
+
 # Table 1 -------------------------------------------------------------------------------------
 
 tbl_data <- copy(dataset)[, sexo_paciente := `levels<-`(sexo_paciente, c("Female", "Male"))]

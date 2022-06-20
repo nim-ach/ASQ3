@@ -1,7 +1,8 @@
 ---
 title: ""
 bibliography: "misc/ref.bib"
-#csl: "misc/vancouver.csl"
+csl: "misc/vancouver.csl"
+link-citations: true
 output: 
   word_document:
     reference_docx: "misc/ref.docx"
@@ -91,9 +92,11 @@ In order assess the differences in developmental scores between males and female
 
 Generalized additive models (GAM) were used to describe linear and non-linear relationships in the form of smooth terms between developmental characteristics, represented through penalized regression splines [@wood2011fast]. Restricted maximum likelihood (i.e., REML) method was used for the estimation of the smoothing parameters, and thin-plate regression splines for smoothing basis, as they are the optimal smoother of any given basis dimension/rank [@wood2003thin]. To describe the smooth terms by means of quasi-linear segments, we used approximative effect derivatives to summarise the trend with 95% confidence intervals.
 
-A probability of committing a type I ($\alpha$) error of less than 5% (*p* < 0.05), was considered sufficient evidence for statistical significance in hypothesis testing. The *R* programming language was used for statistical computing [@rlanguage]. GAMs and the corresponding model estimates were computed using the *R* packages *mcgv* and *modelbased* [@wood2017generalized; @dominique2020estimation]. Complementary R packages were used for visualization purposes [@hadley2016ggplot2; @daniel2021see].
+To account for any source of variability coming from subject's sex, evaluators and the type of relationship between the infants with the respondents, we incorporate them as random effects in the fitted models in the form of penalized parametric terms [@wood2016smoothing].
 
-# Resultados
+A probability of committing a type I ($\alpha$) error of less than 5% (*p* < 0.05), was considered sufficient evidence for statistical significance in hypothesis testing. All the statistical analyses were computed and implemented in the R programming language [@rlanguage]. GAMs and the corresponding model estimates were computed using the *mgcv* and *modelbased* packages with their corresponding documentation [@wood2017generalized; @dominique2020estimation]. Complementary R packages were used for visualization purposes [@hadley2016ggplot2; @daniel2021see].
+
+# Results
 
 ```{r load-packages}
 source(file = "manuscript/misc/setup.R")
@@ -119,10 +122,18 @@ prop_sex <- dataset[, table(sexo_paciente)] |>
 
 ```
 
-From a total of `r n_sample` subjects with congenital hypotonia, `r n_sex["F", stat]` were females and `r n_sex["M", stat]` males (`r prop_sex`). The developmental characteristics of the sample can be seen in [Table 1](#tab1).
+From a total of `r n_sample` subjects with congenital hypotonia, `r n_sex["F", stat]` were females and `r n_sex["M", stat]` males (`r prop_sex`). The developmental characteristics of the sample can be seen in Table 1.
 
 ```{r}
-mod <- gam(comunicacion_total ~ s(edad_cronologica_meses), data = dataset, method = "REML")
+mod <- gam(
+  comunicacion_total ~ 
+    s(profesional_id, sexo_paciente, respondedor_vinculo, bs = "re") + 
+    s(edad_cronologica_meses), 
+  data = dataset, 
+  method = "REML"
+)
+
+gam.check(mod)
 
 # Overall slope
 (gam_coeffs <- report_overall(mod, "edad_cronologica_meses"))
@@ -133,10 +144,18 @@ plot_gam(dataset, edad_cronologica_meses, comunicacion_total, round_to = 5,
          "Chronological age (months)", "Communication score", method = "REML")
 ```
 
-When modelling the effect of chronological age on developmental skills, we found a significant non-linear effect (`r gam_smooth`), that reflect an averaged negative marginal effect on communication skills (`r gam_coeffs`), however, this wasn't true when assessing the direction of the effect in the age range between 1 to 7.6 (`r gam_slopes[1, expr]`), and neither in the 18 to 48 months old group (`r gam_slopes[3, expr]`), whereas the effect tend to be positive but non-significant.
+When modelling the effect of chronological age on developmental skills, we observed a significant non-linear relationship on communication scores (`r gam_smooth[1, expr]`), that reflect an overall negative marginal effect (`r gam_coeffs`), however, this was not true when assessing the direction of the effect in the age range between 1 to 7 (`r gam_slopes[1, expr]`), and neither in the 18 to 48 months old group (`r gam_slopes[3, expr]`), whereas the effect tend to be positive but non-significant. The relationship between developmental skills and corrected age can be seen in Figure 1.
 
 ```{r eval=FALSE}
-mod <- gam(comunicacion_total ~ s(edad_corregida_meses), data = dataset, method = "REML")
+mod <- gam(
+  comunicacion_total ~ 
+    s(profesional_id, respondedor_vinculo, sexo_paciente, bs = "re") + 
+    s(edad_corregida_meses), 
+  data = dataset, 
+  method = "REML"
+)
+
+gam.check(mod)
 
 # Overall slope
 (gam_coeffs <- report_overall(mod, "edad_corregida_meses"))
@@ -147,7 +166,7 @@ plot_gam(dataset, edad_corregida_meses, comunicacion_total, round_to = 5,
          "Corrected age (months)", "Communication score", method = "REML")
 ```
 
-# Discusion
+# Discussion
 
 [...].
 
@@ -159,14 +178,22 @@ plot_gam(dataset, edad_corregida_meses, comunicacion_total, round_to = 5,
 
 [...]. 
 
+# Data Availability Statement
+
+[...].
+
 # Acknowledgment
 
 [...].
 
-# Conflictos de interés
+# Conflicts of interest
 
 [...].
 
-# Referencias
+# References
 
 <div id="refs"></div>
+
+\newpage
+
+**Figure 1**. Relationship between corrected age (in months) and developmental domains. Regression lines represent fitted values estimated from GAM models. Points and error bars represent the mean and standard error at 5-month age intervals.
