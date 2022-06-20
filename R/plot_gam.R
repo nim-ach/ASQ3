@@ -35,6 +35,8 @@ near <- function(i, j) {
 
 plot_gam <- function(data, x, y, xlab, ylab, round_to = 1, ...) {
 
+  if (is.character(substitute(x))) x <- as.name(x)
+  if (is.character(substitute(y))) y <- as.name(y)
   if (missing(xlab)) xlab <- deparse(substitute(x))
   if (missing(ylab)) ylab <- deparse(substitute(y))
 
