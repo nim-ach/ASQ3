@@ -157,6 +157,14 @@ library(data.table)
 
   dataset[, (ind) := lapply(.SD, factor), .SDcols = ind]
 
+  # Reorder interpretation variables
+  ind <- grep(
+    pattern = "interpretacion",
+    names(dataset)
+  )
+
+  dataset[, (ind) := lapply(.SD, factor, levels = c("Debajo De Las Expectativas", "Apenas Sobre Las Expectativas", "Sobre Las Expectativas"), ordered = TRUE), .SDcols = ind]
+
   rm(ind)
 
 # Reorder columns -----------------------------------------------------------------------------
