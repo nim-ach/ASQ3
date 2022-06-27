@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-**Title**: Neurodevelopmental features among infants with congenital hypotonia: An observational cross-sectional trial.
+**Title**: Neurodevelopmental features among infants with benign congenital hypotonia in high southern latitude: An observational cross-sectional trial.
 
 **Authors**: Primer autor,^1^ Segundo autor,^2^ Tercer autor,^3^ Cuarto autor,^4^ Quinto autor,^5^ Sexto autor.^6^ \*
 
@@ -53,11 +53,13 @@ Dirección: XXXX. Teléfono: XXXX.
 <!---- Antecedentes históricos ---->
 Both physical and psychological signs of early childhood development have been shown to be representative and relevant markers for the identification and monitoring of overall growth in early life [@di2016predictive] and can, therefore, be used in the screening of children at risk of developmental delay to support early referral and need further assessment to determine if they are eligible for early intervention services [@guralnick2017early; @bruder2010early].
 
-Currently, a plethora of tools have been proposed to assess the developmental continuum of infants. In this sense, the Ages and Stages Questionnaire, Third Edition (ASQ-3) has been proposed as a global screening tool, parent/caregivers-oriented, that assesses five domains of development in children aged 0 to 5.5 years [@singh2017ages]. Current evidence suggests that the ASQ-3 is an accurate, cost-effective yet parent-friendly instrument for screening, monitoring children up to pre-school age, and can help identify and exclude neurodevelopmental impairments in very preterm-born children [@kerstjens2015ages; @ballantyne2016risk; @singh2017ages].
+Currently, a plethora of tools have been proposed to assess the developmental continuum of infants. In this sense, the Ages and Stages Questionnaire, Third Edition (ASQ-3) has been proposed as a global screening tool, parent/caregivers-oriented, that assesses five domains of development in children aged from 0 to 5.5 years old [@singh2017ages]. Current evidence suggests that the ASQ-3 is an accurate, cost-effective yet parent-friendly instrument for screening, monitoring children up to pre-school age, and can help identify and exclude neurodevelopmental impairments in very preterm-born children [@kerstjens2015ages; @ballantyne2016risk; @singh2017ages].
 
-Hypotonia has been defined both as decreased muscle tone or floppiness, involving a wide range and levels of progression [@harris2008congenital; @gabis2021weak]. There are multiple forms of neuromuscular, metabolic and genetic conditions associated with hypotonia and it may be a sign of neurodevelopmental delay, that may predispose to cognitive impairment [@riou2009global]. Given that hypotonia, and the hyperlaxity and motor delay associated with it, may impair the infant's capacity to engage with its surroundings, critical visual cues may be ignored, potentially leading both to an impairment of learning and cognitive development [@harris2008congenital], hence the need to explore the neurodevelopmental attributes of infants with hypotonia.
+Hypotonia has been defined both as decreased muscle tone or floppiness, involving a wide range and levels of progression [@harris2008congenital; @gabis2021weak]. There are multiple forms of neuromuscular, metabolic and genetic conditions associated with hypotonia and it may be a sign of neurodevelopmental delay, that may predispose to cognitive impairment [@riou2009global]. Given that hypotonia, and the hyperlaxity and motor delay associated with it, may impair the infant's capacity to engage with its surroundings, critical visual cues may be ignored, potentially leading both to an impairment of learning and cognitive development [@harris2008congenital], hence the need to explore the neurodevelopmental attributes of infants with hypotonia. 
 
-However, and to the best of our knowledge, there is no robust evidence characterising the observed variation in developmental traits in infants with known hypotonia across age. Therefore, our main objective in this study was to describe and model the relationship between sociodemographics, prematurity and neurodevelopmental levels based on ASQ-3 scores in infants with diagnosed hypotonia.
+Accordingly, benign congenital hypotonia (BCH) is usually considered an exclusion diagnosis, and is usually made in the absence of other signs and symptoms, after every other evaluative resources have been exhausted [@leyenaar2005schematic; @gabis2021weak], however this is not true for at least one author that suggest that BCH can not be considered a diagnosis as such [@thompson2002benign]. BCH is considered a non-progressive neuromuscular disorder that does not progress but tends to improve with time and early intervention. 
+
+Nevertheless, and to the best of our knowledge, there is no robust evidence characterising the observed variation in developmental traits in infants with known BCH across age. Therefore, our main objective in this study was to describe and model the relationship between sociodemographics, prematurity and neurodevelopmental levels based on ASQ-3 scores in infants with diagnosed BCH.
 
 # Material y methods
 
@@ -67,7 +69,7 @@ However, and to the best of our knowledge, there is no robust evidence character
 
 ## Instruments
 
-### Instrument 1 
+### Ages and Stages Questionnaire
 
 [...].
 
@@ -119,7 +121,6 @@ prop_sex <- dataset[, table(sexo_paciente)] |>
   chisq.test() |> 
   report_chi(effsize = TRUE)
 #> [1] "$\\chi^2_{gof}$ (1) = 9.04, *p* = 0.003, $C_{Pearson}$ = 0.19, CI~0.95%~[0.09, 1]"
-
 ```
 
 From a total of 234 subjects with congenital hypotonia, 94 (40.2%) were females and 140 (59.8%) males ($\chi^2_{gof}$ (1) = 9.04, *p* = 0.003, $C_{Pearson}$ = 0.19, CI~0.95%~[0.09, 1]). The developmental characteristics of the sample can be seen in [Table 1](#tab1).
