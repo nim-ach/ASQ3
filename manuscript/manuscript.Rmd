@@ -1,7 +1,7 @@
 ---
 title: ""
 bibliography: "misc/ref.bib"
-csl: "misc/vancouver.csl"
+csl: "misc/apa.csl"
 link-citations: true
 output: 
   word_document:
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-**Title**: [title]
+**Title**: Neurodevelopmental features among infants with congenital hypotonia: An observational cross-sectional trial.
 
 **Authors**: Primer autor,^1^ Segundo autor,^2^ Tercer autor,^3^ Cuarto autor,^4^ Quinto autor,^5^ Sexto autor.^6^ \*
 
@@ -51,13 +51,13 @@ Dirección: XXXX. Teléfono: XXXX.
 # Introduction
 
 <!---- Antecedentes históricos ---->
-[...].
+Both physical and psychological signs of early childhood development have been shown to be representative and relevant markers for the identification and monitoring of overall growth in early life [@di2016predictive] and can, therefore, be used in the screening of children at risk of developmental delay to support early referral and need further assessment to determine if they are eligible for early intervention services [@guralnick2017early; @bruder2010early].
 
-<!---- Conceptualización del problema ---->
-[...].
+Currently, a plethora of tools have been proposed to assess the developmental continuum of infants. In this sense, the Ages and Stages Questionnaire, Third Edition (ASQ-3) has been proposed as a global screening tool, parent/caregivers-oriented, that assesses five domains of development in children aged 0 to 5.5 years [@singh2017ages]. Current evidence suggests that the ASQ-3 is an accurate, cost-effective yet parent-friendly instrument for screening, monitoring children up to pre-school age, and can help identify and exclude neurodevelopmental impairments in very preterm-born children [@kerstjens2015ages; @ballantyne2016risk; @singh2017ages].
 
-<!---- Hipótesis y objetivos ---->
-[...].
+Hypotonia has been defined both as decreased muscle tone or floppiness, involving a wide range and levels of progression [@harris2008congenital; @gabis2021weak]. There are multiple forms of neuromuscular, metabolic and genetic conditions associated with hypotonia and it may be a sign of neurodevelopmental delay, that may predispose to cognitive impairment [@riou2009global]. Given that hypotonia, and the hyperlaxity and motor delay associated with it, may impair the infant's capacity to engage with its surroundings, critical visual cues may be ignored, potentially leading both to an impairment of learning and cognitive development [@harris2008congenital], hence the need to explore the neurodevelopmental attributes of infants with hypotonia.
+
+However, and to the best of our knowledge, there is no robust evidence characterising the observed variation in developmental traits in infants with known hypotonia across age. Therefore, our main objective in this study was to describe and model the relationship between sociodemographics, prematurity and neurodevelopmental levels based on ASQ-3 scores in infants with diagnosed hypotonia.
 
 # Material y methods
 
@@ -88,7 +88,7 @@ Data is presented as median (*Mdn*) and interquartile range (*IQR*) for continuo
 
 A non-parametric approach was used since the underlying distribution of continuous measured outcomes, assessed through analytical and graphical methods, did not follow a Gaussian distribution. 
 
-In order assess the differences in developmental scores between males and females, the *Wilcoxon* rank-sum test was used, meanwhile the chi-square test ($\chi^2$) was used to evaluate the goodness-of-fit ($\chi^2_{gof}$) and the independence of factors ($\chi^2_{Pearson}$). 
+In order assess the differences in developmental scores between males and females, the *Wilcoxon* rank-sum test was used, meanwhile the chi-square test ($\chi^2$) was used to evaluate goodness-of-fit ($\chi^2_{gof}$) and independence of factors ($\chi^2_{Pearson}$). 
 
 Generalized additive models (GAM) were used to describe linear and non-linear relationships in the form of smooth terms between developmental characteristics, represented through penalized regression splines [@wood2011fast]. Restricted maximum likelihood method was used for the estimation of the smoothing parameters, and thin-plate regression splines as the smoothing basis, as they are the optimal smoother of any given basis dimension/rank [@wood2003thin]. To describe the smooth terms by means of quasi-linear segments, we used approximative effect derivatives with 95% confidence intervals (CI~95%~).
 
@@ -148,7 +148,7 @@ report_smooth(mod)
 #> 2: s(profesional_id,sexo_paciente,respondedor_vinculo)  $F_{smooth}$ (3.76, 224.04) = 0.72, *p* = 0.02
 ```
 
-When modelling the effect of chronological age corrected for prematurity on developmental domains, we observed a significant non-linear relationship on communication scores ($F_{smooth}$ (5.2, 224.04) = 13.43, *p* < 0.001), that reflect an overall negative marginal effect ($\beta$ = -2.36, CI~95%~[-3.47, -1.25], $t_{student}$ (224.04) = -4.2, *p* < 0.001), however, this was not true when assessing the direction of the effect in the age range between 0 to 6.8 ($\beta$ = 0.49, CI~95%~[-0.89, 1.86], $t_{student}$ (224.04) = 0.45, *p* = 0.319), and neither in the 18.4 to 48 months old group ($\beta$ = 0.45, CI~95%~[-1.32, 2.23], $t_{student}$ (224.04) = 0.42, *p* = 0.593), whereas the effect tend to be positive but non-significant. The relationship between developmental domains, corrected age and their effect derivatives can be seen in [Figure 1](#fig1).
+When modelling the effect of chronological age on developmental domains, corrected for prematurity, we observed a significant non-linear relationship on communication scores ($F_{smooth}$ (5.2, 224.04) = 13.43, *p* < 0.001), that reflect an overall negative marginal effect ($\beta$ = -2.36, CI~95%~[-3.47, -1.25], $t_{student}$ (224.04) = -4.2, *p* < 0.001), however, this was not true when assessing the direction of the effect in the age range between 0 to 6.8 ($\beta$ = 0.49, CI~95%~[-0.89, 1.86], $t_{student}$ (224.04) = 0.45, *p* = 0.319), and neither in the 18.4 to 48 months old group ($\beta$ = 0.45, CI~95%~[-1.32, 2.23], $t_{student}$ (224.04) = 0.42, *p* = 0.593), whereas the effect tend to be positive but non-significant. The relationship between developmental domains, corrected age and their effect derivatives can be seen in [Figure 1](#fig1).
 
 ```{r eval=FALSE}
 mod <- gam(
