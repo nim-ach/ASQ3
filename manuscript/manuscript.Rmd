@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-**Title**: Neurodevelopmental features among infants with benign congenital hypotonia in high southern latitude: An observational cross-sectional trial.
+**Title**: Neurodevelopmental features among infants with benign congenital hypotonia in high southern latitudes: An observational cross-sectional trial.
 
 **Authors**: Primer autor,^1^ Segundo autor,^2^ Tercer autor,^3^ Cuarto autor,^4^ Quinto autor,^5^ Sexto autor.^6^ \*
 
@@ -76,7 +76,6 @@ Nevertheless, and to the best of our knowledge, there is no robust evidence char
 ### Instrument 2
 
 [...].
-
 
 ## Procedures 
 
@@ -252,15 +251,45 @@ report_smooth(mod)
 #> 2: s(profesional_id,sexo_paciente,respondedor_vinculo) $F_{smooth}$ (0.42, 231.58) = 0.03, *p* = 0.338
 ```
 
-Unlike the others, socio-individual domain was not influenced by corrected age ($F_{smooth}$ (1, 231.58) = 1.16, *p* = 0.282).
+```{r eval=FALSE}
+y_vars <- c("Communication" = "comunicacion_total"
+            , "Fine motor" = "motora_fina_total"
+            , "Gross motor" = "motora_gruesa_total"
+            , "Problem solving" = "resolucion_problemas_total"
+            , "Socio-individual" = "socio_individual_total")
+
+many_models <- sapply(y_vars, function(i) {
+  form <- as.formula(
+    paste0(i, " ~ ", 
+           "s(profesional_id, sexo_paciente, respondedor_vinculo, bs = \"re\") +",
+           "s(semanas_prematurez, k = 9)")
+  )
+  model <- gam(
+    form, 
+    data = dataset, 
+    method = "REML"
+  )
+  report_smooth(model)
+}, simplify = FALSE)
+
+rbindlist(many_models, idcol = "var")[term %like% "semanas_prematurez"]
+#>                  var                                                term                                            expr
+#>  1:    Communication                               s(semanas_prematurez)    $F_{smooth}$ (1, 228.25) = 0.13, *p* = 0.715
+#>  2:       Fine motor                               s(semanas_prematurez)       $F_{smooth}$ (1, 230.23) = 0, *p* = 0.987
+#>  3:      Gross motor                               s(semanas_prematurez)    $F_{smooth}$ (1, 228.31) = 0.85, *p* = 0.357
+#>  4:  Problem solving                               s(semanas_prematurez)       $F_{smooth}$ (1, 232) = 1.12, *p* = 0.292
+#>  5: Socio-individual                               s(semanas_prematurez)     $F_{smooth}$ (1, 231.99) = 2.3, *p* = 0.131
+```
+
+Unlike the others, socio-individual domain was not influenced by corrected age ($F_{smooth}$ (1, 231.58) = 1.16, *p* = 0.282). Accordingly, prematurity (measured in weeks) was not associated with any developmental domain within ASQ-3 assessment (significance for smooth: communication, *p* = 0.715; fine motor, *p* = 0.987; gross motor, *p* = 0.357; problem-solving, *p* = 0.292; personal-social, *p* = 0.131).
 
 # Discussion
 
-[...].
+Our study aimed to describe and model the relationship between sociodemographic data, prematurity and neurodevelopmental levels based on ASQ-3 scores in infants diagnosed with BCH. Our main findings suggest a non-linear effect of age, corrected for prematurity, with a marked decrease in scores for all neurodevelopmental traits at different age frames, even after adjusting for caregiver relationship, gender and inter-rater influence. However in the personal-individual domain, there was no variation observed across corrected age. 
 
-[...].
+This could be associated with the described motor impairments of hypotonia in the early stages of life, which could compromise the infant's ability to explore and interact with his or her environment [@harris2008congenital; @gabis2021weak]. A reflection of the aforementioned would be expressed in an altered development of gross motor function in the first months of life, with a consequent limitation in fine motor skills later on, which would have a subsequent negative impact on the communicative competence of infants, secondary to a reduced interaction with their environment and peers. The results found in our study are congruent with what other authors have discussed in relation to the role of gross and fine motor skills in language development [@gonzalez2019gross]. 
 
-[...].
+It is worth noting that other context-mediated social factors may also have influenced our results, mainly due to the role that other variables would also play in the neurodevelopment of our study sample, which could have an impact on many of the developmental traits assessed here, such as intrauterine growth restrictions, maternal depression, institutionalisation, exposure to social violence, maternal education and breastfeeding [@walker2011inequality]. All together, these represent the main limitations in our study design, which need to be addressed in future research exploring the variations observed in different developmental traits in hypotonic infants. However, our study sheds light to an underexplored aspect of congenital myopathies, with robust statistical methods that made it possible to model the data and capture the complex relationships seen early in life.
 
 # Conclusion
 
