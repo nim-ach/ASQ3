@@ -24,8 +24,7 @@ y_vars <- c("Communication" = "comunicacion_total"
             , "Fine motor" = "motora_fina_total"
             , "Gross motor" = "motora_gruesa_total"
             , "Problem solving" = "resolucion_problemas_total"
-            , "Socio-individual" = "socio_individual_total"
-          )
+            , "Socio-individual" = "socio_individual_total")
 
 fig_data <- melt(
   data = dataset,
