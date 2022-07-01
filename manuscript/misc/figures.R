@@ -20,16 +20,20 @@ library(see)
 # Problem solving score ~ corrected age
 # Socio-individual score ~ corrected age
 
-y_vars <- c("Communication" = "comunicacion_total"
-            , "Fine motor" = "motora_fina_total"
-            , "Gross motor" = "motora_gruesa_total"
-            , "Problem solving" = "resolucion_problemas_total"
-            , "Socio-individual" = "socio_individual_total")
+## communication (CM), gross motor (GM), fine motor (FM), problem-solving (CG), and personal-social (PS)
+
+y_vars <- c("CM" = "comunicacion_total"
+            , "GM" = "motora_gruesa_total"
+            , "FM" = "motora_fina_total"
+            , "CG" = "resolucion_problemas_total"
+            , "PS" = "socio_individual_total")
 
 fig_data <- melt(
   data = dataset,
   measure.vars = y_vars
 )
+
+fig_data[, mean(value), variable]
 
 fig_data[, variable := `levels<-`(variable, names(y_vars))][]
 
@@ -50,11 +54,13 @@ fig_1a <- ggplot(fig_data, aes(x = edad_corregida_meses, y = value)) +
 
 # Figure 1b ------------------------------------------------------------------------------------
 
-models <- list("Communication" = NULL,
-               "Gross motor" = NULL,
-               "Fine motor" = NULL,
-               "Problem solving" = NULL,
-               "Socio-individual" = NULL)
+## communication (CM), gross motor (GM), fine motor (FM), problem-solving (CG), and personal-social (PS)
+
+models <- list("CM" = NULL,
+               "GM" = NULL,
+               "FM" = NULL,
+               "CG" = NULL,
+               "PS" = NULL)
 
 models[[1]] <- gam(
   comunicacion_total ~
@@ -107,7 +113,8 @@ slopes <- sapply(
 
 fig_1b_data <- rbindlist(slopes, idcol = "response")
 fig_1b_data[, Confidence := fifelse(p < 0.05, "Significant", "Not significant")
-          ][, grp := rleid(Confidence)][]
+          ][, grp := rleid(Confidence)
+          ][, response := factor(response, levels = names(models))]
 
 fig_1b <- ggplot(fig_1b_data, aes(edad_corregida_meses, Coefficient)) +
   facet_grid(response ~ ., scales = "free_y") +

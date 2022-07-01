@@ -39,7 +39,7 @@ Cristian Núñez-Espinosa, School of Medicine, Magallanes University, Punta Aren
 
 ## Abstract 
 
-**Objective**: To describe and model the relationship between sociodemographics, prematurity and neurodevelopmental levels based on the *Ages and Stages Questionnaire* scores in infants with diagnosed BCH. **Material and methods**: [...]. **Results**: [...]. **Conclusion**: After adjusting for possible confounders, we found between-subjects fluctuations in neurodevelopmental traits across age in hypotonic infants in the form of non-linear and domain-specific variations. Further research is warranted to determine how these findings apply in the presence of other context-mediated social factors and populations.
+**Objective**: To describe and model the relationship between sociodemographics, prematurity and neurodevelopmental levels based on the *Ages and Stages Questionnaire* scores in infants diagnosed with benign congenital hypotonia (BCH). **Material and methods**: [...]. **Results**: [...]. **Conclusion**: After adjusting for possible confounders, we found between-subjects fluctuations in neurodevelopmental traits across age in hypotonic infants in the form of non-linear and domain-specific variations. Further research is warranted to determine how these findings apply in the presence of other context-mediated social factors and populations.
 
 **Keywords**: [...].
 
@@ -62,21 +62,38 @@ Nevertheless, and to the best of our knowledge, there is no robust evidence char
 
 ## Participants
 
-[...]. 
+```{r load-packages}
+source(file = "manuscript/misc/setup.R")
+```
 
-## Instruments
+```{r}
+# Sample
+n_sample <- dataset[, .N]
+#> 234
 
-### Sociodemographic Data
+# Sample by sex
+n_sex <- dataset[j = .(stat = paste0(.N, " (", round(.N*100/n_sample, 1), "%)")), 
+                 keyby = .(sex = sexo_paciente)]
+#>    sex        stat
+#> 1:   F  94 (40.2%)
+#> 2:   M 140 (59.8%)
+```
 
-[...].
+A total of `r n_sample` subjects with BCH (females, `r n_sex["F", stat]`; males, `r n_sex["M", stat]`) were assessed.
 
-### Child Development
+## Measures
 
-[...].
+### The Ages and Stages Questionnaire, third edition (ASQ-3)
+
+The ASQ-3 is a parent reported initial level developmental screening instrument consisting of 21 intervals, each with 30 items in five areas: i) communication (CM), ii) gross motor (GM), iii) fine motor (FM), iv) problem-solving (CG), and v) personal-social (PS). The ASQ is cost-effective and widely used in the United States and other countries. The ASQ has been translated into several languages, and the number of international studies on its psychometric properties with diverse cultural environments is increasing. It has excellent psychometric properties, test-retest reliability of 92%, sensitivity of 87.4% and specificity of 95.7%. Its validity has been examined across different cultures and communities across the world.
 
 ## Procedures 
 
-[...].
+### Collection of demographic data
+
+[...].  
+
+### Assessment with ASQ-3
 
 [...].  
 
@@ -94,22 +111,7 @@ A probability of committing a type I ($\alpha$) error of less than 5% (*p* < 0.0
 
 # Results
 
-```{r load-packages}
-source(file = "manuscript/misc/setup.R")
-```
-
 ```{r}
-# Sample
-n_sample <- dataset[, .N]
-#> 234
-
-# Sample by sex
-n_sex <- dataset[j = .(stat = paste0(.N, " (", round(.N*100/n_sample, 1), "%)")), 
-                 keyby = .(sex = sexo_paciente)]
-#>    sex        stat
-#> 1:   F  94 (40.2%)
-#> 2:   M 140 (59.8%)
-
 # Prop test on sex
 prop_sex <- dataset[, table(sexo_paciente)] |> 
   chisq.test() |> 
@@ -144,7 +146,7 @@ smooth <- report_smooth(mod)
 #> 2: s(profesional_id,sexo_paciente,respondedor_vinculo)  $F_{smooth}$ (3.76, 224.04) = 0.72, *p* = 0.02
 ```
 
-When modelling the effect of chronological age on developmental domains, corrected for prematurity, we observed a significant non-linear relationship on communication scores (`r smooth["s(edad_corregida_meses)", expr]`), that reflect an overall negative marginal effect (`r overall`), however, this was not true when assessing the direction of the effect in the age range between 0 to 6.8 (`r slopes[1, expr]`), neither in the 18.4 to 48 months old group (`r slopes[3, expr]`), whereas the effect tend to be positive but non-significant. The relationship between developmental domains, corrected age and their effect derivatives can be seen in [Figure 1](#fig1).
+When modelling the effect of chronological age on developmental domains, corrected for prematurity, we observed a significant non-linear relationship on CM scores (`r smooth["s(edad_corregida_meses)", expr]`), that reflect an overall negative marginal effect (`r overall`), however, this was not true when assessing the direction of the effect in the age range between 0 to 6.8 (`r slopes[1, expr]`), neither in the 18.4 to 48 months old group (`r slopes[3, expr]`), whereas the effect tend to be positive but non-significant. The relationship between developmental domains, corrected age and their effect derivatives can be seen in [Figure 1](#fig1).
 
 ```{r}
 set.seed(123)
@@ -172,7 +174,7 @@ smooth <- report_smooth(mod)
 #> 2: s(profesional_id,sexo_paciente,respondedor_vinculo)  $F_{smooth}$ (1.01, 226.75) = 0.1, *p* = 0.244
 ```
 
-When analysing the motor skills domain, we found a significant non-linear effect of corrected age on gross motor scores, `r smooth["s(edad_corregida_meses)", expr]`, which had an overall positive effect (`r overall`), however, the slope varied as a function of age, with a negative effect in the 0 to 6.8 age range (`r slopes[1, expr]`), but in the 9.7 to 15.5 interval, this relationship was inverted (`r slopes[3, expr]`), however, in the rest of the age range the slope was non-significant and virtually zero (Age~[7.3, 9.2]~, `r slopes[2, expr]`; Age~[16, 48]~, `r slopes[4, expr]`).
+When analysing the motor skills domain, we found a significant non-linear effect of corrected age on GM scores, `r smooth["s(edad_corregida_meses)", expr]`, which had an overall positive effect (`r overall`), however, the slope varied as a function of age, with a negative effect in the 0 to 6.8 age range (`r slopes[1, expr]`), but in the 9.7 to 15.5 interval, this relationship was inverted (`r slopes[3, expr]`), however, in the rest of the age range the slope was non-significant and virtually zero (Age~[7.3, 9.2]~, `r slopes[2, expr]`; Age~[16, 48]~, `r slopes[4, expr]`).
 
 ```{r}
 set.seed(123)
@@ -199,7 +201,7 @@ smooth <- report_smooth(mod)
 #> 2: s(profesional_id,sexo_paciente,respondedor_vinculo) $F_{smooth}$ (3.63, 226.77) = 0.7, *p* = 0.021
 ```
 
-Despite the fact that a similar non-linear effect was observed when inspecting the influence of corrected age in the fine motor domain scores (`r smooth["s(edad_corregida_meses)", expr]`), it was not possible to estimate a significant overall effect different from zero (`r overall`), nevertheless, it was only in the 22.3 to 38.3 age range where a significant and negative effect was observed (`r slopes[2, expr]`).
+Despite the fact that a similar non-linear effect was observed when inspecting the influence of corrected age in the FM domain scores (`r smooth["s(edad_corregida_meses)", expr]`), it was not possible to estimate a significant overall effect different from zero (`r overall`), nevertheless, it was only in the 22.3 to 38.3 age range where a significant and negative effect was observed (`r slopes[2, expr]`).
 
 ```{r}
 set.seed(123)
@@ -227,7 +229,7 @@ smooth <- report_smooth(mod)
 #> 2: s(profesional_id,sexo_paciente,respondedor_vinculo) $F_{smooth}$ (0.34, 227.01) = 0.03, *p* = 0.339
 ```
 
-Problem solving abilities were significantly influenced by corrected age (`r smooth["s(edad_corregida_meses)", expr]`), with an overall negative effect (`r overall`), and just like the other domains, this relationship was modified across corrected age. In this sense, from the 0 to 5.8 age interval, we found that for every increase in one month in corrected age, we can expect a proportional increase in 2.81 points (`r slopes[1, expr]`) in the problem solving domain, while in the age range 9.2 to 14.1 the relationship changes inversely, mainly because in this age range we observe that for every one-month increase in the corrected age, a decrease of 1.59 points could be expected in the same domain (`r slopes[3, expr]`). The other age intervals did not have a slope that deviated significantly from zero (Age~[6.3, 8.7]~, `r slopes[2, expr]`; Age~[14.5, 48.0]~, `r slopes[4, expr]`).
+CG abilities were significantly influenced by corrected age (`r smooth["s(edad_corregida_meses)", expr]`), with an overall negative effect (`r overall`), and just like the other domains, this relationship was modified across corrected age. In this sense, from the 0 to 5.8 age interval, we found that for every increase in one month in corrected age, we can expect a proportional increase in 2.81 points (`r slopes[1, expr]`) in the CG domain, while in the age range 9.2 to 14.1 the relationship changes inversely, mainly because in this age range we observe that for every one-month increase in the corrected age, a decrease of 1.59 points could be expected in the same domain (`r slopes[3, expr]`). The other age intervals did not have a slope that deviated significantly from zero (Age~[6.3, 8.7]~, `r slopes[2, expr]`; Age~[14.5, 48.0]~, `r slopes[4, expr]`).
 
 ```{r}
 set.seed(123)
@@ -246,10 +248,10 @@ smooth <- report_smooth(mod)
 ```
 
 ```{r}
-y_vars <- c("communication" = "comunicacion_total"
-            , "fine motor" = "motora_fina_total"
-            , "gross motor" = "motora_gruesa_total"
-            , "problem solving" = "resolucion_problemas_total"
+y_vars <- c("CM" = "comunicacion_total"
+            , "FM" = "motora_fina_total"
+            , "GM" = "motora_gruesa_total"
+            , "CG" = "resolucion_problemas_total"
             , "personal-individual" = "socio_individual_total")
 
 many_models <- sapply(y_vars, function(i) {
@@ -274,16 +276,16 @@ prematurity_smooths <- rbindlist(many_models, idcol = "var"
               sep = ", ", 
               collapse = "; "
             )]
-#> [1] "communication, *p* = 0.715; fine motor, *p* = 0.987; gross motor, *p* = 0.357; problem solving, *p* = 0.292; personal-individual, *p* = 0.131"
+#> [1] "CM, *p* = 0.715; FM, *p* = 0.987; GM, *p* = 0.357; CG, *p* = 0.292; personal-individual, *p* = 0.131"
 ```
 
-Unlike the others, socio-individual domain was not influenced by corrected age (`r smooth["s(edad_corregida_meses)", expr]`). Accordingly, prematurity (measured in weeks) was not associated with any developmental domain within ASQ-3 assessment (significance for smooth terms: `r prematurity_smooths`).
+Unlike the others, PS domain was not influenced by corrected age (`r smooth["s(edad_corregida_meses)", expr]`). Accordingly, prematurity (measured in weeks) was not associated with any developmental domain within ASQ-3 assessment (significance for smooth terms: `r prematurity_smooths`).
 
 # Discussion
 
 Our study aimed to describe and model the relationship between sociodemographic data, prematurity and neurodevelopmental levels based on ASQ-3 scores in infants diagnosed with BCH. Our main findings suggest a non-linear effect of age, corrected for prematurity, with a marked decrease in scores for all neurodevelopmental traits at different age frames, even after adjusting for caregiver relationship, sex and inter-rater influence. However in the personal-individual domain, there was no variation observed across corrected age. 
 
-This could be associated with the described motor impairments of hypotonia in the early stages of life, which could compromise the infant's ability to explore and interact with his or her environment [@harris2008congenital; @gabis2021weak]. A reflection of the aforementioned would be expressed in an altered development of gross motor function in the first months of life, with a consequent limitation in fine motor skills later on, which would have a subsequent negative impact on the communicative competence of infants, secondary to a reduced interaction with their environment and peers. The results found in our study are congruent with what other authors have discussed in relation to the role of gross and fine motor skills in language development [@gonzalez2019gross]. 
+This could be associated with the described motor impairments of hypotonia in the early stages of life, which could compromise the infant's ability to explore and interact with his or her environment [@harris2008congenital; @gabis2021weak]. A reflection of the aforementioned would be expressed in an altered development of GM function in the first months of life, with a consequent limitation in FM skills later on, which would have a subsequent negative impact on the communicative competence of infants, secondary to a reduced interaction with their environment and peers. The results found in our study are congruent with what other authors have discussed in relation to the role of gross and FM skills in language development [@gonzalez2019gross]. 
 
 It is worth noting that other context-mediated social factors may also have influenced our results, mainly due to the role that other variables would also play in the neurodevelopment of our study sample, which could have an impact on many of the developmental traits assessed here, such as intrauterine growth restrictions, maternal depression, institutionalisation, exposure to social violence, maternal education and breastfeeding [@walker2011inequality]. All together, these represent the main limitations in our study design, which need to be addressed in future research exploring the variations observed in different developmental traits in hypotonic infants. However, our study sheds light to an underexplored aspect of congenital myopathies, with robust statistical methods that made it possible to model and capture the complex relationships seen early in life.
 
