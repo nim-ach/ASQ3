@@ -60,6 +60,14 @@ Nevertheless, and to the best of our knowledge, there is no robust evidence char
 
 # Material y methods
 
+## Study design
+
+We conducted an observational, cross-sectional study, under a quantitative approach.
+
+[¿Los datos vienen de algún grupo de estudio o de cohorte en particular?]{custom-style="ErrorTok"}
+
+[¿Qué resguardos éticos se consideran? Comité de ética y otros permisos que sean pertinentes]{custom-style="ErrorTok"}
+
 ## Participants
 
 ```{r load-packages}
@@ -79,7 +87,9 @@ n_sex <- dataset[j = .(stat = paste0(.N, " (", round(.N*100/n_sample, 1), "%)"))
 #> 2:   M 140 (59.8%)
 ```
 
-A total of `r n_sample` subjects with BCH (females, `r n_sex["F", stat]`; males, `r n_sex["M", stat]`) were assessed.
+[¿Cómo fueron reclutados los sujetos? Criterios de elegibilidad, tipo de muestreo, etc.]{custom-style="ErrorTok"}
+
+[¿Cómo, cuando y quien hizo el diagnóstico de hipotonía congénita?]{custom-style="ErrorTok"}
 
 ## Measures
 
@@ -91,11 +101,11 @@ The ASQ-3 is a parent reported initial level developmental screening instrument 
 
 ### Collection of demographic data
 
-[...].  
+[¿Como, cuando y quién recolectó los datos demográficos?]{custom-style="ErrorTok"}
 
 ### Assessment with ASQ-3
 
-[...].  
+[¿Cómo se evaluó el ASQ-3? ¿Con qué protocolo? ¿Que consideraciones se tuvieron en la evaluación? ¿Algo más que podría ser relevante para agregar respecto a la evaluación o corrección del cuestionario?]{custom-style="ErrorTok"}
 
 ## Statistical analysis
 
@@ -252,7 +262,7 @@ y_vars <- c("CM" = "comunicacion_total"
             , "FM" = "motora_fina_total"
             , "GM" = "motora_gruesa_total"
             , "CG" = "resolucion_problemas_total"
-            , "personal-individual" = "socio_individual_total")
+            , "PS" = "socio_individual_total")
 
 many_models <- sapply(y_vars, function(i) {
   form <- as.formula(
@@ -309,4 +319,4 @@ The authors declare that the research was conducted in the absence of any commer
 
 [**Table 1**]{#tab1}. Overall baseline and developmental characteristics of the sample and grouped by sex. ^1^ Data is presented as sample size, and *Mdn* (*IQR*); ^2^ p-values are computed from the *Wilcoxon* rank-sum test.
 
-[**Figure 1**]{#fig1}. Relationship between corrected age (in months) and developmental domains. Left panel: regression lines and shaded area represent predicted values estimated from GAM models and their CI~95%~, points and error bars represent the mean and standard error at 5-month age intervals. Right panel: effect derivatives representing how the effect of corrected age (in months) in developmental domains changes across corrected age. Significant areas consider CI~95%~ that did not cross zero.
+[**Figure 1**]{#fig1}. Relationship between corrected age (in months) and developmental domains. Left panel: regression lines represent predicted values estimated from GAM models (red lines) and 100 bootstrap replicates (gray lines), points and error bars represent the mean and standard error at 5-month age intervals. Right panel: effect derivatives and their CI~95%~, representing how the effect of corrected age (in months) in developmental domains changes across corrected age. Significant areas consider CI~95%~ that do not cross zero.

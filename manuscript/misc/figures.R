@@ -33,22 +33,55 @@ fig_data <- melt(
   measure.vars = y_vars
 )
 
-fig_data[, mean(value), variable]
-
 fig_data[, variable := `levels<-`(variable, names(y_vars))][]
 
+# Scaled data for mean ± SE plotting
 scaled <- copy(fig_data)
 scaled[, edad_corregida_meses := ASQ3:::near(edad_corregida_meses, 5)][]
 
+# 300 evenly-spaced data points of `edad_corregida_meses`
+pred_data <- fig_data[, data.frame(
+  edad_corregida_meses = seq.default(
+    from = min(edad_corregida_meses, na.rm = TRUE),
+    to = max(edad_corregida_meses, na.rm = TRUE),
+    length.out = 300
+  )
+)]
+
+# Bootstrapping with 100 replicates
+boots <- fig_data[, {
+  boot <- vapply(1:100, function(i) { # Vectorized "looping"
+
+    # ith Model fitting
+    mod <- gam(value ~ s(edad_corregida_meses), method = "REML", data = .SD[sample(.N, replace = TRUE)])
+
+    # Estimation from bootstrapped model
+    predict(
+      object = mod,
+      newdata = pred_data
+    )
+  }, FUN.VALUE = numeric(length = nrow(pred_data)))
+
+  # Join the exposure and response
+  cbind(pred_data, boot)
+
+}, by = variable] # Grouped by variable
+
+# Melt the wide data into long data (for compatibility with ggplot)
+boots <- melt(boots, id.vars = 1:2, variable.name = "boot", value.name = "predicted")
+
+# Plot the data
 fig_1a <- ggplot(fig_data, aes(x = edad_corregida_meses, y = value)) +
   facet_grid(variable ~ ., scale = "free_y") +
   geom_count(alpha = 0.1, na.rm = TRUE) +
-  stat_summary(data = scaled, fun.data = mean_se, na.rm = TRUE) +
+  geom_line(data = boots, aes(group = boot, y = predicted), alpha = 0.1) +
   geom_smooth(method = "gam",
               formula = y ~ s(x),
               col = "red3",
               method.args = list(method = "REML"),
-              na.rm = TRUE) +
+              na.rm = TRUE,
+              se = FALSE) +
+  stat_summary(data = scaled, fun.data = mean_se, na.rm = TRUE) +
   labs(x = "Corrected age (months)", y = "Score") +
   ggpubr::theme_pubr()
 
