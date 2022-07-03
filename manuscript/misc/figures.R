@@ -49,8 +49,9 @@ pred_data <- fig_data[, data.frame(
 )]
 
 # Bootstrapping with 100 replicates
+set.seed(123)
 boots <- fig_data[, {
-  boot <- vapply(1:100, function(i) { # Vectorized "looping"
+  boot <- vapply(1:200, function(i) { # Vectorized "looping"
 
     # ith Model fitting
     mod <- gam(value ~ s(edad_corregida_meses), method = "REML", data = .SD[sample(.N, replace = TRUE)])
@@ -74,14 +75,14 @@ boots <- melt(boots, id.vars = 1:2, variable.name = "boot", value.name = "predic
 fig_1a <- ggplot(fig_data, aes(x = edad_corregida_meses, y = value)) +
   facet_grid(variable ~ ., scale = "free_y") +
   geom_count(alpha = 0.1, na.rm = TRUE) +
-  geom_line(data = boots, aes(group = boot, y = predicted), alpha = 0.1) +
+  geom_line(data = boots, aes(group = boot, y = predicted), alpha = 0.02, col = "red") +
   geom_smooth(method = "gam",
               formula = y ~ s(x),
-              col = "red3",
+              col = "#ED0000FF",
               method.args = list(method = "REML"),
               na.rm = TRUE,
               se = FALSE) +
-  stat_summary(data = scaled, fun.data = mean_se, na.rm = TRUE) +
+  stat_summary(data = scaled, fun.data = mean_se, na.rm = TRUE, fatten = 3, col = "red4") +
   labs(x = "Corrected age (months)", y = "Score") +
   ggpubr::theme_pubr()
 
