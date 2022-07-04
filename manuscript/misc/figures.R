@@ -71,6 +71,8 @@ boots <- fig_data[, {
 # Melt the wide data into long data (for compatibility with ggplot)
 boots <- melt(boots, id.vars = 1:2, variable.name = "boot", value.name = "predicted")
 
+
+
 # Plot the data
 fig_1a <- ggplot(fig_data, aes(x = edad_corregida_meses, y = value)) +
   facet_grid(variable ~ ., scale = "free_y") +

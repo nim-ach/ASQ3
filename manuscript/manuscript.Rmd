@@ -15,9 +15,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-**Title**: Neurodevelopmental features among infants with benign congenital hypotonia in high southern latitudes: An observational cross-sectional trial.
+**Title**: Neurodevelopmental features among infants with congenital hypotonia in high southern latitudes: An observational cross-sectional study.
 
-**Authors**: Patricio Barría,^1^ Matías Castillo-Aguilar,^2,3^ ...,^4^ Cristian Núñez-Espinoza,^3,5^ \*
+**Authors**: Patricio Barría,^1^ Matías Castillo-Aguilar,^2,3^ Cristian Núñez-Espinoza,^3,4^ \*
 
 ::: {custom-style="Afiliation"}
 ^1^ Rehabilitation Center, Punta Arenas, Chile.
@@ -26,9 +26,7 @@ knitr::opts_chunk$set(
 
 ^3^ Chilean Austral Integrative Neurophysiology Group ([NIM-ACh](https://nimach.org)), Centro Asistencial de Docencia e Investigación (CADI-UMAG), Punta Arenas Chile
 
-^4^ Afiliación, lugar.
-
-^5^ School of Medicine, Magallanes University, Punta Arenas, Chile.
+^4^ School of Medicine, Magallanes University, Punta Arenas, Chile.
 :::
 
 ### \*Autor de correspondencia 
@@ -39,24 +37,23 @@ Cristian Núñez-Espinosa, School of Medicine, Magallanes University, Punta Aren
 
 ## Abstract 
 
-**Objective**: To describe and model the relationship between sociodemographics, prematurity and neurodevelopmental levels based on the *Ages and Stages Questionnaire* scores in infants diagnosed with benign congenital hypotonia (BCH). **Material and methods**: [...]. **Results**: [...]. **Conclusion**: After adjusting for possible confounders, we found between-subjects fluctuations in neurodevelopmental traits across age in hypotonic infants in the form of non-linear and domain-specific variations. Further research is warranted to determine how these findings apply in the presence of other context-mediated social factors and populations.
+**Objective**: To describe and model the relationship between sociodemographics, prematurity and neurodevelopmental levels based on the *Ages and Stages Questionnaire* scores in infants diagnosed with congenital hypotonia (CH). **Material and methods**: [...]. **Results**: When modelling the effect of corrected age on developmental domains we found a significant overall effect on communication skills ($\beta$ = -2.36, CI~95%~[-3.47, -1.25]), gross motor function ($\beta$ = 1.95, CI~95%~[0.66, 3.25]) and problem-solving skills ($\beta$ = -1.87, CI~95%~[-3.17, -0.57]). fine motor skills did not exhibit an overall linear effect ($\beta$ = 0.04, CI~95%~[-0.45, 0.52]), however, they showed a non-linear effect ($F_{smooth}$ (2.59, 226.77) = 4.2, *p* = 0.005); unlike the personal-social domain, which did not present any variation across corrected age ($F_{smooth}$ (1, 231.58) = 1.16, *p* = 0.282). **Conclusion**: After adjusting for possible confounders, we found between-subjects fluctuations in neurodevelopmental traits across age in hypotonic infants in the form of non-linear and domain-specific variations. Further research is warranted to determine how these findings apply in the presence of other context-mediated social factors and populations.
 
-**Keywords**: [...].
+**Keywords**: Developmental traits, Congenital hypotonia, Ages and Stages Questionnaire (ASQ), Infants.
 
 \newpage
 
 # Introduction
 
-<!---- Antecedentes históricos ---->
 Both physical and psychological signs of early childhood development have been shown to be representative and relevant markers for the identification and monitoring of overall growth in early life [@di2016predictive] and can, therefore, be used in the screening of children at risk of developmental delay to support early referral and need further assessment to determine if they are eligible for early intervention services [@guralnick2017early; @bruder2010early].
 
 Currently, a plethora of tools have been proposed to assess the developmental continuum of infants. In this sense, the Ages and Stages Questionnaire, Third Edition (ASQ-3) has been proposed as a global screening tool, parent/caregivers-oriented, that assesses five domains of development in children aged from 0 to 5.5 years old [@singh2017ages]. Current evidence suggests that the ASQ-3 is an accurate, cost-effective yet parent-friendly instrument for screening, monitoring children up to pre-school age, and can help identify and exclude neurodevelopmental impairments in very preterm-born children [@kerstjens2015ages; @ballantyne2016risk; @singh2017ages].
 
-Hypotonia has been defined both as decreased muscle tone or floppiness, involving a wide range and levels of progression [@harris2008congenital; @gabis2021weak]. There are multiple forms of neuromuscular, metabolic and genetic conditions associated with hypotonia and it may be a sign of neurodevelopmental delay, that may predispose to cognitive impairment [@riou2009global]. Given that hypotonia, and the hyperlaxity and motor delay associated with it, may impair the infant's capacity to engage with its surroundings, critical visual cues may be ignored, potentially leading both to an impairment of learning and cognitive development [@harris2008congenital], hence the need to explore the neurodevelopmental attributes of infants with hypotonia. 
+Hypotonia has been defined both as decreased muscle tone or floppiness, involving a wide range and levels of progression [@harris2008congenital; @gabis2021weak]. There are multiple forms of neuromuscular, metabolic and genetic conditions associated with hypotonia and it may be a sign of neurodevelopmental delay, that may predispose to cognitive impairment in some cases [@riou2009global]. Given that hypotonia, and the hyperlaxity and motor delay associated with it, may impair the infant's capacity to engage with its surroundings, critical visual cues may be ignored, potentially leading both to an impairment of learning and cognitive development [@harris2008congenital], hence the need to explore the neurodevelopmental attributes of infants with hypotonia. 
 
-Accordingly, benign congenital hypotonia (BCH) is usually considered an exclusion diagnosis, and is usually made in the absence of other signs and symptoms, after every other evaluative resources have been exhausted [@leyenaar2005schematic; @gabis2021weak], however this is not true for at least one author that suggest that BCH can not be considered a diagnosis as such [@thompson2002benign]. BCH is considered a non-progressive neuromuscular disorder that does not progress but tends to improve with time and early intervention. 
+Accordingly, benign congenital hypotonia (CH) is usually considered an exclusion diagnosis, and is usually made in the absence of other signs and symptoms, after every other evaluative resources have been exhausted [@leyenaar2005schematic; @gabis2021weak], however this is not true for at least one author that suggest that CH can not be considered a diagnosis as such [@thompson2002benign]. CH is considered a non-progressive neuromuscular disorder that does not progress but tends to improve with time and early intervention. 
 
-Nevertheless, and to the best of our knowledge, there is no robust evidence characterising the observed variation in developmental traits in infants with known BCH across age. Therefore, our main objective in this study was to describe and model the relationship between sociodemographics, prematurity and neurodevelopmental levels based on ASQ-3 scores in infants with diagnosed BCH.
+Nevertheless, and to the best of our knowledge, there is no robust evidence characterising the observed variation in developmental traits in infants with known CH across age. Therefore, our main objective in this study was to describe and model the relationship between sociodemographics, prematurity and neurodevelopmental levels based on ASQ-3 scores in infants with diagnosed CH.
 
 # Material y methods
 
@@ -64,7 +61,7 @@ Nevertheless, and to the best of our knowledge, there is no robust evidence char
 
 We conducted an observational, cross-sectional study, under a quantitative approach.
 
-[¿Los datos vienen de algún grupo de estudio o de cohorte en particular?]{custom-style="ErrorTok"}
+[¿Los datos vienen de algún grupo de estudio, cohorte o de algún proyecto en particular? Detalles de donde vino la muestra]{custom-style="ErrorTok"}
 
 [¿Qué resguardos éticos se consideran? Comité de ética y otros permisos que sean pertinentes]{custom-style="ErrorTok"}
 
@@ -87,15 +84,15 @@ n_sex <- dataset[j = .(stat = paste0(.N, " (", round(.N*100/n_sample, 1), "%)"))
 #> 2:   M 140 (59.8%)
 ```
 
-[¿Cómo fueron reclutados los sujetos? Criterios de elegibilidad, tipo de muestreo, etc.]{custom-style="ErrorTok"}
+[¿Cómo, cuando y bajo qué condiciones fueron reclutados los sujetos? Criterios de elegibilidad, tipo de muestreo, etc.]{custom-style="ErrorTok"}
 
-[¿Cómo, cuando y quien hizo el diagnóstico de hipotonía congénita?]{custom-style="ErrorTok"}
+[¿Cómo, cuando y quien hizo el diagnóstico de hipotonía congénita? ¿Fue igual para todos? ¿La información vino de parte de terceros?]{custom-style="ErrorTok"}
 
 ## Measures
 
 ### The Ages and Stages Questionnaire, third edition (ASQ-3)
 
-The ASQ-3 is a parent reported initial level developmental screening instrument consisting of 21 intervals, each with 30 items in five areas: i) communication (CM), ii) gross motor (GM), iii) fine motor (FM), iv) problem-solving (CG), and v) personal-social (PS). The ASQ is cost-effective and widely used in the United States and other countries. The ASQ has been translated into several languages, and the number of international studies on its psychometric properties with diverse cultural environments is increasing. It has excellent psychometric properties, test-retest reliability of 92%, sensitivity of 87.4% and specificity of 95.7%. Its validity has been examined across different cultures and communities across the world.
+The ASQ-3 is a parent reported initial level developmental screening instrument consisting of 21 intervals, each with 30 items in five areas: i) communication (CM), ii) gross motor (GM), iii) fine motor (FM), iv) problem-solving (CG), and v) personal-social (PS) [@squires2009ages]. The ASQ is cost-effective and widely used in the United States and other countries [@sarmiento2011universal; @heo2008cross]. It has been translated into several languages, and the number of international studies on its psychometric properties with diverse cultural environments is increasing [@sarmiento2011universal; @heo2008cross]. It has shown adequate psychometric properties (75% sensitivity and 81% specificity) in Chilean term and preterm infants [@schonhaut2013validity].
 
 ## Procedures 
 
@@ -117,7 +114,7 @@ In order assess the differences in developmental scores between males and female
 
 Generalized additive models (GAM) were used to describe linear and non-linear relationships in the form of smooth terms between developmental characteristics, represented through penalized regression splines [@wood2011fast]. Restricted maximum likelihood method was used for the estimation of the smoothing parameters, and thin-plate regression splines as the smoothing basis, as they are the optimal smoother of any given basis dimension/rank [@wood2003thin]. In the final models, infants' sex, clinician and infants' relationship with caregivers were added as random effects in the form of penalized parametric terms to account for the variability arising from these variables in the fixed effects analysed [@wood2016smoothing]. To describe the smooth terms by means of quasi-linear segments, we used approximative derivatives with 95% confidence intervals (CI~95%~).
 
-A probability of committing a type I ($\alpha$) error of less than 5% (*p* < 0.05), was considered sufficient evidence for statistical significance in hypothesis testing. All the statistical analyses were computed and implemented in the R programming language [@rlanguage]. GAMs and the corresponding model estimates were computed using the *mgcv* and *modelbased* packages, each with well documented functions and methods [@wood2017generalized; @dominique2020estimation]. Complementary R packages were used for visualization purposes [@hadley2016ggplot2; @daniel2021see].
+A probability of committing a type I ($\alpha$) error of less than 5% (*p* < 0.05), was considered sufficient evidence for statistical significance in hypothesis testing. All the statistical analyses were computed and implemented in the R programming language [@rlanguage]. GAMs and the corresponding model estimates were computed using the *mgcv* and *modelbased* packages [@wood2017generalized; @dominique2020estimation]. Complementary R packages were used for visualization purposes [@hadley2016ggplot2; @daniel2021see].
 
 # Results
 
@@ -125,7 +122,7 @@ A probability of committing a type I ($\alpha$) error of less than 5% (*p* < 0.0
 # Prop test on sex
 prop_sex <- dataset[, table(sexo_paciente)] |> 
   chisq.test() |> 
-  report_chi(effsize = TRUE)
+  report_chi(effsize = FALSE)
 #> [1] "$\\chi^2_{gof}$ (1) = 9.04, *p* = 0.003, $C_{Pearson}$ = 0.19, CI~0.95%~[0.09, 1]"
 ```
 
@@ -293,23 +290,35 @@ Unlike the others, PS domain was not influenced by corrected age (`r smooth["s(e
 
 # Discussion
 
-Our study aimed to describe and model the relationship between sociodemographic data, prematurity and neurodevelopmental levels based on ASQ-3 scores in infants diagnosed with BCH. Our main findings suggest a non-linear effect of age, corrected for prematurity, with a marked decrease in scores for all neurodevelopmental traits at different age frames, even after adjusting for caregiver relationship, sex and inter-rater influence. However in the personal-individual domain, there was no variation observed across corrected age. 
+Our study aimed to describe and model the relationship between sociodemographic data, prematurity and neurodevelopmental levels based on ASQ-3 scores in infants diagnosed with CH. Our main findings suggest a non-linear effect of age, corrected for prematurity, with a marked decrease in scores for all neurodevelopmental traits at different age frames, even after adjusting for caregiver relationship, sex and inter-rater influence. However in the PS domain, there was no variation observed across corrected age. 
 
-This could be associated with the described motor impairments of hypotonia in the early stages of life, which could compromise the infant's ability to explore and interact with his or her environment [@harris2008congenital; @gabis2021weak]. A reflection of the aforementioned would be expressed in an altered development of GM function in the first months of life, with a consequent limitation in FM skills later on, which would have a subsequent negative impact on the communicative competence of infants, secondary to a reduced interaction with their environment and peers. The results found in our study are congruent with what other authors have discussed in relation to the role of gross and FM skills in language development [@gonzalez2019gross]. 
+This findings might be associated with the described motor impairments of hypotonia in the early stages of life, which compromise the infant's ability to explore and interact with his or her environment [@harris2008congenital; @gabis2021weak]. A reflection of the aforementioned would be expressed in an altered development of GM function in the first months of life, with a consequent limitation in FM skills later on, which would have a subsequent negative impact on the communicative competence of infants, secondary to a reduced interaction with their environment and peers [@bodensteiner2008evaluation]. In a recent systematic review [@gonzalez2019gross], differences in the predictive abilities of gross and FM skills on communication skills in infants and early childhood were reported, whereas GM skills, such as crawling and walking, favour exploration with their environment and caregivers, while FM skills, expressed through tasks such as drawing and handling utensils, could lead to improvements in language through mechanisms yet to be explored [@gonzalez2019gross]. These milestones may be impaired in the face of poorer head and trunk control in CH, which have been shown to delay the achievement of key motor milestones in infants [@harris2008congenital; @bodensteiner2008evaluation; @gabis2021weak].
 
-It is worth noting that other context-mediated social factors may also have influenced our results, mainly due to the role that other variables would also play in the neurodevelopment of our study sample, which could have an impact on many of the developmental traits assessed here, such as intrauterine growth restrictions, maternal depression, institutionalisation, exposure to social violence, maternal education and breastfeeding [@walker2011inequality]. All together, these represent the main limitations in our study design, which need to be addressed in future research exploring the variations observed in different developmental traits in hypotonic infants. However, our study sheds light to an underexplored aspect of congenital myopathies, with robust statistical methods that made it possible to model and capture the complex relationships seen early in life.
+It is worth noting that other context-mediated social factors may also have influenced our results, mainly due to the role that other variables would also play in the neurodevelopment of our study sample, which could have an impact on many of the developmental traits assessed here, such as intrauterine growth restrictions, maternal depression, institutionalisation, exposure to social violence, maternal education and breastfeeding [@walker2011inequality]. All together, these represent the main limitations in our study design, which need to be addressed in future research, exploring the variations observed in different developmental traits in hypotonic infants. However, our study sheds light to an underexplored aspect of congenital myopathies, with robust statistical methods that made it possible to capture and model the complex relationships seen early in life.
 
 # Conclusion
 
-The present study shows that the marked variations observed in neurodevelopmental traits are present across age in hypotonic infants, mainly in the form of non-linear and domain-specific variations, even after adjusting for the effect that caregiver relationship, gender and evaluators might exert. Moreover, we show that the observed variations in developmental domains are not solely attributable to prematurity, where age corrected for prematurity best explained the observed variability in neurodevelopment. Further research is warranted to determine how these findings apply when controlling for context-mediated social factors and in other populations.
+The present study shows that the marked variations observed in neurodevelopmental traits are present across age in hypotonic infants, mainly in the form of non-linear and domain-specific variations, even after adjusting for the effect that caregiver relationship, sex and evaluators might exert. Moreover, we show that the observed variations in developmental domains are not solely attributable to prematurity, where age corrected for prematurity best explained the observed variability in neurodevelopment. Further research is warranted to determine how these findings apply when controlling for context-mediated social factors and in other populations.
 
-# Acknowledgment
+# Data availability statement
 
-[...].
+The raw data supporting the conclusions of this article will be made available by the authors, without undue reservation.
+
+# Author Contributions
+
+All authors listed have made a substantial, direct and intellectual contribution to the work, and approved it for publication.
+
+# Funding
+
+[Añadir financiamiento si fuese aplicable]{custom-style="ErrorTok"}
 
 # Conflicts of interest
 
 The authors declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.
+
+# Acknowledgment
+
+[...]
 
 # References
 
