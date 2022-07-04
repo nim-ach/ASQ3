@@ -68,6 +68,149 @@ report_chi <- function(chi, effsize = TRUE, ci = 0.95) {
   return(expr)
 }
 
+#' Report Kruskal-Wallis chi-squared test
+#'
+#' This function lets you run a Kruskal-Wallis chi-squared test and report it.
+#'
+#' @param formula A formula specifying the a analysis.
+#' @param data The dataset from where to search the variables.
+#' @param effsize Logical. Whether to report effect sizes or not.
+#' @param ci Numeric. Confidence interval to effect size calculation.
+#' @param ... Other parameters passed to `kruskal.test`.
+#'
+#' @name report_kruskal
+#' @export
+
+report_kruskal <- function(formula, data, effsize = TRUE, ci = 0.95, ...) {
+
+  stopifnot(
+    "Is not an object of class \"formula\"" = inherits(formula, "formula")
+  )
+
+  if (isTRUE(effsize)) {
+    efs <- effectsize::rank_epsilon_squared(formula, data = data, ci = ci)
+    efs <- lapply(efs, round, 2)
+  }
+
+  kw <- stats::kruskal.test(formula, data, ...)
+  kw$statistic <- round(kw$statistic, 2)
+
+  kw$p.value <- format_p(kw$p.value)
+
+  kw$method <- "Kruskal-Wallis"
+
+  expr <- paste(
+    paste0("$\\chi^2_{",kw$method,"}$ (",kw$parameter,") = ",kw$statistic),
+    paste0("*p* ",kw$p.value),
+    sep = ", "
+  )
+
+  if (isTRUE(effsize)) {
+    expr <- paste(
+      expr,
+      paste0("$\\widehat{\\epsilon}^2$ = ", efs[[1]]),
+      paste0("CI~", efs$CI,"%~[", efs$CI_low,", ",efs$CI_high,"]"),
+      sep = ", "
+    )
+  }
+
+  return(expr)
+}
+
+#' Report Wilcoxon rank sum test
+#'
+#' This function lets you run a Wilcoxon rank sum test and report it.
+#'
+#' @param formula A formula specifying the a analysis.
+#' @param data The dataset from where to search the variables.
+#' @param effsize Logical. Whether to report effect sizes or not.
+#' @param ci Numeric. Confidence interval to effect size calculation.
+#' @param ... Other parameters passed to `kruskal.test`.
+#'
+#' @name report_wilcox
+#' @export
+
+report_wilcox <- function(formula, data, effsize = TRUE, ci = 0.95, ...) {
+
+  stopifnot(
+    "Is not an object of class \"formula\"" = inherits(formula, "formula")
+  )
+
+  wr <- stats::wilcox.test(formula, data, ...)
+  if (isTRUE(effsize)) {
+    efs <- effectsize::rank_biserial(formula, data = data, ci = ci, paired = grepl("signed rank", wr$method))
+    efs <- lapply(efs, round, 2)
+  }
+
+  wr$statistic <- round(wr$statistic, 2)
+
+  wr$p.value <- format_p(wr$p.value)
+
+  wr$method <- data.table::fifelse(
+    test = grepl("rank sum", wr$method),
+    yes = "W_{rank-sum}",
+    no = "V_{signed-rank}"
+  )
+
+  expr <- paste(
+    paste0("$",wr$method,"$ = ",wr$statistic),
+    paste0("*p* ",wr$p.value),
+    sep = ", "
+  )
+
+  if (isTRUE(effsize)) {
+    expr <- paste(
+      expr,
+      paste0("$\\widehat{\\epsilon}^2$ = ", efs[[1]]),
+      paste0("CI~", efs$CI,"%~[", efs$CI_low,", ",efs$CI_high,"]"),
+      sep = ", "
+    )
+  }
+
+  return(expr)
+}
+
+#' Report pairwise Wilcoxon rank sum test
+#'
+#' This function lets you run a pairwise Wilcoxon rank sum test and report it.
+#'
+#' @param formula A formula specifying the a analysis.
+#' @param data The dataset from where to search the variables.
+#' @param ... Other parameters passed to `report_wilcox`.
+#'
+#' @name report_pairwise_wilcox
+#' @export
+
+report_pairwise_wilcox <- function(formula, data, ...) {
+
+  stopifnot(
+    "Is not an object of class \"formula\"" = inherits(formula, "formula")
+  )
+
+  .temp <- stats::model.frame(formula, data)
+
+  x_var <- all.vars(formula)[2L]
+
+  lvl <- as.vector(
+    x = unique(
+      x = .temp[[x_var]]
+    )
+  )
+
+  lvl_pairs <- utils::combn(lvl, m = 2L, simplify = FALSE)
+
+  results <- vapply(lvl_pairs, function(i) {
+    report_wilcox(formula, .temp[.temp[[x_var]] %in% i, ], ...)
+  }, FUN.VALUE = NA_character_)
+
+  expr <- data.table::data.table(
+    pairs = lapply(lvl_pairs, paste, collapse = " - "),
+    results
+  )
+
+  return(expr)
+}
+
 #' Report GAM model overall slope
 #'
 #' Report the overall slopes for a GAM model fitted through the `mgcv` package.

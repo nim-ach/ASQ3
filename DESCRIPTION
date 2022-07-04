@@ -31,7 +31,8 @@ Imports:
     lifecycle,
     modelbased (>= 0.8.1),
     see (>= 0.7.0),
-    stats
+    stats,
+    utils
 Suggests: 
     skimr (>= 2.1.3),
     rmarkdown
