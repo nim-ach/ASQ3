@@ -41,7 +41,7 @@ Cristian Núñez-Espinosa, School of Medicine, Magallanes University, Punta Aren
 
 ## Abstract 
 
-**Objective**: To describe and model the relationship between sociodemographics, prematurity and neurodevelopmental levels based on the *Ages and Stages Questionnaire* scores in infants diagnosed with congenital hypotonia (CH). **Material and methods**: [...]. **Results**: When modelling the effect of corrected age on developmental domains we found a significant overall effect on communication skills ($\beta$ = -2.36, CI~95%~[-3.47, -1.25]), gross motor function ($\beta$ = 1.95, CI~95%~[0.66, 3.25]) and problem-solving skills ($\beta$ = -1.87, CI~95%~[-3.17, -0.57]). fine motor skills did not exhibit an overall linear effect ($\beta$ = 0.04, CI~95%~[-0.45, 0.52]), however, they showed a non-linear effect ($F_{smooth}$ (2.59, 226.77) = 4.2, *p* = 0.005); unlike the personal-social domain, which did not present any variation across corrected age ($F_{smooth}$ (1, 231.58) = 1.16, *p* = 0.282). **Conclusion**: After adjusting for possible confounders, we found between-subjects fluctuations in neurodevelopmental traits across age in hypotonic infants in the form of non-linear and domain-specific variations. Further research is warranted to determine how these findings apply in the presence of other context-mediated social factors and populations.
+**Objective**: To describe and model the relationship between sociodemographics, prematurity and neurodevelopmental levels based on the *Ages and Stages Questionnaire* (ASQ-3) scores in infants diagnosed with congenital hypotonia (CH). **Material and methods**: A total of 234 patients diagnosed with CH were enrolled in a rehabilitation programme led by the Rehabilitation Centre of Punta Arenas (Chile). Neurodevelopmental status was assessed with the ASQ-3 at admission, as well as sociodemographic and obstetric data, which were obtained through the initial clinical interview. **Results**: When modelling the neurodevelopmental status of each domain, an overall negative effect of corrected age on communication and problem-solving skills was observed, whereas the overall effect tend to be positive in gross motor function. Fine motor skills did not exhibit a linear relationship with corrected age, but a non-linear effect; unlike the personal-social domain, which did not present significant variations across age corrected for prematurity. **Conclusion**: After adjusting for possible confounders, we found between-subjects fluctuations in neurodevelopmental traits across age in hypotonic infants. These fluctuations were present in the form of non-linear and domain-specific variations. Further research is warranted to determine how these findings apply in the presence of other context-mediated social factors and populations.
 
 **Keywords**: Developmental traits, Congenital hypotonia, Ages and Stages Questionnaire (ASQ), Infants.
 
@@ -308,19 +308,9 @@ The raw data supporting the conclusions of this article will be made available b
 
 All authors listed have made a substantial, direct and intellectual contribution to the work, and approved it for publication.
 
-# Funding
-
-[Añadir financiamiento si fuese aplicable]{custom-style="ErrorTok"}
-
-No existe financiamiento extraordinario a la aplicación del instrumento.
-
 # Conflicts of interest
 
 The authors declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.
-
-# Acknowledgment
-
-[...]
 
 # References
 
