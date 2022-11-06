@@ -16,5 +16,6 @@ dataset <- dataset[i = n_evaluacion == 1 & diagnostico %like% "hipotonia" & edad
 
 # Drop levels of unused factors
 fv <- dataset[, names(.SD), .SDcols = is.factor]
-dataset[, (fv) := lapply(.SD, droplevels), .SDcols = fv]
+dataset[, (fv) := lapply(.SD, droplevels), .SDcols = fv][]
 rm(fv)
+

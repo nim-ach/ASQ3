@@ -17,7 +17,7 @@ near <- function(i, j) {
   return(output)
 }
 
-#' Plot GAM model of bivariate model
+#' Plot GAM model
 #'
 #' Display graphical representation of a gam model for bivariate
 #' relationships. Model specification can be set with the ellipsis
@@ -59,3 +59,102 @@ plot_gam <- function(data, x, y, xlab, ylab, round_to = 1, ...) {
                                                        " SE in ", round_to, "-unit intervals")) +
     see::theme_lucid()
 }
+
+#' Plot varying random effects structure GAM model
+#'
+#' Display graphical representation different gam models on the same
+#' response using different random effects structure and comparing
+#' the estimates.
+#'
+#' @param data Dataset from where to extract response and independent variables.
+#' @param var Character. Response variable to test on gam models with varying random effects structures.
+#' @param seed Numeric. Seed for random processes within gams.
+#' @param legend Logical. Whether to include the figure legend.
+#' @param var_name Character. The label for the y-axis. Default is NULL, so "Predicted score" is used.
+#' @param plot Logical. Whether to return the plot. If FALSE, then the models with the varying random effects structures are returned.
+#' @param ... Currently not used.
+#'
+#' @export
+
+gam_confounders <- function(data, var, seed = 1234, legend = TRUE, var_name = NULL, plot = TRUE, ...) {
+  models = list(
+    # Simple model - only smooth term
+    `Simple` = "var ~ s(edad_corregida_meses)",
+    # Testing possible confounders one by one
+    `Only sex` = "var ~ s(sexo_paciente, bs = \"re\") + s(edad_corregida_meses)",
+    `Clinician` = "var ~ s(profesional_id, bs = \"re\") + s(edad_corregida_meses)",
+    `Respondent` = "var ~ s(respondedor_vinculo, bs = \"re\") + s(edad_corregida_meses)",
+    # Testing combination of pairs
+    `Clinician + Sex` = "var ~ s(profesional_id, bs = \"re\") + s(sexo_paciente, bs = \"re\") + s(edad_corregida_meses)",
+    `Clinician + Respondent` = "var ~ s(profesional_id, bs = \"re\") + s(respondedor_vinculo, bs = \"re\") + s(edad_corregida_meses)",
+    `Sex + Respondent` = "var ~ s(sexo_paciente, bs = \"re\") + s(respondedor_vinculo, bs = \"re\") + s(edad_corregida_meses)",
+    # And full model
+    `Full model` = "var ~ s(profesional_id, bs = \"re\") + s(sexo_paciente, bs = \"re\") + s(respondedor_vinculo, bs = \"re\") + s(edad_corregida_meses)"
+  )
+
+  models <- lapply(models, stats::as.formula)
+  models <- lapply(models, `[[<-`, 2, as.name(var))
+
+  set.seed(seed)
+  output <- lapply(models, mgcv::gam, data = data, method = "REML")
+
+  if (isFALSE(plot)) {
+    return(output)
+  }
+
+  testdata <- expand.grid(
+    profesional_id = c(2),
+    sexo_paciente = c("F", "M"),
+    respondedor_vinculo = c("Madre","Padre","Abuelo/a","Tio/a"),
+    edad_corregida_meses = seq(0, 48, 0.05)
+  )
+
+  testdata <- data.table::as.data.table(testdata)
+
+  predicted_response <- lapply(
+    output,
+    stats::predict,
+    type = "response",
+    newdata = testdata
+  )
+
+  predicted_response <- data.table::as.data.table(predicted_response)
+  predicted_response <- cbind(predicted_response, testdata)
+  predicted_response <- data.table::melt.data.table(
+    predicted_response,
+    id.vars = c("profesional_id","sexo_paciente","respondedor_vinculo","edad_corregida_meses"),
+    variable.name = "Adjusted for:",
+    value.name = "fit"
+  )
+
+  ylab <- "Predicted score"
+  if (!is.null(var_name) && is.character(var_name)) {
+    ylab <- paste("Predicted", var_name, "score")
+  }
+
+  plot <- ggplot2::ggplot(predicted_response, ggplot2::aes(edad_corregida_meses, fit)) +
+    ggplot2::facet_grid(rows = ggplot2::vars(sexo_paciente), cols = ggplot2::vars(respondedor_vinculo),
+                        labeller = ggplot2::labeller(
+                          sexo_paciente = c(F = "Female", M = "Male"),
+                          respondedor_vinculo = c(Madre = "Mother", Padre = "Father", `Abuelo/a` = "Grandparent", `Tio/a` = "Uncle")
+                        )) +
+    ggplot2::geom_line(ggplot2::aes(col = `Adjusted for:`, lty = `Adjusted for:`)) +
+    ggplot2::labs(x = "Corrected age (in months)", y = ylab) +
+    ggdist::theme_ggdist()
+
+  if (isFALSE(legend)) {
+    plot <- plot + ggplot2::theme(legend.position = "none")
+  }
+
+  return(plot)
+}
+
+# Global variables
+utils::globalVariables(
+  names = c("edad_corregida_meses",
+            "respondedor_vinculo",
+            "sexo_paciente",
+            "fit",
+            "Adjusted for:"),
+  add = TRUE
+)

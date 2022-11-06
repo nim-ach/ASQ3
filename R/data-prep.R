@@ -177,5 +177,5 @@
 #' @seealso
 #' - \link[=dataset]{dataset}
 #'
-#' @name data-prep
+#' @name data_prep
 NULL

@@ -1,0 +1,109 @@
+---
+title: "Supplementary file"
+bibliography: "misc/ref.bib"
+csl: "misc/vancouver-dmcn.csl"
+link-citations: yes
+notes-after-punctuation: true
+output:
+  word_document:
+    reference_docx: "misc/ref.docx"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  include = FALSE
+)
+```
+
+```{r load-packages}
+source(file = "misc/setup.R")
+```
+
+**Title**: Neurodevelopmental features among infants with congenital hypotonia: An observational cross-sectional study.
+
+**Authors**: Patricio Barría^1,2^, Matías Castillo-Aguilar^3,4^, Katherine Harris^3,4^, Kay Gittermann^1,5^, Mónica Bontes^1^, Rolando Aguilar^1,6^, Carlos A. Cifuentes^7,8^, Marcela Munera^9^, Cristian Núñez-Espinosa^4,10^*
+
+::: {custom-style="Afiliation"}
+^1^ Corporación de Rehabilitación Club de Leones Cruz del Sur, Punta Arenas, Chile.
+
+^2^ Brain-Machine Interface Systems Lab, Universidad Miguel Hernández de Elche, Elche, España.
+
+^3^ Kinesiology Department, Magallanes University, Punta Arenas, Chile.
+
+^4^ Centro Asistencial de Docencia e Investigación (CADI-UMAG), Punta Arenas Chile.
+
+^5^ Hospital Clínico de Magallanes, Punta Arenas, Chile.
+
+^6^ Engineering Department, Magallanes University, Punta Arenas, Chile.
+
+^7^ Bristol Robotics Laboratory, University of the West of England T Block, Frenchay Campus.
+
+^8^ School of Engineering, Science and Technology, Universidad del Rosario, Bogota, Colombia.
+
+^9^ Department of Biomedical Engineering, Colombian School of Engineering Julio Garavito.
+
+^10^ School of Medicine, Magallanes University, Punta Arenas, Chile.
+:::
+
+### \*Autor de correspondencia 
+
+Cristian Núñez-Espinosa, School of Medicine, Magallanes University, Punta Arenas, Chile. Centro Asistencial de Docencia e Investigación CADI-UMAG, Chile. e-mail: [cristian.nunez\@umag.cl](mailto:cristian.nunez@umag.cl). Address: Avenida Bulnes 01855, Box 113-D. Phone: +56 61 2201411
+
+\newpage
+
+```{r}
+params <- grep("total$", names(dataset), value = TRUE)
+names(params) <- c("CM", "GM", "FM", "CG", "PS")
+
+models <- lapply(params, gam_confounders, data = dataset, plot = FALSE);
+
+comp <- rbindlist(
+  l = lapply(models, function(x) {
+    rbindlist(lapply(x, function(i) {
+      j <- performance::performance(i);
+      as.data.table(j)[, lapply(.SD, round, digits = 2), .SDcols = is.numeric]
+    }), idcol = "Model")
+  }), idcol = "Domain"
+)
+
+comp[, ` ` := ifelse(AIC == min(AIC),"a", ""), list(Domain)][]
+comp[, ` ` := ifelse(BIC == min(BIC), paste0(` `,"b"), ` `), list(Domain)][]
+comp[, ` ` := ifelse(R2 == max(R2), paste0(` `,"c"), ` `), list(Domain)][]
+comp[, ` ` := ifelse(Sigma == min(Sigma), paste0(` `,"d"), ` `), list(Domain)][]
+comp[, ` ` := ifelse(RMSE == min(RMSE), paste0(` `,"e"), ` `), list(Domain)][]
+```
+
+## Assessing Random Effects Structures
+
+In order to asses which random effect structure would be more appropriate we fitted multiple gerenalized additive models (GAMs) using each developmental domain as the response and the corrected age (in months) as the independent fixed effect. 
+
+The following variables: i) sex of the infant, ii) clinician ID, iii) the relationship of the infant to the respondent (i.e., whether the respondent was the infant's mother, father, uncle or grandparent), were treated as random effects in the form of penalized parametric terms [@wood2016smoothing].
+
+The models fitted for each developmental domain were the following:
+
+- **Simple model**: No random effects.
+- **Only sex**: Considering sex within the model.
+- **Clinician**: Considering the clinician identification.
+- **Respondent**: Considering the relationship status (mother, father, uncle or grandparent) with the infant.
+- **Clinician + Respondent**: Considering both clinician ID and respondent status.
+- **Sex + Respondent**: Considering the infants' sex and respondent status.
+- **Clinician + Sex**: Considering the clinician ID and infants' sex.
+- **Full model**: Considering all of above variables as random effects within the model.
+
+The performance of the aforementioned models can be seen in the Table 1S.
+
+```{r include=TRUE}
+knitr::kable(comp[order(nchar(` `)), .SD, Domain])
+```
+
+[**Table 1S**]{#tab1s}. Model performance for each random effect structure grouped for each developmental domain. The letters in the last columns represent: a, model with the lowest Akaike Information Criterion (AIC); b, model with the lowest Bayesian Information Criterion (BIC); c, model with the maximum R^2^; d, model with lowest esidual standard deviation (Sigma); e, model with the lowest root mean squared error (RMSE).
+
+Considering the previous findings, we considered most appropriate to adjust for all variables in subsequent analyses in order maintain consistency between domains and the models fitted, given that the fully adjusted models tend to reduce the RMSE, and Sigma.
+
+# References
+
+<div id="refs"></div>
+

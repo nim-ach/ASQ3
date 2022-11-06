@@ -43,7 +43,7 @@
 #'   questionnaire [ASQ-3](https://agesandstages.com/products-pricing/asq3/).
 #'
 #' @seealso
-#' - \link[=data-prep]{Data preparation process}
+#' - \link[=data_prep]{Data preparation process}
 #'
 #' @source CADI-UMAG, Punta Arenas, Chile.
 "dataset"

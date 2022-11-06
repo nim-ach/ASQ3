@@ -74,7 +74,7 @@ boots <- melt(boots, id.vars = 1:2, variable.name = "boot", value.name = "predic
 
 
 # Plot the data
-fig_1a <- ggplot(fig_data, aes(x = edad_corregida_meses, y = value)) +
+fig_2a <- ggplot(fig_data, aes(x = edad_corregida_meses, y = value)) +
   facet_grid(variable ~ ., scale = "free_y") +
   geom_count(alpha = 0.1, na.rm = TRUE) +
   geom_line(data = boots, aes(group = boot, y = predicted), alpha = 0.02, col = "red") +
@@ -147,12 +147,12 @@ slopes <- sapply(
   simplify = FALSE
 )
 
-fig_1b_data <- rbindlist(slopes, idcol = "response")
-fig_1b_data[, Confidence := fifelse(p < 0.05, "Significant", "Not significant")
+fig_2b_data <- rbindlist(slopes, idcol = "response")
+fig_2b_data[, Confidence := fifelse(p < 0.05, "Significant", "Not significant")
           ][, grp := rleid(Confidence)
           ][, response := factor(response, levels = names(models))]
 
-fig_1b <- ggplot(fig_1b_data, aes(edad_corregida_meses, Coefficient)) +
+fig_2b <- ggplot(fig_2b_data, aes(edad_corregida_meses, Coefficient)) +
   facet_grid(response ~ ., scales = "free_y") +
   labs(x = "Corrected age (months)",
        y = "Effect of Corrected age",) +
@@ -162,11 +162,11 @@ fig_1b <- ggplot(fig_1b_data, aes(edad_corregida_meses, Coefficient)) +
   ggpubr::theme_pubr() +
   scale_color_manual(values = ggsci::pal_lancet()(2), aesthetics = c("fill", "col"))
 
-fig_1 <- ggpubr::ggarrange(fig_1a, fig_1b, ncol = 2)
+fig_2 <- ggpubr::ggarrange(fig_2a, fig_2b, ncol = 2)
 
 if (isTRUE(x = .save_plot)) {
-  pdf("manuscript/fig-1.pdf", width = 12, height = 10);
-  print(fig_1);
+  pdf("manuscript/figures/fig-2.pdf", width = 12, height = 10);
+  print(fig_2);
   dev.off()
 }
 

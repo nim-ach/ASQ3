@@ -50,3 +50,6 @@ tbl1 <- modify_header(
   stat_0 = "**Overall**<br>N = {N}"
 )
 
+as_gt(tbl1) |>
+  gt::gtsave(filename = "manuscript/table2.rtf")
+

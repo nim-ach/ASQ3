@@ -59,7 +59,7 @@ questionnaire \href{https://agesandstages.com/products-pricing/asq3/}{ASQ-3}.
 
 \seealso{
 \itemize{
-\item \link[=data-prep]{Data preparation process}
+\item \link[=data_prep]{Data preparation process}
 }
 }
 \keyword{datasets}

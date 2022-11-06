@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_gam.R
 \name{plot_gam}
 \alias{plot_gam}
-\title{Plot GAM model of bivariate model}
+\title{Plot GAM model}
 \usage{
 plot_gam(data, x, y, xlab, ylab, round_to = 1, ...)
 }
