@@ -76,7 +76,7 @@ comp[, ` ` := ifelse(Sigma == min(Sigma), paste0(` `,"d"), ` `), list(Domain)][]
 comp[, ` ` := ifelse(RMSE == min(RMSE), paste0(` `,"e"), ` `), list(Domain)][]
 ```
 
-## Assessing Random Effects Structures
+## Random effects structures
 
 In order to asses which random effect structure would be more appropriate we fitted multiple gerenalized additive models (GAMs) using each developmental domain as the response and the corrected age (in months) as the independent fixed effect. 
 

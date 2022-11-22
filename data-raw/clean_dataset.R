@@ -172,6 +172,46 @@ library(data.table)
   setcolorder(dataset, neworder = readLines("data-raw/helpers/colorder"))
   setkey(dataset, paciente_id, fecha_evaluacion)
 
+
+# add cutoff values -------------------------------------------------------
+
+  # Use cutoffs based on technical report
+  cutoffs <- fread("data-raw/helpers/asq_cutoffs.csv")
+
+  # We find the rightmost age interval from the data
+  cutoffs <- cutoffs[, .(
+    edad_corregida = dataset$edad_corregida_meses,
+    edad = edad[findInterval(dataset$edad_corregida_meses, edad, left.open = TRUE) + 1],
+    cutoff = cutoff[findInterval(dataset$edad_corregida_meses, edad, left.open = TRUE) + 1]
+  ), domain]
+
+  # Create an id for reshaping the data to wide format
+  cutoffs[, id := seq_len(.N), domain][]
+
+  # Reshape the data to wide format
+  cutoffs <- dcast(cutoffs, id + edad_corregida ~ domain, value.var = "cutoff")[, -c(1L, 2L)]
+
+  # Bind colum-wise the cutoffs and the dataset
+  dataset <- cbind(dataset, cutoffs)
+
+  # Apply the cutoffs to their respective developmental domain
+  dataset[, `:=`(
+    comunicacion_interpretacion = ifelse(comunicacion_total < comunicacion_cutoff, "Possible Delay", "As expected"),
+    motora_gruesa_interpretacion = ifelse(motora_gruesa_total < motora_gruesa_cutoff, "Possible Delay", "As expected"),
+    motora_fina_interpretacion = ifelse(motora_fina_total < motora_fina_cutoff, "Possible Delay", "As expected"),
+    resolucion_problemas_interpretacion = ifelse(resolucion_problemas_total < resolucion_problemas_cutoff, "Possible Delay", "As expected"),
+    socio_individual_interpretacion = ifelse(socio_individual_total < socio_individual_cutoff, "Possible Delay", "As expected")
+  )]
+
+  # Find interpretation columns
+  ind <- grep("interpretacion", names(dataset), value = TRUE)
+
+  # And then transform them into factors
+  dataset[, (ind) := lapply(.SD, factor), .SDcols = ind]
+
+  # Remove temporal files
+  rm(cutoffs, ind)
+
 # Export dataset ------------------------------------------------------------------------------
 
   use_data(dataset, overwrite = TRUE)

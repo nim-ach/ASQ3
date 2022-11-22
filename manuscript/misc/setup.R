@@ -5,6 +5,10 @@ library(data.table)
 # For GAMS
 library(mgcv)
 
+# For tables
+library(gt)
+library(gtsummary)
+
 # Load the data
 data("dataset", package = "ASQ3")
 

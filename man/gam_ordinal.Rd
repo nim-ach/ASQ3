@@ -11,7 +11,6 @@ gam_ordinal(
   legend = TRUE,
   var_name = NULL,
   plot = TRUE,
-  threshold = 35,
   ...
 )
 }
@@ -27,8 +26,6 @@ gam_ordinal(
 \item{var_name}{Character. The label for the y-axis. Default is NULL, so "Predicted score" is used.}
 
 \item{plot}{Logical. Whether to return the plot. If FALSE, then the models with the varying random effects structures are returned.}
-
-\item{threshold}{Numeric. Threshold to calculate probability.}
 
 \item{...}{Currently not used.}
 }

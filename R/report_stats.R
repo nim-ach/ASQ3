@@ -324,6 +324,8 @@ report_smooth <- function(model, ...) {
     "Is not a GAM model" = inherits(model, "gam")
   )
 
+  is_binomial <- stats::family(model)$family == "binomial"
+
   mod_summary <- summary(model)
 
   tbl <- data.table::as.data.table(
@@ -331,17 +333,31 @@ report_smooth <- function(model, ...) {
     keep.rownames = TRUE
   )
 
-  tbl$df_error  <- round(x = stats::df.residual(model), digits = 2)
   tbl$`p-value` <- format_p(tbl$`p-value`)
   tbl$edf       <- round(tbl$edf, 2)
-  tbl$F         <- round(tbl$F, 2)
+  if (is_binomial) {
+    tbl$Ref.df      <- round(x = tbl$Ref.df, digits = 2)
+    tbl$Chi.sq  <- round(tbl$Chi.sq, 2)
+  } else {
+    tbl$df      <- round(x = stats::df.residual(model), digits = 2)
+    tbl$F       <- round(tbl$F, 2)
+  }
 
-  expr <- paste(
-    paste0("$F_{smooth}$ (", tbl$edf, ", ", tbl$df_error, ") = ", tbl$F),
-    paste0("*p* ", tbl$`p-value`),
-    sep = ", ",
-    recycle0 = TRUE
-  )
+  if (is_binomial) {
+    expr <- paste(
+      paste0("$\\chi^2_{smooth}$ (", tbl$Ref.df, ") = ", tbl$Chi.sq),
+      paste0("*p* ", tbl$`p-value`),
+      sep = ", ",
+      recycle0 = TRUE
+    )
+  } else {
+    expr <- paste(
+      paste0("$F_{smooth}$ (", tbl$edf, ", ", tbl$df, ") = ", tbl$F),
+      paste0("*p* ", tbl$`p-value`),
+      sep = ", ",
+      recycle0 = TRUE
+    )
+  }
 
   if (length(tbl$rn) > 1) {
     expr <- data.table::data.table(
@@ -354,3 +370,4 @@ report_smooth <- function(model, ...) {
   return(expr)
 
 }
+

@@ -172,13 +172,12 @@ utils::globalVariables(
 #' @param legend Logical. Whether to include the figure legend.
 #' @param var_name Character. The label for the y-axis. Default is NULL, so "Predicted score" is used.
 #' @param plot Logical. Whether to return the plot. If FALSE, then the models with the varying random effects structures are returned.
-#' @param threshold Numeric. Threshold to calculate probability.
 #' @param ... Currently not used.
 #'
 #' @export
 
-gam_ordinal <- function(data, var, seed = 1234, legend = TRUE, var_name = NULL, plot = TRUE, threshold = 35, ...) {
-  model <- "as.numeric(%var% < threshold) ~ s(profesional_id, bs = \"re\") + s(sexo_paciente, bs = \"re\") + s(respondedor_vinculo, bs = \"re\") + s(edad_corregida_meses)"
+gam_ordinal <- function(data, var, seed = 1234, legend = TRUE, var_name = NULL, plot = TRUE, ...) {
+  model <- "%var% ~ s(profesional_id, bs = \"re\") + s(sexo_paciente, bs = \"re\") + s(respondedor_vinculo, bs = \"re\") + s(edad_corregida_meses)"
   model <- gsub("%var%", replacement = var, model)
   model <- stats::as.formula(model)
 
@@ -188,6 +187,8 @@ gam_ordinal <- function(data, var, seed = 1234, legend = TRUE, var_name = NULL, 
   if (isFALSE(plot)) {
     return(output)
   }
+
+  p_val <- paste("p", format_p(x = stats::anova(output)$s.table[4L, 4L]))
 
   testdata <- expand.grid(
     profesional_id = c(2),
@@ -203,7 +204,7 @@ gam_ordinal <- function(data, var, seed = 1234, legend = TRUE, var_name = NULL, 
 
   ylab <- "P(Category | Corrected Age)"
   if (!is.null(var_name) && is.character(var_name)) {
-    ylab <- paste0("P(", paste(var_name, "<", threshold), " | Corrected Age)")
+    ylab <- paste0("P(", paste("Delay in", var_name), " | Corrected Age)")
   }
 
   ci_prob <- function(p) stats::qnorm((p+1)/2, lower.tail = TRUE)
@@ -233,6 +234,7 @@ gam_ordinal <- function(data, var, seed = 1234, legend = TRUE, var_name = NULL, 
     ggplot2::geom_line(col = "white") +
     ggplot2::scale_fill_manual(values = c("95%" = "#FEE0D2", "80%" = "#FC9272", "50%" = "#DE2D26"), aesthetics = c("col", "fill")) +
     ggdist::theme_ggdist() +
+    ggplot2::geom_label(ggplot2::aes(x = 10, y = .8, label = p_val)) +
     ggplot2::scale_y_continuous(expand = c(0,0), limits = c(0,1)) +
     ggplot2::scale_x_continuous(expand = c(0,0)) +
     ggplot2::labs(x = "Corrected age (in months)", y = ylab, fill = "CI:", col = "CI:") +

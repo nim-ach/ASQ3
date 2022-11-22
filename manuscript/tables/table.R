@@ -41,15 +41,18 @@ tbl1 <- add_overall(x = tbl1)
 tbl1 <- add_p(
   x = tbl1,
   test = everything() ~ "wilcox.test",
-  pvalue_fun = function(x) style_pvalue(x, digits = 3)
+  pvalue_fun = function(x) round(x, digits = 3)
 )
 
-tbl1 <- modify_header(
-  x = tbl1,
-  all_stat_cols(stat_0 = FALSE) ~ "**{level}**<br>N = {n}",
-  stat_0 = "**Overall**<br>N = {N}"
-)
+# tbl1 <- modify_header(
+#   x = tbl1,
+#   all_stat_cols(stat_0 = FALSE) ~ "**{level}**<br>N = {n}",
+#   stat_0 = "**Overall**<br>N = {N}"
+# )
 
-as_gt(tbl1) |>
-  gt::gtsave(filename = "manuscript/table2.rtf")
+tbl1 <- as_gt(tbl1)
 
+
+
+saveRDS(tbl1, file = "manuscript/tables/table-1.RDS")
+gt::gtsave(tbl1, filename = "manuscript/tables/table-1.rtf")
