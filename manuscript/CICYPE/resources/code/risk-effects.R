@@ -90,7 +90,7 @@ plot_risk_effects <- function(var, var_name = var, save = FALSE) {
 
   if (save) {
     path <- gsub("%var%", var, "manuscript/CICYPE/resources/results_risk_%var%.svg", fixed = TRUE)
-    svglite::svglite(filename = path, height = 4, width = 8, always_valid = TRUE)
+    svglite::svglite(filename = path, height = 4, width = 7, always_valid = TRUE)
     print(plot)
     dev.off()
   } else {
@@ -98,8 +98,19 @@ plot_risk_effects <- function(var, var_name = var, save = FALSE) {
   }
 }
 
-for (i in names(ind)) {
+for (i in names(ind[1:2])) {
   plot_risk_effects(i, save = TRUE)
 }
 
+fig <- ggpubr::ggarrange(
+  plotlist = lapply(names(ind[3:5]), plot_risk_effects),
+  nrow = 1,
+  ncol = 3,
+  common.legend = TRUE
+)
+svglite::svglite(filename = "manuscript/CICYPE/resources/results_risk_NS.svg",
+                 height = 5, width = 10,
+                 always_valid = TRUE)
+print(fig)
+dev.off()
 

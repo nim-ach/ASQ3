@@ -306,13 +306,11 @@ De acuerdo a lo anterior, no podemos asumir la normalidad de las variables.
 - La prueba chi-cuadrado ( $\chi^2$) se usó para comparar la bondad de ajuste.
 :::
 
-## Modelado con GAMs {.smaller}
-
-::: {.fragment .fade-out fragment-index=5}
-![](resources/gams_vs_lm.svg){.fragment .fade-in .absolute right=0 top=10% fragment-index=1}
-:::
+## Modelos Aditivos Generalizados {.smaller}
 
 :::: {.fragment .fade-out fragment-index=4}
+![](resources/gams_vs_lm.svg){.fragment .fade-in .absolute right=5% top=15% width=50% fragment-index=1}
+
 ::: {.fragment .fade-in-then-semi-out .absolute top=20% width=40% fragment-index=2}
 - Empleamos modelos aditivos generalizados (GAMs) para describir el comportamiento del neurodesarrollo en respuesta de nuestros parámetros de interés.
 :::
@@ -323,20 +321,24 @@ De acuerdo a lo anterior, no podemos asumir la normalidad de las variables.
 :::
 
 
-:::: {.fragment .fade-out fragment-index=9}
+::::: {.fragment .fade-out fragment-index=6}
 
-![](resources/simpson_paradox.png){.fragment .fade-in .absolute left=20% top=20% width=60% fragment-index=6}
+:::: {.fragment .fade-in fragment-index=5}
+![](resources/simpson_paradox.png){.absolute left=20% top=20% width=60%}
 
-::: {.fragment .fade-in .absolute top=25% right=0 width=20% fragment-index=7 style="font-size: 20px; color: gray;"}
+::: {.absolute top=25% right=0 width=20% style="font-size: 20px; color: gray;"}
 *Paradoja de simpson*
 :::
 
-::: {.fragment .fade-in .absolute top=55% left=27% width=50% fragment-index=8}
+::: {.absolute top=55% left=27% width=50%}
 Sumado a lo anterior, también podemos controlar por la influencia de otras variables para obtener estimaciones más robustas a factores de confusión.
 :::
+
 ::::
 
-::: {.fragment .fade-in .absolute top=30% left=25% width=50% fragment-index=10, style="font-size:30px;"}
+:::::
+
+::: {.fragment .fade-in .absolute top=30% left=25% width=50% fragment-index=7 style="font-size:30px;"}
 Para describir las estimaciones de los modelos usaremos derivadas aproximadas de primer orden con intervalos de confianza al 95%, con el fin de poder describir los efectos observados en términos de segmentos quasi-lineales [@dominique2020estimation].
 :::
 
@@ -482,9 +484,9 @@ readRDS("resources/table-risk-smooth.RDS")
 ---
 
 ::::{.fragment .fade-in-then-out}
-![](resources/results_risk_CM.svg){.absolute left=5% width=90% top=0}
+![](resources/results_risk_CM.svg){.absolute left=5% width=80% top=0}
 
-:::{.absolute top=70% left=10% width=80% style="font-size: 22px;"}
+:::{.absolute top=70% left=10% width=75% style="font-size: 22px;"}
 ```{r}
 readRDS("resources/table-risk-CM.RDS")
 ```
@@ -492,9 +494,9 @@ readRDS("resources/table-risk-CM.RDS")
 ::::
 
 ::::{.fragment .fade-in-then-out}
-![](resources/results_risk_GM.svg){.absolute left=5% width=90% top=0}
+![](resources/results_risk_GM.svg){.absolute left=5% width=80% top=0}
 
-:::{.absolute top=70% left=10% width=80% style="font-size: 22px;"}
+:::{.absolute top=70% left=10% width=75% style="font-size: 22px;"}
 ```{r}
 readRDS("resources/table-risk-GM.RDS")
 ```
@@ -502,33 +504,7 @@ readRDS("resources/table-risk-GM.RDS")
 ::::
 
 ::::{.fragment .fade-in-then-out}
-![](resources/results_risk_FM.svg){.absolute left=5% width=90% top=0}
-
-:::{.absolute top=70% left=10% width=80% style="font-size: 22px;"}
-```{r}
-readRDS("resources/table-risk-FM.RDS")
-```
-:::
-::::
-
-::::{.fragment .fade-in-then-out}
-![](resources/results_risk_CG.svg){.absolute left=5% width=90% top=0}
-
-:::{.absolute top=70% left=10% width=80% style="font-size: 22px;"}
-```{r}
-readRDS("resources/table-risk-CG.RDS")
-```
-:::
-::::
-
-::::{.fragment .fade-in-then-out}
-![](resources/results_risk_PS.svg){.absolute left=5% width=90% top=0}
-
-:::{.absolute top=70% left=10% width=80% style="font-size: 22px;"}
-```{r}
-readRDS("resources/table-risk-PS.RDS")
-```
-:::
+![](resources/results_risk_NS.svg){.absolute left=5% width=90% top=10%}
 ::::
 
 
