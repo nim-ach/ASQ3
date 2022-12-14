@@ -1,0 +1,8 @@
+/* General aesthetics */
+
+.reveal li>a {
+    color: var(--r-main-color);
+    text-decoration: none;
+    transition: color .15s ease;
+}
+

@@ -1,0 +1,26 @@
+/* Aesthetics for the title-slide */
+
+.title {
+  font-size: 50px !important;
+}
+
+.subtitle {
+  font-size: 30px !important;
+}
+
+.quarto-title-affiliation{
+  font-size: 20px !important;
+  text-align: left;
+}
+
+.quarto-title-author-name {
+  border-top: solid;
+  border-top-width: 1px;
+  font-size: 30px;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.date {
+  font-size: 20px;
+}

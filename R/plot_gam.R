@@ -160,9 +160,9 @@ utils::globalVariables(
 )
 
 
-#' Plot ordinal GAM
+#' Plot logistic GAM
 #'
-#' Display graphical representation of ordinal regression gam models
+#' Display graphical representation of logistic regression gam models
 #' on the response using the random effects structure and comparing
 #' the estimates.
 #'
@@ -176,19 +176,20 @@ utils::globalVariables(
 #'
 #' @export
 
-gam_ordinal <- function(data, var, seed = 1234, legend = TRUE, var_name = NULL, plot = TRUE, ...) {
+gam_binomial <- function(data, var, seed = 1234, legend = TRUE, var_name = NULL, plot = TRUE, ...) {
   model <- "%var% ~ s(profesional_id, bs = \"re\") + s(sexo_paciente, bs = \"re\") + s(respondedor_vinculo, bs = \"re\") + s(edad_corregida_meses)"
   model <- gsub("%var%", replacement = var, model)
   model <- stats::as.formula(model)
 
   set.seed(seed)
-  output <- mgcv::gam(model, family = stats::binomial(link = "logit"), data = data)
+  output <- mgcv::gam(model, family = stats::binomial(link = "logit"), data = data,
+                      method = "REML")
 
   if (isFALSE(plot)) {
     return(output)
   }
 
-  p_val <- paste("p", format_p(x = stats::anova(output)$s.table[4L, 4L]))
+  p_val <- paste("p", format_p(x = summary(output)$s.table[4L, 4L]))
 
   testdata <- expand.grid(
     profesional_id = c(2),

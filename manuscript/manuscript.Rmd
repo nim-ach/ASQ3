@@ -292,7 +292,7 @@ ind <- grep("interpretacion", names(dataset), value = TRUE)
 names(ind) <- c("CM", "GM", "FM", "CG", "PS")
 
 models <- mapply(
-  FUN = gam_ordinal,
+  FUN = gam_binomial,
   var = ind,
   data = list(dataset),
   plot = FALSE,

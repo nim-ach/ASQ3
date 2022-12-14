@@ -285,9 +285,19 @@ report_slopes <- function(model, term, ci = 0.95, length = 100, k = 1, ...) {
 
   slopes$df_error <- round(slopes$df_error, 2)
   slopes$t <- round(slopes$t, 2)
+  b <- "$\\beta$ = "
+
+  is_binomial <- stats::family(model)$family == "binomial"
+  if(is_binomial) {
+    message("transforming coefficients from logodds to OR")
+    slopes$Coefficient <- exp(slopes$Coefficient)
+    slopes$CI_low      <- exp(slopes$CI_low)
+    slopes$CI_high     <- exp(slopes$CI_high)
+    b <- "OR = "
+  }
 
   expr <- paste(
-    paste0("$\\beta$ = ", round(slopes$Coefficient, 2)),
+    paste0(b, round(slopes$Coefficient, 2)),
     paste0("CI~",slopes$CI*100,"%~[", round(slopes$CI_low, 2), ", ", round(slopes$CI_high, 2), "]"),
     paste0("$t_{student}$ (", slopes$df_error, ") = ", slopes$t),
     paste0("*p* ", format_p(slopes$p)),

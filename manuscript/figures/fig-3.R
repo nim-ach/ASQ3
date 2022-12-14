@@ -13,7 +13,7 @@ names(ind) <- c("CM", "GM", "FM", "CG", "PS")
 
 
 plots <- mapply(
-  FUN = gam_ordinal,
+  FUN = gam_binomial,
   data = list(dataset),
   var = ind,
   var_name = names(ind),
@@ -36,7 +36,7 @@ local({
 # Evaluacion de los modelos -----------------------------------------------
 
 models <- mapply(
-  FUN = gam_ordinal,
+  FUN = gam_binomial,
   var = ind,
   data = list(dataset),
   plot = FALSE,
