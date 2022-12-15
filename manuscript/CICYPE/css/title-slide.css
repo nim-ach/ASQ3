@@ -16,9 +16,11 @@
 .quarto-title-author-name {
   border-top: solid;
   border-top-width: 1px;
-  font-size: 30px;
-  padding-top: 60px;
+  font-size: 26px;
+  padding-top: 30px;
   padding-bottom: 60px;
+  margin-left: 15%;
+  margin-right: 15%;
 }
 
 .date {

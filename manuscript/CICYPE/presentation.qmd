@@ -6,23 +6,16 @@ title-slide-attributes:
   data-background-color: "black"
 subtitle: "de la región de Magallanes y la Antártica Chilena"
 author:
-  - Matías Castillo-Aguilar ^1,2^
-institute: 
-  - ^1^ Departamento de Kinesiología, Universidad de Magallanes, Punta Arenas, Chile.
-  - ^2^ Neurofisiología Integrativa Molecular Austral Chilena (NIM-ACh), Punta Arenas, Chile.
+  - 'Patricio Barría, [Matías Castillo-Aguilar]{style="color:yellow;"}, Katherine Harris, Kay Gittermann, Mónica Bontes, Rolando Aguilar, Carlos A. Cifuentes, Marcela Munera, Cristian Núñez-Espinosa.'
 format: 
   revealjs:
     auto-play-media: true
     theme: simple
-    toc: true
-    toc-depth: 1
-    toc-title: Contenidos
     transition: slide
-    background-transition: slide
+    background-transition: fade
     controls-layout: bottom-right
     default-image-extension: svg
     view-distance: 3
-editor: visual
 footer: "Matías Castillo-Aguilar"
 css:
   - css/title-slide.css
@@ -95,7 +88,7 @@ var video = document.getElementById("baby");
 video.controls = false;
 </script>
 
-## {background-color="black" background-video="resources/group_discussion.mp4" background-video-loop="true" background-video-muted="true" background-opacity=0.5 background-transition="fade"}
+## {background-color="black" background-video="resources/end_intro.mp4" background-video-loop="true" background-video-muted="true" background-opacity=0.5 background-transition="fade"}
 
 ::: {.fragment .fade-in-then-out .absolute left=25% top=20% width=50%}
 Investigar el desarrollo de la HC es fundamental, dado que es un desorden neuromuscular no progresivo que tiende a mejorar [con la intervención temprana]{style="font-weight: 1000; color: red;"}.
@@ -128,13 +121,16 @@ región de Magallanes y la Antártica Chilena.
 
 ::::{.fragment .fade-in .absolute left=10% top=25% width=80%}
 ### Específicos
+
 :::{style="font-size: 28px;"}
-- Describir y caracterizar la relación entre el [neurodesarrollo y la prematuridad]{.fragment .highlight-red} en
-niños diagnosticados de HC.
-- Describir y caracterizar la relación entre el [neurodesarrollo y la edad]{.fragment .highlight-red} en niños
-diagnosticados de HC.
-- Describir y caracterizar [la influencia de la edad sobre el riesgo de presentar un
-retardo en el neurodesarrollo]{.fragment .highlight-red} en niños diagnosticados de HC.
+Describir y caracterizar...
+
+- la relación entre el [neurodesarrollo y la prematuridad]{.fragment .highlight-red},
+- la relación entre el [neurodesarrollo y la edad]{.fragment .highlight-red},
+- [la influencia de la edad sobre el riesgo de presentar un
+retardo en el neurodesarrollo]{.fragment .highlight-red},
+
+...en niños diagnosticados de HC.
 :::
 ::::
 
@@ -171,39 +167,18 @@ El diagnóstico de HC se basó en 4 fuentes:
 4. Fisiatra de la institución.
 :::
 
-::: {.fragment .fade-in .absolute width=45% right=0 top=36% style="font-size: 34px;"}
-Una vez hecho el diagnóstico, este se refirió al programa de la institución para su posterior ingreso.
-:::
-
 <script>
 var video = document.getElementById("participants");
 video.controls = false;
 </script>
 
-## Resguardos éticos {.smaller}
-
-![](resources/ethics.mp4){.absolute #ethics right=0 width=50% top=30% loop=true}
-
-::: {.absolute width=45% top=30%}
-- Los cuidadores legales otorgaron su consentimiento informado antes de la participación a este estudio.
-
-- El Comité de Ética del CRCS aprobó este estudio siguiendo las regulaciones establecidas por la Declaración de Helsinki.
-:::
-
-<script>
-var video = document.getElementById("ethics");
-video.controls = false;
-</script>
-
-## Mediciones
+## The Ages and Stages Questionnaire
 
 ![](resources/measures.mp4){.absolute #measures width=50% top=30% loop=true}
 
-::: {.fragment .fade-in-then-out .absolute width=45% right=0 top=22% style="font-size: 32px;"}
-### The Ages and Stages Questionnaire (ASQ-3)
-
+::: {.fragment .fade-in-then-out .absolute width=45% right=0 top=32% style="font-size: 32px;"}
 - Instrumento de cribado del desarrollo de nivel inicial informado por los padres.
-- Consta de 21 intervalos, cada uno con 30 ítems en cinco áreas.
+- Consta de cinco áreas del desarrollo evaluadas.
 :::
 
 :::: {.fragment .fade-in-then-out .absolute width=45% right=0 top=23%}
@@ -216,12 +191,6 @@ video.controls = false;
 - Personal-social (PS)
 :::
 ::::
-
-::: {.fragment .fade-in-then-out .absolute width=45% right=0 top=28% style="font-size: 28px;"}
-Es costo efectivo y ampliamente usado internacionalmente [@heo2008cross; @sarmiento2011universal].
-
-Validado en infantes de término y pretérmino chilenos (75% sensibilidad and 81% especificidad) [@schonhaut2013validity].
-:::
 
 <script>
 var video = document.getElementById("measures");
@@ -241,14 +210,190 @@ video.controls = false;
 - El ASQ-3 lo aplicó la enfermera del programa de acuerdo al protocolo establecido por el propio instrumento.
 :::
 
-::: {.fragment .fade-in .absolute width=45% left=0 top=22% style="font-size: 32px;" fragment-index=4}
-Algunas consideraciones importantes de la administración son que:
+# Resultados
 
-1. Debe responder el [cuidador principal]{.fragment .highlight-red}.
-2. En caso de dudas del cuidador sobre el comportamiento evaluado, la información se corrobora mediante pruebas *in-situ* con el usuario.
+¿Qué fué lo que se encontró?
+
+## Características de la muestra
+
+:::{.absolute top=12% left=10% width=80% style="font-size:16px;"}
+```{r}
+readRDS("resources/table-1.RDS")
+```
 :::
 
-# Análisis estadístico
+## {background-color="white" background-video="resources/in_results_2.mp4" background-video-loop="true" background-video-muted="true" background-opacity=0.5 background-transition="fade"}
+
+:::{style="font-weight: 1000; text-align: center; font-size: 80px;"}
+[NEURODESARROLLO]{.fragment top=35% left=0 .absolute} 
+
+[Y LA EDAD]{.fragment top=50% left=0 .absolute}
+:::
+
+## Comunicación
+
+![](resources/results_main_CM.svg){.absolute left=5% width=85% top=10%}
+
+:::{.absolute top=80% left=10% width=80% style="font-size: 22px;"}
+```{r}
+readRDS("resources/table-main-CM.RDS")
+```
+:::
+
+## Habilidades motoras gruesas
+
+![](resources/results_main_GM.svg){.absolute left=5% width=85% top=10%}
+
+:::{.absolute top=80% left=10% width=80% style="font-size: 22px;"}
+```{r}
+readRDS("resources/table-main-GM.RDS")
+```
+:::
+
+## Habilidades motoras finas
+
+![](resources/results_main_FM.svg){.absolute left=5% width=85% top=10%}
+
+:::{.absolute top=80% left=10% width=80% style="font-size: 22px;"}
+```{r}
+readRDS("resources/table-main-FM.RDS")
+```
+:::
+
+## Resolución de problemas
+
+![](resources/results_main_CG.svg){.absolute left=5% width=85% top=10%}
+
+:::{.absolute top=80% left=10% width=80% style="font-size: 22px;"}
+```{r}
+readRDS("resources/table-main-CG.RDS")
+```
+:::
+
+## Personal-social
+
+![](resources/results_main_PS.svg){.absolute left=5% width=85% top=10%}
+
+:::{.absolute top=80% left=10% width=80% style="font-size: 22px;"}
+```{r}
+readRDS("resources/table-main-PS.RDS")
+```
+:::
+
+## {background-color="white" background-video="resources/in_results_2.mp4" background-video-loop="true" background-video-muted="true" background-opacity=0.5 background-transition="fade"}
+
+[EDAD]{.absolute .fragment top=35% left=0 style="font-weight: 1000; font-size: 80px;"} 
+
+[Y RETRASO DEL DESARROLLO]{.absolute .fragment top=50% left=0 style="font-weight: 1000; font-size: 70px;"}
+
+## Comunicación
+
+![](resources/results_risk_CM.svg){.absolute left=10% width=80% top=10%}
+
+:::{.absolute top=80% left=15% width=75% style="font-size: 22px;"}
+```{r}
+readRDS("resources/table-risk-CM.RDS")
+```
+:::
+
+## Habilidades motoras gruesas
+
+![](resources/results_risk_GM.svg){.absolute left=10% width=80% top=10%}
+
+:::{.absolute top=80% left=15% width=75% style="font-size: 22px;"}
+```{r}
+readRDS("resources/table-risk-GM.RDS")
+```
+:::
+
+## Habilidades motoras finas
+
+![](resources/results_risk_FM.svg){.absolute left=10% width=80% top=10%}
+
+:::{.absolute top=80% left=15% width=75% style="font-size: 22px;"}
+```{r}
+readRDS("resources/table-risk-FM.RDS")
+```
+:::
+
+## Resolución de problemas
+
+![](resources/results_risk_CG.svg){.absolute left=10% width=80% top=10%}
+
+:::{.absolute top=80% left=15% width=75% style="font-size: 22px;"}
+```{r}
+readRDS("resources/table-risk-CG.RDS")
+```
+:::
+
+## Personal-social
+
+![](resources/results_risk_PS.svg){.absolute left=10% width=80% top=10%}
+
+:::{.absolute top=80% left=15% width=75% style="font-size: 22px;"}
+```{r}
+readRDS("resources/table-risk-PS.RDS")
+```
+:::
+
+
+# Conclusión
+
+## {background-color="black" background-video="resources/conclusion.mp4" background-video-loop="true" background-video-muted="true" background-opacity=0.5 background-transition="fade"}
+
+:::: {.fragment .fade-out fragment-index=3}
+::: {.fragment .fade-in-then-semi-out .absolute width=40% left=0 top=20% style="font-size: 28px;" fragment-index=1}
+- Se observan marcadas variaciones no lineales en los rasgos del neurodesarrollo en respuesta de la edad.
+:::
+::::
+
+::: {.fragment .fade-in-then-out .absolute width=40% left=0 top=45% style="font-size: 28px;" fragment-index=2}
+- Las variaciones observadas en el neurodesarrollo no son atribuibles únicamente a la prematuridad.
+:::
+
+::: {.fragment .fade-in .absolute width=30% left=0 top=22% style="font-size: 28px;" fragment-index=4}
+Futuras investigaciones podrían determinar cómo se aplican estos resultados cuando se controlan los factores sociales mediados por el contexto, así como otras poblaciones clínicas.
+:::
+
+## {background-color="black" background-image="resources/title-background.jpeg" background-opacity=0.5 background-transition="fade"}
+
+
+::::{.absolute top=21%}
+:::{style="text-align: center;"}
+<h1 class="title">Descripción y caracterización del neurodesarrollo de niños con hipotonía congénita</h1>
+:::
+:::{.subtitle style="text-align: center;"}
+de la región de Magallanes y la Antártica Chilena
+:::
+::::
+
+:::{.quarto-title-author-name .absolute top=50% style="text-align:center;"}
+Patricio Barría, [Matías Castillo-Aguilar]{style="color:yellow;"}, Katherine Harris, Kay Gittermann, Mónica Bontes, Rolando Aguilar, Carlos A. Cifuentes, Marcela Munera, Cristian Núñez-Espinosa. 
+:::
+
+## Referencias {.smaller}
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography"></div>
+
+# Anexos
+
+## Resguardos éticos {.smaller}
+
+![](resources/ethics.mp4){.absolute #ethics right=0 width=50% top=30% loop=true}
+
+::: {.absolute width=45% top=30%}
+- Los cuidadores legales otorgaron su consentimiento informado antes de la participación a este estudio.
+
+- El Comité de Ética del CRCS aprobó este estudio siguiendo las regulaciones establecidas por la Declaración de Helsinki.
+:::
+
+<script>
+var video = document.getElementById("ethics");
+video.controls = false;
+</script>
+
+
+## Análisis exploratorio
 
 ```{r load-packages}
 #| include: false
@@ -256,14 +401,6 @@ Algunas consideraciones importantes de la administración son que:
 
 source("prep-workspace.R")
 ```
-
-## Software estadístico
-
-![](resources/rstudio.png){.absolute width=40% left=10% top=30%}
-
-![](resources/rstudio-desktop-screen.png){.absolute width=40% right=10% top=12%}
-
-## Análisis exploratorio
 
 ::::{.fragment .fade-in-then-out .absolute width=80%% left=10% right=10%}
 ![](resources/density.svg)
@@ -361,27 +498,7 @@ Se usaron las siguientes variables:
 
 ![](resources/confounders.svg){.fragment .fade-in .absolute width=100% left=5% fragment-index=4}
 
-# Resultados
-
-¿Qué fué lo que se encontró?
-
-## Características de la muestra
-
-:::{.absolute top=12% left=10% width=80% style="font-size:16px;"}
-```{r}
-readRDS("resources/table-1.RDS")
-```
-:::
-
-## {background-color="white" background-video="resources/in_results.mp4" background-video-loop="true" background-video-muted="true" background-opacity=0.5 background-transition="fade"}
-
-:::{style="font-weight: 1000; text-align: center; font-size: 80px;"}
-[NEURODESARROLLO]{.fragment top=35% left=0 .absolute} 
-
-[Y PREMATURIDAD]{.fragment top=50% left=0 .absolute}
-:::
-
----
+## Prematurez y neurodesarrollo
 
 :::{.absolute top=20% left=0 width=65% style="font-size: 30px;"}
 ```{r}
@@ -390,20 +507,11 @@ readRDS("resources/table-2.RDS")
 :::
 
 ::: {.absolute top=25% right=0% width=30% style="font-size: 20px; color: gray;"}
-*Tabla 1. Significancia de los términos no-lineales para la prematurez sobre las variables del desarrollo. Se presentan los modelos ajustados por las variables de confusión previamente descritas.*
+*Tabla 1S. Significancia de los términos no-lineales para la prematurez sobre las variables del desarrollo. Se presentan los modelos ajustados por las variables de confusión previamente descritas.*
 :::
 
-## {background-color="white" background-video="resources/in_results_2.mp4" background-video-loop="true" background-video-muted="true" background-opacity=0.5 background-transition="fade"}
+## Neurodesarrollo y edad corregida
 
-:::{style="font-weight: 1000; text-align: center; font-size: 80px;"}
-[NEURODESARROLLO]{.fragment top=35% left=0 .absolute} 
-
-[Y LA EDAD]{.fragment top=50% left=0 .absolute}
-:::
-
----
-
-::::{.fragment .fade-in-then-out}
 :::{.absolute top=20% left=0 width=75% style="font-size: 30px;"}
 ```{r}
 readRDS("resources/table-3.RDS")
@@ -411,65 +519,11 @@ readRDS("resources/table-3.RDS")
 :::
 
 ::: {.absolute top=25% right=5% width=20% style="font-size: 20px; color: gray;"}
-*Tabla 2. Significancia de los términos no-lineales para la edad corregida (meses) sobre las variables del desarrollo. Se presentan los modelos ajustados por las variables de confusión previamente descritas.*
-:::
-::::
-
-::::{.fragment .fade-in-then-out}
-![](resources/results_main_CM.svg){.absolute left=5% width=90% top=0}
-
-:::{.absolute top=70% left=10% width=80% style="font-size: 22px;"}
-```{r}
-readRDS("resources/table-main-CM.RDS")
-```
-:::
-::::
-
-::::{.fragment .fade-in-then-out}
-![](resources/results_main_GM.svg){.absolute left=5% width=90% top=0}
-
-:::{.absolute top=70% left=10% width=80% style="font-size: 22px;"}
-```{r}
-readRDS("resources/table-main-GM.RDS")
-```
-:::
-::::
-
-::::{.fragment .fade-in-then-out}
-![](resources/results_main_FM.svg){.absolute left=5% width=90% top=0}
-
-:::{.absolute top=70% left=10% width=80% style="font-size: 22px;"}
-```{r}
-readRDS("resources/table-main-FM.RDS")
-```
-:::
-::::
-
-::::{.fragment .fade-in-then-out}
-![](resources/results_main_CG.svg){.absolute left=5% width=90% top=0}
-
-:::{.absolute top=70% left=10% width=80% style="font-size: 22px;"}
-```{r}
-readRDS("resources/table-main-CG.RDS")
-```
-:::
-::::
-
-::::{.fragment .fade-in-then-out}
-![](resources/results_main_PS.svg){.absolute left=5% width=90% top=10%}
-::::
-
-## {background-color="white" background-video="resources/in_results_2.mp4" background-video-loop="true" background-video-muted="true" background-opacity=0.5 background-transition="fade"}
-
-:::{style="font-weight: 1000; font-size: 80px;"}
-[EDAD]{.fragment top=20% left=0 .absolute} 
-
-[Y RETRASO DEL DESARROLLO]{.fragment top=35% left=0 .absolute}
+*Tabla 2S. Significancia de los términos no-lineales para la edad corregida (meses) sobre las variables del desarrollo. Se presentan los modelos ajustados por las variables de confusión previamente descritas.*
 :::
 
----
+## Retardo del desarrollo y edad corregida
 
-::::{.fragment .fade-in-then-out}
 :::{.absolute top=20% left=0 width=80% style="font-size: 30px;"}
 ```{r}
 readRDS("resources/table-risk-smooth.RDS")
@@ -477,55 +531,5 @@ readRDS("resources/table-risk-smooth.RDS")
 :::
 
 ::: {.absolute top=25% right=5% width=20% style="font-size: 20px; color: gray;"}
-*Tabla 7. Significancia de los términos no-lineales logísticos para la edad corregida (meses) sobre las variables del desarrollo. Se presentan los modelos ajustados por las variables de confusión previamente descritas.*
+*Tabla 3S. Significancia de los términos no-lineales logísticos para la edad corregida (meses) sobre las variables del desarrollo. Se presentan los modelos ajustados por las variables de confusión previamente descritas.*
 :::
-::::
-
----
-
-::::{.fragment .fade-in-then-out}
-![](resources/results_risk_CM.svg){.absolute left=5% width=80% top=0}
-
-:::{.absolute top=70% left=10% width=75% style="font-size: 22px;"}
-```{r}
-readRDS("resources/table-risk-CM.RDS")
-```
-:::
-::::
-
-::::{.fragment .fade-in-then-out}
-![](resources/results_risk_GM.svg){.absolute left=5% width=80% top=0}
-
-:::{.absolute top=70% left=10% width=75% style="font-size: 22px;"}
-```{r}
-readRDS("resources/table-risk-GM.RDS")
-```
-:::
-::::
-
-::::{.fragment .fade-in-then-out}
-![](resources/results_risk_NS.svg){.absolute left=5% width=90% top=10%}
-::::
-
-
-# Conclusión
-
-## {background-color="black" background-video="resources/conclusion.mp4" background-video-loop="true" background-video-muted="true" background-opacity=0.5 background-transition="fade"}
-
-:::: {.fragment .fade-out fragment-index=3}
-::: {.fragment .fade-in-then-semi-out .absolute width=50% left=0 top=5% style="font-size: 32px;" fragment-index=1}
-- Se observan marcadas variaciones en los rasgos del neurodesarrollo a lo largo de la edad en los infantes hipotónicos, principalmente en forma de variaciones no lineales y de dominio específico.
-:::
-::::
-
-::: {.fragment .fade-in-then-out .absolute width=50% left=0 top=45% style="font-size: 30px;" fragment-index=2}
-- Mostramos que las variaciones observadas en los dominios del desarrollo no son atribuibles únicamente a la prematuridad, donde la edad corregida explica mejor la variabilidad observada en el neurodesarrollo.
-:::
-
-::: {.fragment .fade-in .absolute width=45% left=0 top=22% style="font-size: 32px;" fragment-index=4}
-Futuras investigaciones podrían determinar cómo se aplican estos resultados cuando se controlan los factores sociales mediados por el contexto, así como otras poblaciones clínicas.
-:::
-
-# Referencias
-
-## {.smaller}
