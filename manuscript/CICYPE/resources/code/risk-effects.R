@@ -98,19 +98,7 @@ plot_risk_effects <- function(var, var_name = var, save = FALSE) {
   }
 }
 
-for (i in names(ind[1:2])) {
+for (i in names(ind)) {
   plot_risk_effects(i, save = TRUE)
 }
-
-fig <- ggpubr::ggarrange(
-  plotlist = lapply(names(ind[3:5]), plot_risk_effects),
-  nrow = 1,
-  ncol = 3,
-  common.legend = TRUE
-)
-svglite::svglite(filename = "manuscript/CICYPE/resources/results_risk_NS.svg",
-                 height = 5, width = 10,
-                 always_valid = TRUE)
-print(fig)
-dev.off()
 
