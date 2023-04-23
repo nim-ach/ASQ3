@@ -56,7 +56,7 @@ Cristian Núñez-Espinosa, School of Medicine, Magallanes University, Punta Aren
 
 ## Abstract 
 
-**Aim**: To describe and model the relationship between sociodemographics, prematurity and neurodevelopmental levels based on the *Ages and Stages Questionnaire* (ASQ-3) scores in infants diagnosed with congenital hypotonia (CH). **Method**: A total of 234 patients diagnosed with CH participated in this study (median age, 8 years; 94 (40.2%) females and 140 (59.8%) males). Neurodevelopmental status was assessed with the ASQ-3 at admission, as well as sociodemographic and obstetric data obtained through the initial clinical interview. **Results**: When modeling the neurodevelopmental status of each domain, an overall negative effect of corrected age on communication and problem-solving skills was observed, whereas the overall effect tends to be positive in gross motor function. Fine motor skills did not exhibit a linear relationship with corrected age but a non-linear effect, unlike the personal-social domain, which did not present significant variations across age corrected for prematurity. **Interpretation**: After adjusting for possible confounders, we found between-subjects fluctuations in neurodevelopmental traits across age in hypotonic infants. These fluctuations were present in the form of non-linear and domain-specific variations.
+**Objective**: To describe and model the relationship between sociodemographics, prematurity and neurodevelopmental levels based on the *Ages and Stages Questionnaire* (ASQ-3) scores in infants diagnosed with congenital hypotonia (CH). **Method**: A total of 234 patients diagnosed with CH participated in this study (median age, 8 years; 93 (40.6%) females and 136 (59.4%) males). Neurodevelopmental status was assessed with the ASQ-3 at admission, as well as sociodemographic and obstetric data obtained through the initial clinical interview. **Results**: When modeling the neurodevelopmental status of each domain, an overall negative effect of corrected age on communication and problem-solving skills was observed, whereas the overall effect tends to be positive in gross motor function. Fine motor skills did not exhibit a linear relationship with corrected age but a non-linear effect, unlike the personal-social domain, which did not present significant variations across age corrected for prematurity. **Conclusion**: After adjusting for possible confounders, we found between-subjects fluctuations in neurodevelopmental traits across age in hypotonic infants. These fluctuations were present in the form of non-linear and domain-specific variations.
 
 What this paper adds:
 
@@ -72,11 +72,11 @@ What this paper adds:
 
 Early childhood development's physical and psychological signs are representative and relevant markers for identifying and monitoring overall growth in early life [@di2016predictive]. Therefore, both can be used in screening children at risk of developmental delay to support early referral and identify the need for further assessment to determine if they are eligible for early intervention services [@bruder2010early; @guralnick2017early].
 
-Currently, many tools have been proposed to assess the continued development of infants. In this sense, the Ages and Stages Questionnaire, Third Edition (ASQ-3), has been presented as a global screening tool aimed at parents/caregivers, assessing five developmental domains in children aged 0 to 5.5 years [@singh2017ages]. Current evidence suggests that the ASQ-3 is an accurate, cost-effective, and parent-friendly instrument for screening and monitoring children through pre-school age, helping to identify and eliminate neurodevelopmental deficits in children born very premature [@kerstjens2015ages; @ballantyne2016risk; @singh2017ages].
+Currently, many tools have been proposed to assess the continued development of infants. In this sense, the Ages and Stages Questionnaire, Third Edition (ASQ-3), has been presented as a global screening tool aimed at parents/caregivers, assessing five developmental domains in children aged 0 to 5.5 years [@singh2017ages]. Current evidence suggests that the ASQ-3 is an accurate, cost-effective, and parent-friendly instrument for screening and monitoring children through pre-school age, helping to identify and prevent neurodevelopmental deficits in children born very premature [@kerstjens2015ages; @ballantyne2016risk; @singh2017ages].
 
-Multiple neuromuscular, metabolic, and genetic conditions have been associated with hypotonia. Hypotonia is the decreased muscle tone or flaccidity and may represent a sign of delayed neurological development in the child, which may predispose to cognitive impairment in some cases [@riou2009global]. Because the baby's growth-associated hypotonia, hypermobility, and motor delay can affect her ability to relate to her environment, critical visual cues are not always interpreted, leading to impaired learning and cognitive development [@harris2008congenital]. Hypotonia implies a wide range and levels of muscle flaccidity, which should be explored in the cognitive development of the infant [@gabis2021weak; @harris2008congenital]. There are multiple causes of hypotonia, one of them being congenital hypotonia (CH). Some authors suggest that CH cannot be referred to as a diagnosis [@thompson2002benign]. Those who do consider it point it out as a diagnosis of exclusion in the investigation, considering it only when it is established in the absence of other signs and symptoms [@gabis2021weak; @leyenaar2005schematic]. However, its research is fundamental since it is a non-progressive neuromuscular disorder, which tends to improve with time and early intervention [@gabis2021weak].
+Multiple neuromuscular, metabolic, and genetic conditions have been associated with hypotonia. Hypotonia is the decreased muscle tone or flaccidity and may represent a sign of delayed neurological development in the child, which may predispose to cognitive impairment in some cases [@riou2009global]. Because the baby's growth-associated hypotonia, hypermobility, and motor delay can affect her ability to relate to her environment, critical visual cues are not always interpreted, leading to impaired learning and cognitive development [@harris2008congenital]. Hypotonia implies a wide range and levels of muscle flaccidity, which should be explored in the cognitive development of the infant [@gabis2021weak; @harris2008congenital]. There are multiple causes of hypotonia, one of them being congenital hypotonia (CH). Some authors suggest that CH cannot be referred to as a diagnosis [@thompson2002benign]. Those who do consider it point it out as a diagnosis of exclusion, considering it only when it is established in the absence of other signs and symptoms [@gabis2021weak; @leyenaar2005schematic]. However, its research is fundamental since it is a non-progressive neuromuscular disorder, which tends to improve with early intervention [@gabis2021weak].
 
-To our knowledge, there is no substantial evidence characterizing the observed variation in developmental traits in infants with diagnosed CH across ages. Therefore, our primary goal in this study was to describe and model the relationship between sociodemographic characteristics, prematurity, and neurodevelopmental levels as a function of ASQ-3 estimates in infants diagnosed with CH.
+To our knowledge, there is no substantial evidence characterizing the variations in developmental traits in infants with diagnosed CH across ages. Therefore, our primary goal in this study was to describe and model the relationship between prematurity, and neurodevelopmental levels assessed through ASQ-3 as a function of age in infants diagnosed with CH.
 
 # Material y methods
 
@@ -94,10 +94,10 @@ We conducted an observational, cross-sectional study under a quantitative approa
 # Sample
 n_sample <- dataset[, .N]; 
 print(n_sample);
-#> 234
+#> 229
 ```
 
-A total of 234 patients were enrolled as part of an intervention program carried out by the Cruz del Sur Rehabilitation Center (Punta Arenas, Chile), admitted from one month to 60 months old, and evaluated at admission, control and discharge. Participating patients were diagnosed based on clinical criteria confirmed by a neurologist and a physiatrist. The total files of the patients diagnosed with CH, and admitted to the institution's program, were analyzed, and the evaluation of the subjects was carried out and guided by a nurse trained in the application of the ASQ-3.
+A total of 229 patients were enrolled as part of an intervention program carried out by the Cruz del Sur Rehabilitation Center (Punta Arenas, Chile), admitted from one month to 35 months old, and evaluated at admission, control and discharge. Participating patients were diagnosed based on clinical criteria confirmed by a neurologist and a physiatrist. The total files of the patients diagnosed with CH, and admitted to the institution's program, were analyzed, and the evaluation of the subjects was carried out and guided by a nurse trained in the application of the ASQ-3.
 
 In this context, it is worth noting that the data, as well as the patient registry, are part of institutional strategies aimed at the diagnosis and continuous monitoring of the clinical situation of users, which are used to improve care processes and clinical decision-making.
 
@@ -131,11 +131,11 @@ In order to assess the differences in developmental scores between males and fem
 
 Generalized additive models (GAM) were used to describe linear and non-linear relationships in the form of smooth terms between developmental characteristics, represented through penalized regression splines [@wood2011fast]. The restricted maximum likelihood method was used to estimate the smoothing parameters, and thin-plate regression splines as the smoothing basis, as they are the optimal smoother of any given basis dimension/rank [@wood2003thin]. We used approximative derivatives with 95% confidence intervals (CI95%) to describe the smooth terms by means of quasi-linear segments [@dominique2020estimation]. 
 
-In order to assess the influence of confounding variables, we fitted different models using the variables: i) sex of the infant, ii) clinician ID and iii) the relationship of the infant to the respondent (i.e., whether the respondent was the infant's mother, father, uncle or grandparent) as random effects in the form of penalized parametric terms [@wood2016smoothing]. Varying random effects structures models can be seen in the section *Random effects structures* of the supplementary file.
+In order to assess the influence of confounding variables, we fitted different models using the categorical variables: i) sex of the infant, ii) clinician ID and iii) the relationship of the infant to the respondent (i.e., whether the respondent was the infant's mother, father, uncle or grandparent) as random effects in the form of penalized parametric terms [@wood2016smoothing]. Varying random effects structures and model performance metrics can be seen in the supplementary file.
 
-Based on the technical report of the ASQ-3, we've been able to estimate the threshold of possible delay based on the total score for each developmental domain. In this sense, a logistic regression, within GAM framework, was used to estimate the predicted probability of having a possible delay in developmental domains given the corrected age. 
+Based on the technical report of the ASQ-3, we've been able to estimate the threshold of possible delay based on the total score for each developmental domain. Within this framework, a logistic regression was used to estimate the predicted probability of a developmental delay given the corrected age for each domain.
 
-A probability of committing a type I error ($\alpha$) of less than 5% (*p* < 0.05) was considered sufficient evidence for statistical significance in hypothesis testing. All the statistical analyses were computed and implemented in the R programming language [@rlanguage]. GAMs and the corresponding model estimates were calculated using the *mgcv* and *modelbased* packages [@dominique2020estimation; @wood2017generalized]. Complementary R packages were used for visualization purposes [@daniel2021see; @hadley2016ggplot2].
+A probability of committing a type I error of less than 5% was considered sufficient evidence for null hypothesis significance testing. All the statistical analyses were computed and implemented in the R programming language [@rlanguage]. GAMs and the corresponding model estimates were calculated using the *mgcv* and *modelbased* packages [@dominique2020estimation; @wood2017generalized]. Complementary R packages were used for visualization purposes [@daniel2021see; @hadley2016ggplot2].
 
 # Results
 
@@ -145,18 +145,22 @@ n_sex <- dataset[j = .(stat = paste0(.N, " (", round(.N*100/n_sample, 1), "%)"))
                  keyby = .(sex = sexo_paciente)];
 print(n_sex);
 #>    sex        stat
-#> 1:   F  94 (40.2%)
-#> 2:   M 140 (59.8%)
+#> 1:   F  93 (40.6%)
+#> 2:   M 136 (59.4%)
 
 # Prop test on sex
+
+
 prop_sex <- dataset[, table(sexo_paciente)] |> 
   chisq.test() |> 
   report_chi(effsize = FALSE);
 cat(prop_sex);
-#> $\chi^2_{gof}$ (1) = 9.04, *p* = 0.003
+#> $\chi^2_{gof}$ (1) = 8.07, *p* = 0.004
 ```
 
-From a total of 234 subjects with congenital hypotonia, 94 (40.2%) were females and 140 (59.8%) males ($\chi^2_{gof}$ (1) = 9.04, *p* = 0.003). The developmental characteristics of the sample can be seen in [Table 1](#tab1).
+From a total of 229 subjects with congenital hypotonia, 93 (40.6%) were females and 136 (59.4%) males ($\chi^2_{gof}$ (1) = 8.07, *p* = 0.004). The developmental characteristics of the sample can be seen in [Table 1](#tab1).
+
+## Neurodevelopment as a function of corrected age
 
 When modeling the effect of chronological age on developmental domains, different random effects structures were compared when assessing model estimates, these estimates can be seen in [Figure 1](#fig1). 
 
@@ -177,7 +181,9 @@ report_overall(mod, "edad_corregida_meses") |> cat();
 report_slopes(mod, "edad_corregida_meses");
 ```
 
-After fitting a GAM to assess the effect of corrected age on CM scores, we observed a significant non-linear relationship between them ($F_{smooth}$ (5.1, 224.74) = 13.88, *p* < 0.001), that reflect an overall negative marginal trend ($\beta$ = -2.39, CI~95%~[-3.46, -1.32], $t_{student}$ (224.74) = -4.4, *p* < 0.001), however, this was not true when assessing the direction of the effect in the age range between 0 to 6.8 ($\beta$ = 0.38, CI~95%~[-0.96, 1.72], $t_{student}$ (224.74) = 0.33, *p* = 0.351), neither in the 18.4 to 48 months old group ($\beta$ = 0.44, CI~95%~[-1.27, 2.16], $t_{student}$ (224.74) = 0.42, *p* = 0.577), whereas the effect tend to be positive but non-significant. The relationship between developmental domains, corrected age and their effect derivatives can be seen in [Figure 2](#fig2).
+### Communication
+
+After fitting a GAM to assess the effect of corrected age on CM scores, we observed a significant non-linear relationship between them ($F_{smooth}$ (4.81, 219.93) = 15.39, *p* < 0.001), that reflect an overall negative marginal trend ($\beta$ = -2.06, CI~95%~[-3.32, -0.8], $t_{student}$ (219.93) = -3.23, *p* = 0.001), however, this was not true when assessing the direction of the effect in the age range between 0 to 6.7 ($\beta$ = 0.57, CI~95%~[-1.01, 2.16], $t_{student}$ (219.93) = 0.43, *p* = 0.288), neither in the 17.3 to 35 months old group ($\beta$ = 0.2, CI~95%~[-1.7, 2.11], $t_{student}$ (219.93) = 0.16, *p* = 0.677), whereas the effect tend to be positive but non-significant. The relationship between developmental domains, corrected age and their effect derivatives can be seen in [Figure 2](#fig2).
 
 ```{r, eval=FALSE}
 set.seed(123)
@@ -196,7 +202,9 @@ report_overall(mod, "edad_corregida_meses") |> cat();
 report_slopes(mod, "edad_corregida_meses")
 ```
 
-When analyzing the motor skills domain, we found a significant non-linear effect of corrected age on GM scores, $F_{smooth}$ (5.25, 226.82) = 5.6, *p* < 0.001, which had an overall positive effect ($\beta$ = 1.86, CI~95%~[0.57, 3.16], $t_{student}$ (226.82) = 2.83, *p* = 0.005), however, the slope varied as a function of age, with a negative effect in the 0 to 6.8 age range ($\beta$ = -3.02, CI~95%~[-4.63, -1.42], $t_{student}$ (226.82) = -3.81, *p* = 0.003), but in the 10.2 to 15.5 interval, this relationship was inverted ($\beta$ = 1.83, CI~95%~[0.57, 3.08], $t_{student}$ (226.82) = 2.87, *p* = 0.008), however, in the rest of the age range the slope was non-significant and virtually zero (Age~[7.3, 9.7]~, $\beta$ = 0.13, CI~95%~[-1.02, 1.27], $t_{student}$ (226.82) = 0.23, *p* = 0.387; Age~[16, 48]~, $\beta$ = -0.06, CI~95%~[-2.09, 1.97], $t_{student}$ (226.82) = 0.01, *p* = 0.701).
+### Gross motor
+
+When analyzing the motor skills domain, we found a significant non-linear effect of corrected age on GM scores, $F_{smooth}$ (4.75, 222.3) = 6.31, *p* < 0.001, which had an overall positive effect ($\beta$ = 1.77, CI~95%~[0.31, 3.24], $t_{student}$ (222.3) = 2.38, *p* = 0.018), however, the slope varied as a function of age, with a negative effect in the 0 to 6.7 age range ($\beta$ = -3.14, CI~95%~[-4.99, -1.3], $t_{student}$ (222.3) = -3.5, *p* = 0.005), but in the 10.3 to 15.2 interval, this relationship was inverted ($\beta$ = 1.9, CI~95%~[0.42, 3.38], $t_{student}$ (222.3) = 2.53, *p* = 0.015), however, in the rest of the age range the slope was non-significant and virtually zero (Age~[7.1, 9.9]~, $\beta$ = 0.27, CI~95%~[-1.11, 1.66], $t_{student}$ (222.3) = 0.32, *p* = 0.369; Age~[15.6, 35]~, $\beta$ = 0.24, CI~95%~[-1.92, 2.4], $t_{student}$ (222.3) = 0.29, *p* = 0.763).
 
 ```{r, eval=FALSE}
 set.seed(123)
@@ -215,7 +223,9 @@ report_overall(mod, "edad_corregida_meses");
 report_slopes(mod, "edad_corregida_meses");
 ```
 
-Although a similar non-linear effect was observed when inspecting the influence of corrected age in the FM domain scores ($F_{smooth}$ (2.56, 228.03) = 4.11, *p* = 0.006), it was not possible to estimate a significant overall effect different from zero ($\beta$ = 0.01, CI~95%~[-0.47, 0.49], $t_{student}$ (228.03) = 0.03, *p* = 0.977), nevertheless, it was only in the 22.3 to 37.3 age range where a significant and negative effect was observed ($\beta$ = -0.75, CI~95%~[-1.4, -0.11], $t_{student}$ (228.03) = -2.32, *p* = 0.023).
+### Fine motor
+
+Although a similar non-linear effect wasn't observed when inspecting the influence of corrected age in the FM domain scores on the global test statistics ($F_{smooth}$ (2.56, 228.03) = 4.11, *p* = 0.006), and neither was possible to estimate a significant overall effect different from zero ($\beta$ = 0.01, CI~95%~[-0.47, 0.49], $t_{student}$ (228.03) = 0.03, *p* = 0.977), nevertheless, it was only in the 23 to 28.3 age range where a significant and negative effect was observed ($\beta$ = -0.8, CI~95%~[-1.55, -0.04], $t_{student}$ (223.23) = -2.09, *p* = 0.038).
 
 ```{r, eval=FALSE}
 set.seed(123)
@@ -234,7 +244,9 @@ report_overall(mod, "edad_corregida_meses");
 report_slopes(mod, "edad_corregida_meses");
 ```
 
-CG abilities were significantly influenced by corrected age ($F_{smooth}$ (5.69, 225.93) = 3.7, *p* = 0.001), with an overall negative effect ($\beta$ = -1.93, CI~95%~[-3.24, -0.63], $t_{student}$ (225.93) = -2.91, *p* = 0.004), and just like the other domains, this relationship was modified across the corrected age. In this sense, from the 0 to 5.8 age interval, we found that for every increase in one month in corrected age, we can expect a proportional increase in 2.8 points ($\beta$ = 2.8, CI~95%~[1.17, 4.43], $t_{student}$ (225.93) = 3.48, *p* = 0.002) in the CG domain, while in the age range 9.2 to 14.1 the relationship changes inversely, mainly because in this age range we observe that for every one-month increase in the corrected age, a decrease of 1.64 points could be expected in the same domain ($\beta$ = -1.64, CI~95%~[-2.86, -0.41], $t_{student}$ (225.93) = -2.62, *p* = 0.014). The other age intervals did not have a slope that deviated significantly from zero (Age~[6.3, 8.7]~, $\beta$ = 0.06, CI~95%~[-1.09, 1.2], $t_{student}$ (225.93) = 0.07, *p* = 0.388; Age~[14.5, 48.0]~, $\beta$ = 0.04, CI~95%~[-1.98, 2.07], $t_{student}$ (225.93) = -0.05, *p* = 0.564).
+### Problem solving
+
+CG abilities were significantly influenced by corrected age ($F_{smooth}$ (5.28, 220.66) = 4.18, *p* < 0.001), with an overall negative effect ($\beta$ = -1.99, CI~95%~[-3.5, -0.48], $t_{student}$ (220.66) = -2.6, *p* = 0.01), and just like the other domains, this relationship was modified across the corrected age. In this sense, from the 0 to 5.7 age interval, we found that for every increase in one month in corrected age, we can expect a proportional increase in 2.94 points ($\beta$ = 2.94, CI~95%~[1, 4.88], $t_{student}$ (220.66) = 3.11, *p* = 0.007) in the CG domain, while in the age range 9.5 to 13.4 the relationship changes inversely, mainly because in this age range we observe that for every one-month increase in the corrected age, a decrease of 1.93 points could be expected in the same domain ($\beta$ = -1.93, CI~95%~[-3.44, -0.41], $t_{student}$ (220.66) = -2.51, *p* = 0.017). The other age intervals did not have a slope that deviated significantly from zero (Age~[6, 9.2]~, $\beta$ = -0.08, CI~95%~[-1.45, 1.29], $t_{student}$ (220.66) = -0.08, *p* = 0.358; Age~[13.8, 35]~, $\beta$ = -0.16, CI~95%~[-2.34, 2.01], $t_{student}$ (220.66) = -0.18, *p* = 0.507).
 
 ```{r, eval=FALSE}
 set.seed(123)
@@ -249,6 +261,7 @@ mod <- gam(
 )
 
 report_smooth(mod);
+report_slopes(mod, term = "edad_corregida_meses");
 ```
 
 ```{r, eval=FALSE}
@@ -285,7 +298,13 @@ prematurity_smooths <- rbindlist(many_models, idcol = "var"
 cat(prematurity_smooths)
 ```
 
-Unlike the others, the PS domain was not influenced by corrected age ($F_{smooth}$ (1, 230.4) = 1.06, *p* = 0.304). Accordingly, prematurity (measured in weeks) was not associated with any developmental domain within ASQ-3 assessment (significance for smooth terms: CM, *p* = 0.639; FM, *p* = 0.918; GM, *p* = 0.33; CG, *p* = 0.323; PS, *p* = 0.152).
+### Personal-social
+
+Unlike the others, the PS domain was not influenced by corrected age ($F_{smooth}$ (1, 225.36) = 0.99, *p* = 0.321), given that the marginal effect across age was virtually zero ($\beta$ = -0.09, CI~95%~[-0.28, 0.09]). 
+
+## Prematurity
+
+Accordingly, prematurity (measured in weeks) was not associated with any non-linear variations in neurodevelopmental domains within ASQ-3 assessment (significance for smooth terms: CM, *p* = 0.594; FM, *p* = 0.901; GM, *p* = 0.342; CG, *p* = 0.371; PS, *p* = 0.172).
 
 ```{r, eval=FALSE}
 ind <- grep("interpretacion", names(dataset), value = TRUE)
@@ -294,26 +313,26 @@ names(ind) <- c("CM", "GM", "FM", "CG", "PS")
 models <- mapply(
   FUN = gam_binomial,
   var = ind,
-  data = list(dataset),
+  data = list(dataset = dataset),
   plot = FALSE,
   SIMPLIFY = FALSE,
   USE.NAMES = TRUE
 )
-
-
 
 lapply(models, summary)
 lapply(models, report_smooth)
 lapply(models, report_slopes, term = "edad_corregida_meses")
 ```
 
-When analyzing the probability of having a developmental delay based on the scores for each domain, we found a significant non-linear effect for CM ($\chi^2_{smooth}$ (7.73) = 32.11, *p* < 0.001), whereas in this domain we observed that for every one-month increase in the corrected age in the 13.6 to 18.9 age range, the odds of a possible developmental delay increases by 60% (OR = 1.6 CI~95%~[1.16, 2.23], $t_{student}$ (224.56) = 2.89, *p* = 0.01), as well with the 28.6 to 29.6 age range, whereas the odds of delay increases by 36% in this domain (OR = 1.36 CI~95%~[1.00, 1.86], $t_{student}$ (224.56) = 1.98, *p* = 0.049). Similar to CM, an overall linear effect of corrected age in the GM domain was observed ($\chi^2_{smooth}$ (1) = 6.86, *p* = 0.009), whereas for every one-month increase the odds of a possible developmental delay decrease by a 3.9% (OR = 0.96, CI~95%~[0.50, 0.99], $t_{student}$ (232) = -2.62, *p* = 0.009). The probability associated with a possible delay according to the total score for each developmental domain in response to corrected age can be observed in [Figure 3](#fig3).
+## Risk of developmental delay and corrected age
+
+When analyzing the probability of having a developmental delay based on the scores for each domain, we found a significant non-linear effect for CM ($\chi^2_{smooth}$ (2.83) = 27.71, *p* < 0.001), whereas in this domain we observed that for every one-month increase in the corrected age in the 9.9 to 31.1 age range, the odds of a possible developmental delay increases by 20% (OR = 1.2, CI~95%~[1.05, 1.37], $t_{student}$ (223.84) = 2.83, *p* = 0.01). Similar to CM, an overall linear effect of corrected age in the GM domain was observed ($\chi^2_{smooth}$ (1) = 8.88, *p* = 0.003), whereas for every one-month increase the odds of a possible developmental delay decrease by a 5% (OR = 0.95, CI~95%~[0.92, 0.98], $t_{student}$ (227) = -2.98, *p* = 0.003). The probability associated with a possible delay according to the total score for each developmental domain in response to corrected age can be observed in [Figure 3](#fig3).
 
 # Discussion
 
-Our study aimed to describe and model the relationship between sociodemographic data, prematurity and neurodevelopmental levels based on ASQ-3 scores in infants diagnosed with CH. Our main findings suggest a non-linear effect of age, corrected for prematurity, with a marked decrease in scores for all neurodevelopmental traits at different age frames, even after adjusting for caregiver relationship, sex and inter-rater influence. However no variation was observed across the corrected age in the PS domain.
+The objective of our investigation was to elucidate and conceptualize the association between prematurity and neurodevelopmental functioning, evaluated through the Ages and Stages Questionnaires-Third Edition (ASQ-3), as a function of age in infants diagnosed with congenital heart disease (CH). Our principal discoveries indicate a curvilinear influence of age, which was adjusted for prematurity, resulting in a significant reduction of essential neurodevelopmental characteristics at distinct age intervals, while accounting for the impact of caregiver rapport, gender, and inter-rater bias. However, no fluctuation was detected in the PS domain across the adjusted age.
 
-These findings confirm the described motor impairments of hypotonia in the early stages of life, which compromise the infant’s ability to explore and interact with their environment [@gabis2021weak; @harris2008congenital]. A reflection of those mentioned above would be expressed in altered development of GM function in the first months of life, with a consequent limitation in FM skills later on, which would have a subsequent negative impact on the communicative competence of infants, secondary to reduced interaction with their environment and peers [@bodensteiner2008evaluation]. In a recent systematic review [@gonzalez2019gross], differences in the predictive abilities of gross and FM skills on communication skills in infants and early childhood were reported. Whereas GM skills, such as crawling and walking, favor exploration with their environment and caregivers, while FM skills, expressed through tasks such as drawing and handling utensils, could lead to improvements in language through mechanisms yet to be explored [@gonzalez2019gross]. These milestones may be impaired in the face of poorer head and trunk control in CH, which have been shown to delay the achievement of crucial motor milestones in infants [@bodensteiner2008evaluation; @gabis2021weak; @harris2008congenital].
+These findings confirm the described motor impairments of hypotonia in the early stages of life, which compromise the infant’s ability to explore and interact with their environment [@gabis2021weak; @harris2008congenital]. The limitations in GM function during the early stages of life are expected to result in impaired FM skills during subsequent developmental stages. Consequently, these deficiencies may negatively impact the communicative capabilities of infants, as their interaction and engagement with their environment and peers would be reduced. [@bodensteiner2008evaluation]. In a recent systematic review [@gonzalez2019gross], differences in the predictive abilities of gross and FM skills on communication skills in infants and early childhood were reported. Whereas GM skills, such as crawling and walking, favor exploration with their environment and caregivers, while FM skills, expressed through tasks such as drawing and handling utensils, could lead to improvements in language through mechanisms yet to be explored [@gonzalez2019gross]. These milestones may be impaired in the face of poorer head and trunk control in CH, which have been shown to delay the achievement of crucial motor milestones in infants [@bodensteiner2008evaluation; @gabis2021weak; @harris2008congenital].
 
 It is worth noting that other context-mediated social factors may also have influenced our results, mainly due to the role that other variables would also play in the neurodevelopment of our study sample, which could have an impact on many of the developmental traits assessed here, such as intrauterine growth restrictions, maternal depression, institutionalization, exposure to social violence, maternal education and breastfeeding [@walker2011inequality]. Altogether, these represent the main limitations in our study design, which need to be addressed in future research, exploring the variations observed in different developmental traits in hypotonic infants. However, our study sheds light on an underexplored aspect with robust statistical methods that enabled us to capture and model the complex relationships seen early in life.
 
@@ -358,17 +377,3 @@ Cristian Núñez-Espinosa, 0000-0002-9896-7062
 # References
 
 <div id="refs"></div>
-
-\newpage
-
-Añadir tabla
-
-\newpage
-
-[**Table 1**]{#tab1}. Overall baseline and developmental characteristics of the sample and grouped by sex. ^1^ Data is presented as sample size, and *Mdn* (*IQR*); ^2^ p-values are computed from the *Wilcoxon* rank-sum test.
-
-[**Figure 1**]{#fig1}. Predicted scores on developmental domains using corrected age as an independent variable, comparing different random effects structures on the estimated score.
-
-[**Figure 2**]{#fig2}. Relationship between corrected age (in months) and developmental domains. Left panel: regression lines represent predicted values estimated from GAM models (bold red lines) and 200 bootstrap replicates (faded red lines), points and error bars represent the mean and standard error at 5-month age intervals. Right panel: effect derivatives and their CI~95%~, representing how the effect of corrected age (in months) in developmental domains changes across corrected age. Significant areas consider CI~95%~ that do not cross zero.
-
-[**Figure 3**]{#fig3}. Predicted probability of having a possible delay according to the total score for each developmental domain in response to corrected age. Fitted models were estimated using logistic regression within GAM framework and adjusted for possible confounders as already described. The p-values of smooth terms, associated with the main effect of corrected age on developmental delay, are shown within each panel.

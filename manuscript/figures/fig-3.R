@@ -27,7 +27,10 @@ f2 <- ggpubr::ggarrange(plotlist = plots[4:5], nrow = 1)
 figure3 <- ggpubr::ggarrange(f0, f1, f2, ncol = 1)
 
 local({
-  pdf("manuscript/figures/fig-3.pdf", width = 10, height = 12);
+  pdf("manuscript/figures/fig-3.pdf", width = 8, height = 10);
+  print(figure3);
+  dev.off()
+  tiff("manuscript/figures/fig-3.tiff", width = 8, height = 10, units = "in", res = 400);
   print(figure3);
   dev.off()
 })

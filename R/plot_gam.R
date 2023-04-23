@@ -77,6 +77,19 @@ plot_gam <- function(data, x, y, xlab, ylab, round_to = 1, ...) {
 #' @export
 
 gam_confounders <- function(data, var, seed = 1234, legend = TRUE, var_name = NULL, plot = TRUE, ...) {
+  # y_vars <- c("CM" = "comunicacion_total"
+  #             , "GM" = "motora_gruesa_total"
+  #             , "FM" = "motora_fina_total"
+  #             , "CG" = "resolucion_problemas_total"
+  #             , "PS" = "socio_individual_total")
+  #
+  # fig_data <- melt(
+  #   data = data,
+  #   measure.vars = y_vars
+  # )[variable == var]
+  #
+  # fig_data[, variable := `levels<-`(variable, names(y_vars))][]
+
   models = list(
     # Simple model - only smooth term
     `Simple` = "var ~ s(edad_corregida_meses)",
@@ -129,16 +142,14 @@ gam_confounders <- function(data, var, seed = 1234, legend = TRUE, var_name = NU
 
   ylab <- "Predicted score"
   if (!is.null(var_name) && is.character(var_name)) {
-    ylab <- paste("Predicted", var_name, "score")
+    ylab <- paste(var_name, "score")
   }
 
-  plot <- ggplot2::ggplot(predicted_response, ggplot2::aes(edad_corregida_meses, fit)) +
-    ggplot2::facet_grid(rows = ggplot2::vars(sexo_paciente), cols = ggplot2::vars(respondedor_vinculo),
-                        labeller = ggplot2::labeller(
-                          sexo_paciente = c(F = "Female", M = "Male"),
-                          respondedor_vinculo = c(Madre = "Mother", Padre = "Father", `Abuelo/a` = "Grandparent", `Tio/a` = "Uncle")
-                        )) +
-    ggplot2::geom_line(ggplot2::aes(col = `Adjusted for:`, lty = `Adjusted for:`)) +
+  plot_data <- predicted_response[, list(fit = mean(fit)), by = list(edad_corregida_meses ,`Adjusted for:`)]
+
+  plot <- ggplot2::ggplot(plot_data, ggplot2::aes(edad_corregida_meses, fit)) +
+    # ggplot2::geom_count(data = fig_data, ggplot2::aes(edad_corregida_meses, value), alpha = 0.1, na.rm = TRUE) +
+    ggplot2::geom_line(ggplot2::aes(col = `Adjusted for:`, lty = `Adjusted for:`), linewidth = 1) +
     ggplot2::labs(x = "Corrected age (in months)", y = ylab) +
     ggdist::theme_ggdist()
 
@@ -154,7 +165,7 @@ utils::globalVariables(
   names = c("edad_corregida_meses",
             "respondedor_vinculo",
             "sexo_paciente",
-            "fit",
+            "fit", "value",
             "Adjusted for:"),
   add = TRUE
 )
@@ -172,11 +183,12 @@ utils::globalVariables(
 #' @param legend Logical. Whether to include the figure legend.
 #' @param var_name Character. The label for the y-axis. Default is NULL, so "Predicted score" is used.
 #' @param plot Logical. Whether to return the plot. If FALSE, then the models with the varying random effects structures are returned.
+#' @param ylab Character. Personalized y-axis lab (overwrites the default constructed y-axis lab)..
 #' @param ... Currently not used.
 #'
 #' @export
 
-gam_binomial <- function(data, var, seed = 1234, legend = TRUE, var_name = NULL, plot = TRUE, ...) {
+gam_binomial <- function(data, var, seed = 1234, legend = TRUE, var_name = NULL, plot = TRUE, ylab = NULL, ...) {
   model <- "%var% ~ s(profesional_id, bs = \"re\") + s(sexo_paciente, bs = \"re\") + s(respondedor_vinculo, bs = \"re\") + s(edad_corregida_meses)"
   model <- gsub("%var%", replacement = var, model)
   model <- stats::as.formula(model)
@@ -203,9 +215,12 @@ gam_binomial <- function(data, var, seed = 1234, legend = TRUE, var_name = NULL,
 
   names(predicted_response)[1:2] <- c("Fit", "SE")
 
-  ylab <- "P(Category | Corrected Age)"
-  if (!is.null(var_name) && is.character(var_name)) {
-    ylab <- paste0("P(", paste("Delay in", var_name), " | Corrected Age)")
+
+  if (is.null(ylab)) {
+    ylab <- "P(Category | Corrected Age)"
+    if (!is.null(var_name) && is.character(var_name)) {
+      ylab <- paste0("P(", paste("Delay in", var_name), " | Corrected Age)")
+    }
   }
 
   ci_prob <- function(p) stats::qnorm((p+1)/2, lower.tail = TRUE)
@@ -255,7 +270,7 @@ utils::globalVariables(
             "sexo_paciente",
             "fit", "Fit",
             "SE",
-            "variable",
+            # "variable",
             "Adjusted for:"),
   add = TRUE
 )

@@ -4,6 +4,7 @@ library(data.table)
 
 # For GAMS
 library(mgcv)
+library(brms)
 
 # For tables
 library(gt)
@@ -16,7 +17,7 @@ data("dataset", package = "ASQ3")
 # 1. Includes only observations from assessment 1
 # 2. Includes subjects with diagnosis of congenital hypotonia
 # 3. Subjects whose age is not greater than 60 months old (chronological age)
-dataset <- dataset[i = n_evaluacion == 1 & diagnostico %like% "hipotonia" & edad_cronologica_meses <= 60]
+dataset <- dataset[i = n_evaluacion == 1 & diagnostico %like% "hipotonia" & edad_cronologica_meses <= 35]
 
 # Drop levels of unused factors
 fv <- dataset[, names(.SD), .SDcols = is.factor]

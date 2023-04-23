@@ -11,6 +11,7 @@ gam_binomial(
   legend = TRUE,
   var_name = NULL,
   plot = TRUE,
+  ylab = NULL,
   ...
 )
 }
@@ -26,6 +27,8 @@ gam_binomial(
 \item{var_name}{Character. The label for the y-axis. Default is NULL, so "Predicted score" is used.}
 
 \item{plot}{Logical. Whether to return the plot. If FALSE, then the models with the varying random effects structures are returned.}
+
+\item{ylab}{Character. Personalized y-axis lab (overwrites the default constructed y-axis lab)..}
 
 \item{...}{Currently not used.}
 }

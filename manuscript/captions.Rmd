@@ -1,0 +1,14 @@
+---
+title: ""
+output:
+  word_document:
+    reference_docx: "misc/ref.docx"
+---
+
+[**Table 1**]{#tab1}. Overall baseline and developmental characteristics of the sample and grouped by sex. ^1^ Data is presented as sample size, and *Mdn* (*IQR*); ^2^ p-values are computed from the *Wilcoxon* rank-sum test.
+
+[**Figure 1**]{#fig1}. Predicted scores on developmental domains using corrected age as an independent variable, comparing different random effects structures on the estimated score.
+
+[**Figure 2**]{#fig2}. Relationship between corrected age (in months) and developmental domains. Left panel: regression lines represent predicted values estimated from GAM models (bold red lines) and 200 bootstrap replicates (faded red lines), points and error bars represent the mean and standard error at 5-month age intervals. Right panel: effect derivatives and their CI~95%~, representing how the effect of corrected age (in months) in developmental domains changes across corrected age. Significant areas consider CI~95%~ that do not cross zero.
+
+[**Figure 3**]{#fig3}. Predicted probability of having a possible delay according to the total score for each developmental domain in response to corrected age. Fitted models were estimated using logistic regression within GAM framework and adjusted for possible confounders as already described. The p-values of smooth terms, associated with the main effect of corrected age on developmental delay, are shown within each panel.

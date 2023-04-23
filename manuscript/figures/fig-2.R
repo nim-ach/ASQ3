@@ -165,7 +165,10 @@ fig_2b <- ggplot(fig_2b_data, aes(edad_corregida_meses, Coefficient)) +
 fig_2 <- ggpubr::ggarrange(fig_2a, fig_2b, ncol = 2)
 
 if (isTRUE(x = .save_plot)) {
-  pdf("manuscript/figures/fig-2.pdf", width = 12, height = 10);
+  pdf("manuscript/figures/fig-2.pdf", width = 8, height = 10);
+  print(fig_2);
+  dev.off()
+  tiff("manuscript/figures/fig-2.tiff", width = 8, height = 10, units = "in", res = 400);
   print(fig_2);
   dev.off()
 }

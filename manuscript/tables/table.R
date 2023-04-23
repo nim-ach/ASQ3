@@ -52,7 +52,5 @@ tbl1 <- add_p(
 
 tbl1 <- as_gt(tbl1)
 
-
-
 saveRDS(tbl1, file = "manuscript/tables/table-1.RDS")
-gt::gtsave(tbl1, filename = "manuscript/tables/table-1.rtf")
+gt::gtsave(tbl1, filename = "manuscript/tables/table-1.html")
