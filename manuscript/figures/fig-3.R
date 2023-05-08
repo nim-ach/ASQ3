@@ -30,7 +30,7 @@ local({
   pdf("manuscript/figures/fig-3.pdf", width = 8, height = 10);
   print(figure3);
   dev.off()
-  tiff("manuscript/figures/fig-3.tiff", width = 8, height = 10, units = "in", res = 400);
+  jpeg("manuscript/figures/fig-3.jpeg", width = 8, height = 10, units = "in", res = 400);
   print(figure3);
   dev.off()
 })
